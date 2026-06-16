@@ -30,7 +30,6 @@ body {
     height: 600px;
     position: relative;
     transform-style: preserve-3d;
-    /* CHANGED: Swapped 0deg to -120deg to face slot-2 forward instantly on window mount */
     transform: translateZ(-700px) rotateY(-120deg);
     transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
 }

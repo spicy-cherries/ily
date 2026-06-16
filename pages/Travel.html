@@ -798,31 +798,25 @@ const rightGallery = document.getElementById('rightGallery');
 if (leftPhotos) leftPhotos.innerHTML = "";
 if (rightGallery) rightGallery.innerHTML = "";
 
-// Inject the images vertically
+
 if (data.photos && data.photos.length > 0) {
-    // .slice(0, 3) ensures only the first 3 images are used
     data.photos.slice(0, 3).forEach((src) => {
         const img = document.createElement('img');
         img.src = src;
         
-        // Force the layout rules to stack images vertically
         img.style.width = "100%";
         img.style.height = "auto";
-        img.style.display = "block";    /* Forces the image onto its own line */
-        img.style.marginBottom = "12px"; /* Adds a clean retro gap between stacked photos */
+        img.style.display = "block";   
+        img.style.marginBottom = "12px"; 
 
-        // Handle image loading errors gracefully
         img.onerror = function() {
             console.error("Failed to load image: " + src);
             this.style.border = "1px dashed red";
             this.alt = "Image missing (" + src + ")";
         };
 
-        // If you want them in the Left Tab under Satellite Snapshot:
         if (leftPhotos) leftPhotos.appendChild(img);
-        
-        // OR: If you want them in the Right Tab under Additional Photos instead, use:
-        // if (rightGallery) rightGallery.appendChild(img);
+
     });
 }
 

@@ -70,7 +70,6 @@
     </div>
 
     <script>
-        // --- MICROSOFT PAINT ENGINE ---
         let canvas, ctx;
         let isDrawing = false;
         let currentTool = 'pencil'; 
@@ -78,7 +77,6 @@
         let startX = 0, startY = 0;
         let savedCanvasSnapshot = null;
 
-        // Auto-initialize canvas on page load
         window.onload = function() {
             canvas = document.getElementById('paintCanvas');
             ctx = canvas.getContext('2d');

@@ -122,7 +122,6 @@
     </div>
 
     <script>
-        // --- 1. Dynamic Stacking Depth Engine ---
         function updateZIndices(book) {
             const bookLeaves = book.querySelectorAll('.book-leaf');
             bookLeaves.forEach((leaf, index) => {
@@ -136,7 +135,6 @@
 
         document.querySelectorAll('.book').forEach(book => updateZIndices(book));
 
-        // --- 2. Leaf Flipping Interaction ---
         document.querySelectorAll('.book-leaf').forEach((leaf) => {
             leaf.addEventListener('click', function(e) {
                 const wrapper = this.closest('.book-wrapper');
@@ -163,15 +161,13 @@
             });
         });
 
-        // --- 3. 3D Ring Rotation Logic (Configured for Vol. II Init) ---
         const ring = document.getElementById('carouselRing');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const wrappers = document.querySelectorAll('.book-wrapper');
         
-        // Changed to matching CSS starting alignment anchor point
         let currentRotation = -120; 
-        let activeIndex = 1; // Shifts focus arrays default to Volume II (index 1)
+        let activeIndex = 1;
 
         function updateCarouselClasses() {
             wrappers.forEach((wrap, idx) => {

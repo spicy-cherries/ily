@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neon Catcher Mini-Game</title>
     <style>
-        /* --- Core Layout Resets --- */
         * {
             margin: 0;
             padding: 0;
@@ -24,7 +23,6 @@
             overflow: hidden;
         }
 
-        /* --- Scoreboard & Lives Display --- */
         .game-ui {
             text-align: center;
             margin-bottom: 15px;
@@ -50,7 +48,6 @@
         #score { color: #00ffcc; }
         #lives { color: #ff0055; }
 
-        /* --- Game Screen Arena --- */
         .arena {
             width: 450px;
             height: 500px;
@@ -59,11 +56,10 @@
             position: relative;
             border-radius: 8px;
             overflow: hidden;
-            cursor: none; /* Hides mouse cursor so it doesn't get in the way of the catcher */
+            cursor: none;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
         }
 
-        /* --- Game Elements --- */
         .basket {
             width: 70px;
             height: 15px;
@@ -71,10 +67,10 @@
             border: 2px solid #ffffff;
             position: absolute;
             bottom: 10px;
-            left: 190px; /* Centered initially */
+            left: 190px;
             border-radius: 4px;
             box-shadow: 0 0 12px #9c73b0;
-            pointer-events: none; /* Prevents the mouse from glitching over the element */
+            pointer-events: none;
         }
 
         .falling-item {
@@ -89,7 +85,6 @@
             box-shadow: 0 0 10px #00ffcc;
         }
 
-        /* --- Game Over Overlay Matrix --- */
         .overlay {
             position: absolute;
             top: 0;
@@ -102,7 +97,7 @@
             align-items: center;
             justify-content: center;
             visibility: hidden;
-            cursor: auto; /* Brings cursor back so you can click restart */
+            cursor: auto;
         }
 
         .overlay h2 {
@@ -163,22 +158,19 @@
 
         let score = 0;
         let lives = 3;
-        let speed = 4; // Starting vertical falling increment speed
+        let speed = 4;
         let itemY = -20;
         let itemX = 200;
         let basketX = 190;
         let gameActive = true;
         let animationId;
 
-        // Track mouse movement to glide the basket horizontally
         arena.addEventListener('mousemove', (e) => {
             if (!gameActive) return;
             
-            // Calculate mouse position relative to the arena boundaries
             const arenaRect = arena.getBoundingClientRect();
             let relativeX = e.clientX - arenaRect.left;
             
-            // Keep entire basket bounded inside the arena frame sides
             basketX = relativeX - (basket.offsetWidth / 2);
             if (basketX < 0) basketX = 0;
             if (basketX > arena.offsetWidth - basket.offsetWidth) {
@@ -190,7 +182,6 @@
 
         function spawnItem() {
             itemY = -20;
-            // Generate a random spawn coordinate along the top ceiling edge
             itemX = Math.floor(Math.random() * (arena.offsetWidth - item.offsetWidth));
             item.style.left = itemX + 'px';
         }
@@ -198,24 +189,19 @@
         function gameLoop() {
             if (!gameActive) return;
 
-            // Move item downwards
             itemY += speed;
             item.style.top = itemY + 'px';
 
-            // Check Collision with bottom boundary (Catcher Zone)
             if (itemY >= arena.offsetHeight - basket.offsetHeight - item.offsetHeight - 10) {
-                
-                // Collision alignment verify check (Is item over the basket container horizontally?)
+
                 if (itemX + item.offsetWidth >= basketX && itemX <= basketX + basket.offsetWidth) {
                     score++;
                     scoreDisplay.textContent = score;
                     
-                    // Increment speed scale gradually every 5 points to build tension
                     if (score % 5 === 0) speed += 0.75;
                     
                     spawnItem();
                 } 
-                // If it passes past the basket baseline floor boundary completely
                 else if (itemY >= arena.offsetHeight) {
                     lives--;
                     updateLivesDisplay();
@@ -258,7 +244,6 @@
             gameLoop();
         }
 
-        // Initialize engine sequence on frame load
         spawnItem();
         gameLoop();
     </script>

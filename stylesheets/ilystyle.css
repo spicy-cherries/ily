@@ -1,19 +1,17 @@
-/* ilystyle.css — light pink themed site with centered pink text */
-
 :root{
     --bg: #fff6f8;
     --card: #fff0f5;
     --muted: #f9e6ee;
     --accent: #ff6ea6;
     --accent-2: #ff8bbd;
-    --text: #c21f57; /* matching pink text */
+    --text: #c21f57; 
     --shadow: 0 6px 20px rgba(194,31,87,0.08);
     --radius: 12px;
     --glass: rgba(255,255,255,0.6);
     --max-width: 1100px;
 }
 
-/* Page basics */
+
 * { box-sizing: border-box; }
 html,body {
     height: 100%;
@@ -21,14 +19,13 @@ html,body {
     background: linear-gradient(180deg, var(--bg) 0%, #fff 100%);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     color: var(--text);
-    text-align: center; /* center all text by default */
+    text-align: center; 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.45;
 }
 
 
-/* Page container */
 .container {
     max-width: var(--max-width);
     margin: 3.5rem auto;
@@ -36,12 +33,10 @@ html,body {
     width: calc(100% - 2rem);
 }
 
-/* General div spacing */
 div {
     margin: 3.5rem auto;
 }
 
-/* Headings and text */
 h1, h2, h3 {
     color: var(--text);
     margin: 0 0 0.6rem 0;
@@ -55,7 +50,6 @@ p, li, label {
     margin: 0 0 0.9rem 0;
 }
 
-/* Links */
 a {
     color: var(--accent);
     text-decoration: none;
@@ -67,7 +61,6 @@ a:hover, a:focus {
     outline: none;
 }
 
-/* Card / panel */
 .card {
     background: linear-gradient(180deg, var(--card), rgba(255,255,255,0.85));
     border-radius: var(--radius);
@@ -78,7 +71,6 @@ a:hover, a:focus {
     text-align: center;
 }
 
-/* Buttons */
 .btn {
     display: inline-block;
     padding: 0.6rem 1.05rem;
@@ -96,7 +88,6 @@ a:hover, a:focus {
 .btn:active { transform: translateY(0); }
 .btn:focus { outline: 3px solid rgba(194,31,87,0.12); }
 
-/* Cute variant matching theme */
 .btn-cute {
     padding: 0.7rem 1.25rem;
     border-radius: 999px;
@@ -112,7 +103,7 @@ a:hover, a:focus {
     transform: translateY(-4px) scale(1.02);
     box-shadow: 0 12px 28px rgba(194,31,87,0.10);
 }
-/* small heart ornament */
+
 .btn-cute::after {
     content: "♥";
     margin-left: 0.5rem;
@@ -122,12 +113,11 @@ a:hover, a:focus {
     transform: translateY(-1px);
     opacity: 0.95;
 }
-/* make sure the text remains centered on small screens */
+
 @media (max-width: 420px) {
     .btn-cute { width: 100%; max-width: 320px; }
 }
 
-/* Form elements */
 input[type="text"], input[type="email"], textarea, select {
     width: 100%;
     max-width: 420px;
@@ -142,18 +132,15 @@ input[type="text"], input[type="email"], textarea, select {
 }
 textarea { min-height: 120px; resize: vertical; }
 
-/* Small utilities */
 .small { font-size: 0.9rem; opacity: 0.95; }
 .center { text-align: center; }
 .pink-text { color: var(--text); }
 
-/* Responsive tweaks */
 @media (min-width: 900px){
     .container { padding: 2rem; }
     h1 { font-size: 2.6rem; }
 }
 
-/* Decorative footer */
 .site-footer {
     margin-top: 2.5rem;
     color: rgba(194,31,87,0.85);

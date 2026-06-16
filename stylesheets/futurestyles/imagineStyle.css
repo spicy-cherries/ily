@@ -1,6 +1,3 @@
-/* ==========================================================================
-   1. Reset & Base Styles
-   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -9,19 +6,16 @@
 
 body {
     font-family: 'Quicksand', sans-serif;
-    background-color: #1a2f27; /* Deep, cozy forest green background */
-    color: #e2ece9;            /* Light minty-white for high readability */
+    background-color: #1a2f27;
+    color: #e2ece9; 
     line-height: 1.6;
     overflow-x: hidden;
 }
 
 h1, h2, h3 {
-    font-family: 'Fredoka', sans-serif; /* Cute, rounded heading font */
+    font-family: 'Fredoka', sans-serif;
 }
 
-/* ==========================================================================
-   2. Hero / Header Section
-   ========================================================================== */
 .hero {
     background: linear-gradient(135deg, #13221c 0%, #1a3a2b 50%, #2d4a3e 100%);
     padding: 100px 20px;
@@ -34,18 +28,17 @@ h1, h2, h3 {
 
 .hero h1 {
     font-size: 3rem;
-    color: #a3e635; /* Whimsical bright lime highlight */
+    color: #a3e635;
     text-shadow: 2px 2px 0px #13221c;
     margin-bottom: 10px;
 }
 
 .hero p {
     font-size: 1.2rem;
-    color: #a7c957; /* Soft sage green */
+    color: #a7c957; 
     font-weight: 500;
 }
 
-/* Floating Whimsical Emojis */
 .floating-shapes {
     position: absolute;
     width: 100%;
@@ -72,11 +65,8 @@ h1, h2, h3 {
     50% { transform: translateY(-15px) rotate(10deg); }
 }
 
-/* ==========================================================================
-   3. Main Layout Structure
-   ========================================================================== */
 .container {
-    max-width: 1000px; /* Gives the text and image boxes room to sit side-by-side */
+    max-width: 1000px; 
     margin: 80px auto;
     padding: 0 20px;
 }
@@ -84,28 +74,23 @@ h1, h2, h3 {
 .grid {
     display: flex;
     flex-direction: column;
-    gap: 80px; /* Spacious separation down the page */
+    gap: 80px; 
 }
 
-/* The card row pairing the text block and image block together */
 .card {
     display: flex;
     align-items: center;
-    gap: 40px; /* Space between the text box and the picture box */
+    gap: 40px;
     width: 100%;
 }
 
-/* Alternating trick: Flips the image and text placement on every second card */
 .grid .card:nth-child(even) {
     flex-direction: row-reverse;
 }
 
-/* ==========================================================================
-   4. Inner Block Components (Text & Image)
-   ========================================================================== */
 .card-text, .card-image {
-    background: #223e33; /* Dark moss green box color */
-    border-radius: 30px; /* Cute rounded corners */
+    background: #223e33; 
+    border-radius: 30px; 
     padding: 40px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     border: 3px solid transparent;
@@ -113,44 +98,37 @@ h1, h2, h3 {
 }
 
 .card-text {
-    flex: 1.4; /* Lets the text block be slightly wider than the image */
+    flex: 1.4; 
 }
 
-/* The Squared Picture Frame */
 .card-image {
     flex: 1; 
-    aspect-ratio: 1 / 1; /* Automatically locks the box into a perfect square */
+    aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    padding: 0; /* Lets the placeholder image touch the inner edges neatly */
+    padding: 0; 
 }
 
-/* Image behavior inside the square frame */
 .card-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Prevents the image from stretching or looking distorted */
-    border-radius: 27px; /* Slightly smaller than the box to fit the inner curve */
-    opacity: 0.7; /* Soft aesthetic overlay to blend with the green theme */
+    object-fit: cover; 
+    border-radius: 27px; 
+    opacity: 0.7;
     transition: opacity 0.3s ease;
 }
 
-/* ==========================================================================
-   5. Micro-interactions & Color Details
-   ========================================================================== */
-
-/* Unified Hover: Text and Image box pop up together when you hover over either */
 .card:hover .card-text,
 .card:hover .card-image {
-    border-color: #a3e635; /* Magical lime glow border */
+    border-color: #a3e635; 
     box-shadow: 0 15px 35px rgba(163, 230, 53, 0.12);
     transform: translateY(-5px);
 }
 
 .card:hover .card-image img {
-    opacity: 1; /* Lights up the image preview on hover */
+    opacity: 1;
 }
 
 .card-icon {
@@ -158,27 +136,23 @@ h1, h2, h3 {
     margin-bottom: 10px;
 }
 
-/* Whimsical custom pastel colors for each distinct topic */
-.grid .card:nth-child(1) h2 { color: #ffb703; } /* The House - Warm Gold */
-.grid .card:nth-child(2) h2 { color: #4ea8de; } /* The Place - Soft Sky Blue */
-.grid .card:nth-child(3) h2 { color: #ff758f; } /* The Life - Cozy Rose Pink */
+.grid .card:nth-child(1) h2 { color: #ffb703; } 
+.grid .card:nth-child(2) h2 { color: #4ea8de; } 
+.grid .card:nth-child(3) h2 { color: #ff758f; }
 
 .card h3 {
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #74a58e; /* Muted sage for sub-labels */
+    color: #74a58e;
     margin-bottom: 15px;
 }
 
 .card p {
     font-size: 1rem;
-    color: #ddf0e7; /* Soft high-contrast cream-green */
+    color: #ddf0e7;
 }
 
-/* ==========================================================================
-   6. Footer & Mobile Responsiveness
-   ========================================================================== */
 footer {
     text-align: center;
     padding: 60px 20px;
@@ -187,13 +161,11 @@ footer {
     font-weight: bold;
 }
 
-/* Smartphone Adjustments */
 @media (max-width: 768px) {
     .grid {
         gap: 50px;
     }
 
-    /* Stacks the text and image vertically on smaller phone viewports */
     .card, .grid .card:nth-child(even) {
         flex-direction: column;
         gap: 25px;
@@ -203,15 +175,13 @@ footer {
         width: 100%;
     }
     
-    /* Keeps the square image frame looking neat and not overly massive on mobile screens */
     .card-image {
         max-width: 320px;
         margin: 0 auto;
     }
 }
-/* --- Link Wrapper Styling --- */
 .card-link {
-    text-decoration: none; /* Removes default underlines */
-    color: inherit;        /* Keeps your custom text colors exactly as they are */
-    display: block;        /* Ensures the whole block remains clickable */
+    text-decoration: none;
+    color: inherit;      
+    display: block;        
 }

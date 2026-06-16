@@ -1,4 +1,3 @@
-/* Resetting default margins and setting up the bubbly font */
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +5,6 @@
     font-family: "Fredoka", sans-serif;
 }
 
-/* Creating the fullscreen background using your image */
 body {
     background-image: url('../../images/jolly.jpg');
     background-size: cover;
@@ -20,45 +18,41 @@ body {
     overflow: hidden;
 }
 
-/* Centered container for the text and button */
 .container {
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.75); /* Soft transparent white backing to make text readable */
+    background-color: rgba(255, 255, 255, 0.75);
     padding: 40px 60px;
     border-radius: 30px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    border: 4px solid #ffb7d5; /* Cute pink border */
-    backdrop-filter: blur(5px); /* Softens the background image behind the box */
+    border: 4px solid #ffb7d5;
+    backdrop-filter: blur(5px);
 }
 
-/* Large, bright, bubbly header text */
 .main-title {
     font-size: 5rem;
-    color: #ff4fa8; /* Vibrant Pink */
+    color: #ff4fa8; 
     text-shadow: 
         3px 3px 0px #fff, 
-        6px 6px 0px #4bacf7; /* Bright Blue 3D shadow effect */
+        6px 6px 0px #4bacf7;
     margin-bottom: 25px;
     letter-spacing: 2px;
-    animation: float 3s ease-in-out infinite; /* Makes the text gently bounce */
+    animation: float 3s ease-in-out infinite;
 }
 
-/* Rounded, bubbly interactive button */
 .bubbly-button {
     display: inline-block;
     padding: 15px 40px;
     font-size: 1.5rem;
     font-weight: 600;
     color: white;
-    background-color: #5ce65c; /* Bright Lime Green */
+    background-color: #5ce65c; 
     text-decoration: none;
     border-radius: 50px;
-    box-shadow: 0 6px 0px #3cb33c; /* Darker green bottom shadow for a 3D button feel */
+    box-shadow: 0 6px 0px #3cb33c; 
     transition: all 0.2s ease;
     cursor: pointer;
 }
 
-/* Hover and active click states for the button */
 .bubbly-button:hover {
     background-color: #4fe04f;
     transform: translateY(-2px);
@@ -70,7 +64,6 @@ body {
     box-shadow: 0 2px 0px #3cb33c;
 }
 
-/* Keyframes for a cute floating animation */
 @keyframes float {
     0%, 100% {
         transform: translateY(0);

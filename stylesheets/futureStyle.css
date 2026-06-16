@@ -1,12 +1,11 @@
      :root {
-      /* Colors from your melancholic cemetery palette */
-      --cemetery-black: #0E121A;  /* Deepest dark shadow background */
-      --fog-dark: #21323D;        /* Cold slate blue-gray */
-      --mist-blue: #5B88A5;       /* Foggy light accent blue */
-      --gloom-purple: #556685;    /* Melancholic slate lavender */
-      --deep-ocean: #24435C;      /* Cold depth blue */
-      --text: #D0D9E0;            /* Muted silver text */
-      --line: #17232B;            /* Dark border line */
+      --cemetery-black: #0E121A; 
+      --fog-dark: #21323D;       
+      --mist-blue: #5B88A5;      
+      --gloom-purple: #556685;   
+      --deep-ocean: #24435C;    
+      --text: #D0D9E0;            
+      --line: #17232B;        
     }
 
     * { box-sizing: border-box; }
@@ -20,17 +19,15 @@
     body {
       display: grid;
       place-items: center;
-      background: var(--cemetery-black); /* Sets background to the deepest shadow tone */
+      background: var(--cemetery-black);
       font-family: Tahoma, Verdana, Arial, sans-serif;
       color: var(--text);
       overflow: hidden;
     }
 
-    /* Main player chassis container */
     .player {
       width: min(96vw, 1600px);
       height: min(96vh, 1100px);
-      /* Gradient shifting from dark slate to deep ocean base */
       background: linear-gradient(180deg, var(--fog-dark), var(--gloom-purple) 40%, var(--deep-ocean) 72%, var(--cemetery-black));
       border: 1px solid var(--line);
       border-radius: 10px;
@@ -40,7 +37,6 @@
       overflow: hidden;
     }
 
-    /* Top Titlebar Frame */
     .titlebar {
       height: 28px;
       display: flex;
@@ -83,7 +79,6 @@
       gap: 3px;
     }
 
-    /* Window UI Control Buttons (_, □, X) */
     .wc {
       width: 18px;
       height: 18px;
@@ -102,7 +97,6 @@
       color: var(--cemetery-black);
     }
 
-    /* Dropdown Header Menu (File, View, etc.) */
     .menu {
       display: flex;
       gap: 10px;
@@ -131,10 +125,9 @@
       min-height: 0;
       display: flex;
       flex-direction: column;
-      background: rgba(14, 18, 26, 0.4); /* Subtle shadow overlay behind the screen border */
+      background: rgba(14, 18, 26, 0.4);
     }
 
-    /* Movie Backdrop Viewport */
     .screen {
       position: relative;
       flex: 1;
@@ -152,7 +145,7 @@
       object-fit: contain;
       display: block;
       background: #000;
-      filter: grayscale(15%) contrast(95%); /* Matches the melancholic attenuation */
+      filter: grayscale(15%) contrast(95%);
     }
 
     .overlay {
@@ -168,7 +161,6 @@
       color: var(--text);
     }
 
-    /* Status text ribbon underneath screen */
     .statusbar {
       height: 20px;
       display: flex;
@@ -182,7 +174,6 @@
       border-radius: 0 0 6px 6px;
     }
 
-    /* Lower Control Interface Panel */
     .controls {
       padding: 12px;
       background: linear-gradient(180deg, var(--deep-ocean), var(--fog-dark));
@@ -198,7 +189,6 @@
       gap: 8px;
     }
 
-    /* Media Navigation Control Buttons */
     .btn {
       border: 1px solid var(--line);
       border-radius: 6px;
@@ -246,7 +236,6 @@
       text-shadow: 0 1px 0 #000;
     }
 
-    /* Darker tracking container for progress slider */
     .seek {
       width: 100%;
       height: 10px;
@@ -258,7 +247,6 @@
       cursor: pointer;
     }
 
-    /* Glowing Mist Blue filling progress bar */
     .seek-bar {
       position: absolute;
       left: 0;
@@ -291,51 +279,40 @@
       .hint { text-align: left; }
     }
 
-/* ==========================================================================
-   STRUCTURAL FLEX STACK FOR CENTERED ELEMENTS
-   ========================================================================== */
-
-/* This container now controls the position of the text AND the button together */
 .center-btn-container {
   display: flex !important;
-  flex-direction: column !important; /* Stacks elements vertically */
-  align-items: center !important;    /* Centers them horizontally */
-  justify-content: center !important;/* Centers them vertically */
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
   width: 100% !important;
   margin: 0 auto !important;
   padding: 20px 0 !important;
-  gap: 15px !important;              /* This controls the exact physical gap between the elements */
+  gap: 15px !important; 
 }
 
-/* Restores your original MySpace look, safely bound to the button container */
+
 .center-btn-container h1 {
   color: #00ffff !important; 
   text-shadow: 3px 3px 0px #ff007f, -1px -1px 0px #000 !important; 
   font-size: clamp(24px, 4.5vh, 44px) !important;
   font-weight: bold !important;
   letter-spacing: 2px !important;
-  margin: 0 !important;  /* Wiped out so the container gap handles the positioning */
+  margin: 0 !important;
   padding: 0 !important;
   text-align: center !important;
 }
 
-/* ==========================================================================
-   GLOOMY & MYSTERIOUS CENTERED STACK (CEMETERY PALETTE)
-   ========================================================================== */
-
-/* The wrapper container that keeps the texts and button grouped tightly together */
 .center-btn-container {
   display: flex !important;
-  flex-direction: column !important; /* Stacks elements vertically */
-  align-items: center !important;    /* Centers them horizontally */
-  justify-content: center !important;/* Centers them vertically */
+  flex-direction: column !important;
+  align-items: center !important; 
+  justify-content: center !important;
   width: 100% !important;
   margin: 0 auto !important;
   padding: 20px 0 !important;
-  gap: 12px !important;              /* Tight physical gap between elements */
+  gap: 12px !important; 
 }
 
-/* Muted, atmospheric header styled with the cemetery palette */
 .center-btn-container h1 {
   font-family: "Courier New", Monaco, sans-serif !important;
   font-size: clamp(24px, 4.5vh, 40px) !important;
@@ -345,44 +322,41 @@
   padding: 0 !important;
   text-align: center !important;
   
-  /* CEMETERY THEME COLORS */
-  color: #D0D9E0 !important; /* Pale Muted Silver */
-  text-shadow: 2px 2px 4px rgba(14, 18, 26, 0.8) !important; /* Dark ghostly shadow */
+  color: #D0D9E0 !important;
+  text-shadow: 2px 2px 4px rgba(14, 18, 26, 0.8) !important;
 }
 
-/* THE GLOOMY & MYSTERIOUS BUTTON */
 .melancholic-btn {
   display: inline-block !important;
-  background: rgba(14, 18, 26, 0.75) !important; /* Translucent Dark Shadow Void (#0E121A) */
-  color: #556685 !important; /* Melancholic Slate Lavender */
+  background: rgba(14, 18, 26, 0.75) !important;
+  color: #556685 !important;
   font-family: "Courier New", Monaco, sans-serif !important;
   font-size: clamp(15px, 2.2vh, 19px) !important; 
-  font-weight: normal !important; /* Thinner font feels colder and more detached */
+  font-weight: normal !important; 
   text-decoration: none !important;
   text-transform: uppercase !important;
-  letter-spacing: 4px !important; /* Wide letter gaps for an eerie presence */
+  letter-spacing: 4px !important;
   
-  /* Sizing and Layout */
+
   padding: 18px 45px !important;
   min-width: 320px !important;
   text-align: center !important;
   
-  /* Ghostly, Foggy Borders & Shadows */
-  border: 1px solid rgba(91, 136, 165, 0.3) !important; /* Faint, misty light blue edge line */
-  border-radius: 0px !important; /* Sharp retro corners */
-  backdrop-filter: blur(4px) !important; /* Blurs underlying page content */
+
+  border: 1px solid rgba(91, 136, 165, 0.3) !important; 
+  border-radius: 0px !important; 
+  backdrop-filter: blur(4px) !important;
   
-  /* Soft otherworldly ambient glow instead of a harsh hard shadow */
+
   box-shadow: 0 0 15px rgba(14, 18, 26, 0.9), 
               inset 0 0 10px rgba(85, 102, 133, 0.1) !important;
   
   cursor: pointer !important;
-  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important; /* Slow, lingering spectral fade */
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
 
-/* Mysterious Ghostly Glow Hover State */
 .melancholic-btn:hover {
-  background: rgba(33, 50, 61, 0.5) !important; /* Deep Fog Dark background bleed (#21323D) */
-  color: #D0D9E0 !important; /* Text brightens to a pale, cold silver-white */
-  border-color: rgba(91, 136, 165, 0.8) !important; /* Mist-blue border clarifies */
+  background: rgba(33, 50, 61, 0.5) !important;
+  color: #D0D9E0 !important;
+  border-color: rgba(91, 136, 165, 0.8) !important;
 }
