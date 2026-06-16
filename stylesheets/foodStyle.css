@@ -1,0 +1,199 @@
+:root {
+  --bg-dark: #0e0f19;       /* Ink Black (Sleek, near-black baseline background) */
+  --panel-bg: #141724;      /* Slightly adjusted Ink Black variant for container backing */
+  --accent-deep: #466060;   /* Granite (Muted slate-grey for header backgrounds & shadows) */
+  --accent-bright: #f8c7cc; /* Cotton Rose (Soft pink accent for titles, borders, & pops) */
+  --highlight: #81a684;     /* Muted Teal (Gentle sage-like contrast for badges and links) */
+  --text-light: #ffffff;
+}
+
+/* Retro custom scrollbars matching the color palette */
+html {
+  scrollbar-face-color: var(--accent-deep);
+  scrollbar-shadow-color: var(--bg-dark);
+  scrollbar-highlight-color: var(--accent-bright);
+  scrollbar-track-color: var(--bg-dark);
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: var(--bg-dark);
+  /* Retro early 2000s grid texture using subtle Jungle Teal lines */
+  background-image: linear-gradient(rgba(87, 136, 108, 0.12) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(87, 136, 108, 0.12) 1px, transparent 1px);
+  background-size: 20px 20px;
+  
+  font-family: "Courier New", Monaco, "MS Sans Serif", sans-serif;
+  color: var(--text-light);
+  
+  /* Flex Centering to make it occupy full screen dimensions dynamically */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2vh 2vw;
+}
+
+/* --- Oversized Header Styling --- */
+h1 {
+  text-align: center;
+  font-size: clamp(24px, 4.5vh, 44px); /* Scales cleanly with screen height */
+  color: var(--accent-bright);
+  text-shadow: 3px 3px 0px var(--accent-deep), -1px -1px 0px #000;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 0 0 0.5vh 0;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: clamp(11px, 1.8vh, 15px);
+  color: #57886c; /* Jungle Teal for a perfectly coordinated, moody subtitle */
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 2vh;
+  display: block;
+}
+
+/* --- Full Screen Responsive Grid Container --- */
+.myspace-container {
+  width: 100%;
+  max-width: 1500px;
+  height: 72vh; /* Expands significantly to command the page view */
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5vw;
+}
+
+/* --- The Double-Border Profile Boxes --- */
+.menu-box {
+  background: rgba(20, 23, 36, 0.9); /* Dark Ink-tinted backing */
+  border: 4px double var(--accent-bright);
+  padding: 2vh 2vw;
+  box-shadow: 8px 8px 0px var(--accent-deep);
+  
+  /* Enables internal scrolling if content overflows the container height */
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.menu-box h2 {
+  background-color: var(--accent-deep);
+  color: var(--text-light);
+  font-size: clamp(14px, 2.2vh, 20px);
+  margin: -2vh -2vw 2vh -2vw;
+  padding: 1vh 1.5vw;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--highlight); /* Muted Teal underline accent */
+  letter-spacing: 1px;
+  position: sticky; /* Keeps titles fixed to the top when reading lists */
+  top: 0;
+  z-index: 2;
+}
+
+/* --- Individual Item Layouts --- */
+.food-item {
+  border-bottom: 1px dashed rgba(248, 199, 204, 0.2); /* Delicate Cotton Rose split lines */
+  padding: 1.8vh 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8vh;
+}
+
+.food-item:last-child {
+  border-bottom: none;
+}
+
+.food-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.food-name {
+  font-weight: bold;
+  color: var(--accent-bright); /* Elegant Cotton Rose food names */
+  font-size: clamp(14px, 2.2vh, 19px);
+}
+
+/* Profile Badge Styling */
+.status-badge {
+  font-size: clamp(10px, 1.5vh, 13px);
+  padding: 3px 8px;
+  background: var(--bg-dark);
+  font-weight: bold;
+}
+
+.favorites .status-badge {
+  color: var(--accent-bright);
+  border: 1px solid var(--accent-bright);
+}
+
+.to-try .status-badge {
+  color: var(--highlight);
+  border: 1px solid var(--highlight);
+}
+
+.food-desc {
+  font-size: clamp(12px, 1.8vh, 15px);
+  color: #d1d5db; /* Softer light grey for readable text against the dark theme */
+  line-height: 1.5;
+}
+
+/* --- Early 2000s Bling Elements --- */
+.glitter-text {
+  color: var(--highlight) !important;
+  text-shadow: 1px 1px 0px #000, 0 0 5px var(--accent-deep);
+}
+
+/* --- Web Footer Menu Bar --- */
+.myspace-footer {
+  text-align: center;
+  margin-top: auto;
+  padding-top: 2vh;
+  border-top: 1px dashed var(--accent-deep);
+  font-size: clamp(10px, 1.5vh, 13px);
+  color: #555e70; /* Muted slate for footer meta text */
+}
+
+.myspace-footer a {
+  color: var(--highlight); /* Muted Teal links */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.myspace-footer a:hover {
+  text-decoration: underline;
+  background-color: var(--accent-deep);
+  color: var(--text-light);
+}
+
+/* Vertical stacking collapse adaptation for handheld viewports */
+@media (max-width: 768px) {
+  body {
+    overflow-y: auto;
+    height: auto;
+  }
+  .myspace-container {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 30px;
+  }
+  .menu-box {
+    height: 50vh;
+  }
+}

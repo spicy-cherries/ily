@@ -1,0 +1,190 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f3ece3; 
+    font-family: 'Playfair Display', serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.carousel-stage {
+    width: 100vw;
+    height: 70vh;
+    perspective: 2500px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.carousel-ring {
+    width: 450px;
+    height: 600px;
+    position: relative;
+    transform-style: preserve-3d;
+    /* CHANGED: Swapped 0deg to -120deg to face slot-2 forward instantly on window mount */
+    transform: translateZ(-700px) rotateY(-120deg);
+    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.book-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    transform-style: preserve-3d;
+    backface-visibility: visible;
+    filter: brightness(0.55) blur(2px);
+    transition: filter 0.8s ease;
+}
+
+.book-wrapper.slot-1 { transform: rotateY(0deg) translateZ(650px) translateX(-50%); }
+.book-wrapper.slot-2 { transform: rotateY(120deg) translateZ(650px) translateX(-50%); }
+.book-wrapper.slot-3 { transform: rotateY(240deg) translateZ(650px) translateX(-50%); }
+
+.book-wrapper.front-focus {
+    filter: brightness(1) blur(0px);
+}
+
+.book-title {
+    font-size: 1.6rem;
+    color: #5a4e46;
+    text-align: center;
+    position: absolute;
+    top: -70px;
+    width: 900px; 
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.book-container {
+    width: 450px; 
+    height: 600px;
+    position: relative;
+    filter: drop-shadow(0 35px 60px rgba(90, 78, 70, 0.25));
+}
+
+.book {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.book-leaf {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    transform-origin: left center;
+    transform-style: preserve-3d;
+    transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.book-leaf.flipped {
+    transform: rotateY(-180deg) translateZ(1px);
+}
+
+.book-page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #fbf9f5;
+    padding: 2.5rem;
+    backface-visibility: hidden; 
+}
+
+.leaf-front {
+    left: 0;
+    z-index: 2;
+    border-radius: 0 12px 12px 0;
+    box-shadow: inset 20px 0 30px rgba(0,0,0,0.02), -2px 0 5px rgba(0,0,0,0.01);
+}
+
+.leaf-back {
+    left: 0;
+    transform: rotateY(180deg); 
+    border-radius: 12px 0 0 12px;
+    box-shadow: inset -20px 0 30px rgba(0,0,0,0.02), 2px 0 5px rgba(0,0,0,0.01);
+}
+
+.page-content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.page-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(90, 78, 70, 0.05);
+}
+
+.page-number {
+    position: absolute;
+    bottom: -15px;
+    font-size: 0.85rem;
+    color: #a39385;
+    letter-spacing: 1px;
+}
+.leaf-back .page-number { left: 5px; }
+.leaf-front .page-number { right: 5px; }
+
+.book-spine {
+    position: absolute;
+    left: 0; 
+    top: 0;
+    width: 40px;
+    height: 100%;
+    transform: translateX(-50%);
+    background: linear-gradient(
+        to right, 
+        rgba(0,0,0,0.06) 0%, 
+        rgba(0,0,0,0.0) 30%, 
+        rgba(0,0,0,0.0) 70%, 
+        rgba(0,0,0,0.06) 100%
+    );
+    z-index: 100; 
+    pointer-events: none; 
+}
+
+.gallery-controls {
+    margin-top: 1rem;
+    display: flex;
+    gap: 2rem;
+    z-index: 2000;
+}
+
+.nav-btn {
+    background-color: #fbf9f5;
+    border: 1px solid #dcd3c9;
+    padding: 0.7rem 1.5rem;
+    border-radius: 30px;
+    color: #5a4e46;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #5a4e46;
+    color: #fbf9f5;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(90, 78, 70, 0.2);
+}

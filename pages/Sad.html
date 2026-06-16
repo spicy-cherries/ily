@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Message</title>
+    <link rel="stylesheet" href="../stylesheets/sadStyle.css">
+</head>
+<body>
+
+    <div class="fog-overlay"></div>
+
+    <div class="window" id="window-1">
+        <div class="title-bar">
+            <div class="title-bar-text">System message</div>
+            <div class="title-bar-controls">
+                <button aria-label="Close" onclick="denyClose('window-1')"></button>
+            </div>
+        </div>
+        <div class="window-body">
+            <p class="message-text">Are you sad?</p>
+            <div class="button-container">
+                <button class="retro-btn" onclick="openSecondWindow()">Yes.</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="window second-window" id="window-2">
+        <div class="title-bar">
+            <div class="title-bar-text">Checking...</div>
+            <div class="title-bar-controls">
+                <button aria-label="Close" onclick="denyClose('window-2')"></button>
+            </div>
+        </div>
+        <div class="window-body">
+            <p class="message-text">Are you sure?</p>
+            <div class="button-container">
+                <button class="retro-btn" onclick="openThirdWindow()">Yes</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="window third-window" id="window-3">
+        <div class="title-bar">
+            <div class="title-bar-text">Checking...</div>
+            <div class="title-bar-controls">
+                <button aria-label="Close" onclick="denyClose('window-3')"></button>
+            </div>
+        </div>
+        <div class="window-body">
+            <p class="message-text">Try again. Are you sad?</p>
+            <div class="button-container split-buttons">
+                <button class="retro-btn" onclick="openPaintWindow()">No, I'm not.</button>
+                <button class="retro-btn" onclick="openFourthWindow()">Yes, I am.</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="window fourth-window" id="window-4">
+        <div class="title-bar">
+            <div class="title-bar-text">Critical Alert</div>
+            <div class="title-bar-controls">
+                <button aria-label="Close" onclick="denyClose('window-4')"></button>
+            </div>
+        </div>
+        <div class="window-body">
+            <p class="message-text">Why are you sad?</p>
+            <p class="message-text">Please justify your choice before proceeding.</p>
+            <form onsubmit="openFifthWindow(event)" class="retro-input-container">
+                <input type="text" class="retro-field" placeholder="Type here..." required>
+                <button type="submit" class="retro-btn submit-btn">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="window fifth-window" id="window-5">
+        <div class="title-bar">
+            <div class="title-bar-text">Empathy</div>
+            <div class="title-bar-controls">
+                <button aria-label="Close" onclick="denyClose('window-5')"></button>
+            </div>
+        </div>
+        <div class="window-body">
+            <p class="message-text">I'm very sorry to hear that. Although technically I will never know what you said here. Can I try and cheer you up?</p>
+            <div class="button-container">
+                <button class="retro-btn" onclick="openSixthWindow()">Okay</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="window sixth-window" id="window-6">
+        <div class="title-bar">
+            <div class="title-bar-text">User Selection Needed</div>
+            <div class="title-bar-controls">
+                <button aria-label="Close" onclick="denyClose('window-6')"></button>
+            </div>
+        </div>
+        <div class="window-body">
+            <p class="message-text" style="margin-bottom: 15px;">What would you like to do?</p>
+            <div class="vertical-button-box">
+                <button class="retro-btn long-btn" onclick="spawnCustomError()">Wallow in self-pity</button>
+                <button class="retro-btn long-btn" onclick="spawnCustomError()">Cry</button>
+                <button class="retro-btn long-btn" onclick="openPaintWindow()">Draw</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="window error-window" id="window-error">
+        <div class="title-bar error-title-bar">
+            <div class="title-bar-text">Selection Error</div>
+            <div class="title-bar-controls">
+                <button aria-label="Close" onclick="closeCustomError()"></button>
+            </div>
+        </div>
+        <div class="window-body error-layout-body">
+            <div class="error-msg-wrapper">
+                <span class="retro-error-icon">❌</span>
+                <p class="message-text clear-margin">Wrong! Try again.</p>
+            </div>
+            <div class="button-container" style="margin-top: 20px;">
+                <button class="retro-btn" onclick="closeCustomError()">Retry</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="backdrop"></div>
+
+    <script>
+        const window1 = document.getElementById('window-1');
+        const window2 = document.getElementById('window-2');
+        const window3 = document.getElementById('window-3');
+        const window4 = document.getElementById('window-4');
+        const window5 = document.getElementById('window-5');
+        const window6 = document.getElementById('window-6');
+        const windowError = document.getElementById('window-error');
+        const backdrop = document.getElementById('backdrop');
+
+        function openSecondWindow() {
+            backdrop.style.display = 'block';
+            backdrop.style.zIndex = '10';
+            window2.style.display = 'block';
+            window1.classList.add('disabled-window');
+        }
+
+        function openThirdWindow() {
+            backdrop.style.zIndex = '25';
+            window3.style.display = 'block';
+            window2.classList.add('disabled-window');
+        }
+
+        function openPaintWindow() {
+            window.location.href = "paint.html";
+        }
+
+        function openFourthWindow() {
+            backdrop.style.zIndex = '35';
+            window4.style.display = 'block';
+            window3.classList.add('disabled-window');
+        }
+
+        function openFifthWindow(event) {
+            event.preventDefault(); 
+            backdrop.style.zIndex = '45'; 
+            window5.style.display = 'block';
+            window4.classList.add('disabled-window');
+        }
+
+        function openSixthWindow() {
+            backdrop.style.zIndex = '55';
+            window6.style.display = 'block';
+            window5.classList.add('disabled-window');
+        }
+
+        // Error handlers that replace standard browser alerts
+        function spawnCustomError() {
+            backdrop.style.zIndex = '65';
+            windowError.style.display = 'block';
+            window6.classList.add('disabled-window');
+        }
+
+        function closeCustomError() {
+            backdrop.style.zIndex = '55';
+            windowError.style.display = 'none';
+            window6.classList.remove('disabled-window');
+        }
+
+        function denyClose(windowId) {
+            const targetWindow = document.getElementById(windowId);
+            targetWindow.classList.remove('deny-shake');
+            void targetWindow.offsetWidth; 
+            targetWindow.classList.add('deny-shake');
+        }
+    </script>
+</body>
+</html>

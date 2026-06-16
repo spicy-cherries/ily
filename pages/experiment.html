@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../stylesheets/experiment.css" />
+  <title>Windows XP Music Player</title>
+
+ <style>
+ 
+    .display-window {
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+    }
+
+   
+    .album-art {
+      height: 200px !important;      
+      width: 200px !important;        
+      margin: 10px auto !important;   
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      overflow: hidden !important;
+      background: #000 !important;   
+      
+     
+      border: none !important;        
+      outline: none !important;       
+      background-image: none !important; 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4) !important; 
+    }
+
+
+    .album-art img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;  
+      display: block !important;
+      
+   
+      border: none !important;
+      outline: none !important;
+      background-image: none !important;
+    }
+
+    .album-icon {
+      display: none !important; 
+    }
+  </style>
+</head>
+</head>
+<body>
+  <div class="xp-shell">
+    <div class="xp-titlebar">
+      <div class="title-left">
+        <span class="app-icon"></span>
+        <span class="app-title">Windows XP Media Player</span>
+      </div>
+      <div class="title-controls">
+        <button class="title-btn minimize" aria-label="Minimize">_</button>
+        <button class="title-btn maximize" aria-label="Maximize">▢</button>
+        <button class="title-btn close" aria-label="Close">X</button>
+      </div>
+    </div>
+
+    <audio id="audioPlayer"></audio>
+
+    <div class="xp-body">
+      <aside class="xp-sidebar">
+        <section class="sidebar-panel">
+          <h2>Library</h2>
+          <ul class="sidebar-list">
+            <li class="active">Now Playing</li>
+            <li class="my-music-menu-item" id="myMusicMenuItem">Songs</li>
+            <li class="playlist-menu-item" id="playlistMenuItem">Playlists</li>
+            <li class="shuffle-menu-item" id="shuffleMenuItem">Shuffle</li>
+          </ul>
+        </section>
+
+        <div class="my-music-popup hidden" id="myMusicPopup">
+          <div class="popup-header">Songs</div>
+          <div class="search-form">
+            <input id="musicSearchInput" type="text" placeholder="Search songs, artists, playlists..." />
+          </div>
+          <div class="popup-subtitle">Search results</div>
+          <ul class="search-results" id="searchResults"></ul>
+        </div>
+
+        <div class="playlist-popup hidden" id="playlistPopup">
+          <div class="popup-header">Choose playlist</div>
+          <ul class="playlist-list">
+            <li class="playlist-item active" data-playlist="Playlist 1">Playlist 1</li>
+            <li class="playlist-item" data-playlist="Playlist 2">Playlist 2</li>
+            <li class="playlist-item" data-playlist="Playlist 3">Playlist 3</li>
+          </ul>
+        </div>
+
+        <section class="playlist-panel">
+          <div class="panel-header">Now Playing - <span id="playlistName">Playlist 1</span></div>
+          <ul class="track-list" id="trackList"></ul>
+        </section>
+      </aside>
+
+      <section class="xp-main">
+        <div class="display-window">
+          <div class="top-row">
+            <div class="now-playing-label">Now Playing</div>
+            <div class="volume-control">
+              <span class="volume-icon" id="volumeIcon">🔊</span>
+              <input id="volumeSlider" class="volume-slider" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volume" />
+            </div>
+          </div>
+          <div class="track-info">
+            <div class="track-title" id="trackTitle">Loading...</div>
+            <div class="track-subtitle" id="trackArtist">...</div>
+          </div>
+          
+          <div class="album-art">
+            <div class="album-shadow"></div>
+            <img id="albumImg" src="../images/default_art.jpg" alt="Album Art" />
+          </div>
+        </div>
+
+        <div class="controls-panel">
+          <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="time-row">
+            <span id="currentTime">0:00</span>
+            <span id="trackDuration">0:00</span>
+          </div>
+
+          <div class="control-buttons">
+            <button id="prevBtn" class="player-btn">Prev</button>
+            <button id="playBtn" class="player-btn">Play</button>
+            <button id="stopBtn" class="player-btn">Stop</button>
+            <button id="nextBtn" class="player-btn">Next</button>
+          </div>
+
+          <div class="player-status" id="playerStatus">Stopped</div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const playlists = {
+      'Playlist 1': [
+        {
+          title: 'Lay All Your Love On Me',
+          artist: 'ABBA',
+          src: '../audio/Playlist 1/ABBA - Lay All Your Love On Me (SPOTISAVER).mp3',
+          cover: '../images/p1/lay_all_your_love_on_me_abba.jpg'
+        },
+        {
+          title: 'Ocean Eyes',
+          artist: 'American Avenue',
+          src: '../audio/Playlist 1/American Avenue - Ocean Eyes (SPOTISAVER).mp3',
+          cover: '../images/p1/ocean_eyes_american_avenue.jpg'
+        },
+        {
+          title: 'I Wanna Be Yours',
+          artist: 'Arctic Monkeys',
+          src: '../audio/Playlist 1/Arctic Monkeys - I Wanna Be Yours (SPOTISAVER).mp3',
+          cover: '../images/p1/i_wanna_be_yours_arctic_monkeys.jpg'
+        },
+        {
+          title: 'Like',
+          artist: 'BTS',
+          src: '../audio/Playlist 1/BTS - Like (SPOTISAVER).mp3',
+          cover: '../images/p1/like_bts.jpg'
+        },
+        {
+          title: 'striptease',
+          artist: 'carwash',
+          src: '../audio/Playlist 1/carwash - striptease (SPOTISAVER).mp3',
+          cover: '../images/p1/striptease_carwash.jpg'
+        },
+        {
+          title: 'Always Forever',
+          artist: 'Cults',
+          src: '../audio/Playlist 1/Cults - Always Forever (SPOTISAVER).mp3',
+          cover: '../images/p1/always_forever_cults.jpg'
+        },
+        {
+          title: 'Out of My League',
+          artist: 'Fitz and The Tantrums',
+          src: '../audio/Playlist 1/Fitz and The Tantrums - Out of My League (SPOTISAVER).mp3',
+          cover: '../images/p1/out_of_my_league_fitz_and_the_tantrums.jpg'
+        },
+        {
+          title: 'I\'ll Call You Mine',
+          artist: 'girl in red',
+          src: '../audio/Playlist 1/girl in red - I\'ll Call You Mine (SPOTISAVER).mp3',
+          cover: '../images/p1/i\'ll_call_you_mine_girl_in_red.jpg'
+        },
+        {
+          title: 'we fell in love in october',
+          artist: 'girl in red',
+          src: '../audio/Playlist 1/girl in red - we fell in love in october (SPOTISAVER).mp3',
+          cover: '../images/p1/we_fell_in_love_in_october_girl_in_red.jpg'
+        },
+        {
+          title: 'golden hour',
+          artist: 'JVKE',
+          src: '../audio/Playlist 1/JVKE - golden hour (SPOTISAVER).mp3',
+          cover: '../images/p1/golden_hour_jvke.jpg'
+        },
+        {
+          title: 'Belong Together',
+          artist: 'Mark Ambor',
+          src: '../audio/Playlist 1/Mark Ambor - Belong Together (SPOTISAVER).mp3',
+          cover: '../images/p1/belong_together_mark_ambor.jpg'
+        },
+        {
+          title: 'My Love Mine All Mine',
+          artist: 'Mitski',
+          src: '../audio/Playlist 1/Mitski - My Love Mine All Mine (SPOTISAVER).mp3',
+          cover: '../images/p1/my_love_all_mine_mitski.jpg'
+        },
+        {
+          title: 'Still into You',
+          artist: 'Paramore',
+          src: '../audio/Playlist 1/Paramore - Still into You (SPOTISAVER).mp3',
+          cover: '../images/p1/still_into_you_paramore.jpg'
+        },
+        {
+          title: 'Good Old-Fashioned Lover Boy',
+          artist: 'Queen',
+          src: '../audio/Playlist 1/Queen - Good Old-Fashioned Lover Boy - Remastered 2011 (SPOTISAVER).mp3',
+          cover: '../images/p1/good_old_fashioned_lover_boy_queen.jpg'
+        },
+        {
+          title: 'Somebody To Love',
+          artist: 'Queen',
+          src: '../audio/Playlist 1/Queen - Somebody To Love - Remastered 2011 (SPOTISAVER).mp3',
+          cover: '../images/p1/somebody_to_love_queen.jpg'
+        },
+        {
+          title: 'Paper Rings',
+          artist: 'Taylor Swift',
+          src: '../audio/Playlist 1/Taylor Swift - Paper Rings (SPOTISAVER).mp3',
+          cover: '../images/p1/paper_rings_taylor_swift.jpg'
+        }
+      ],
+      'Playlist 2': [
+        {
+          title: 'Trouble Maker',
+          artist: 'Trouble Maker',
+          src: '../audio/playlist 2/Trouble Maker - Trouble Maker (SPOTISAVER).mp3',
+          cover: '../images/p2/troublemaker.jpg'
+        },
+        {
+          title: 'Runners',
+          artist: 'Stray Kids',
+          src: '../audio/playlist 2/Stray Kids - Runners (SPOTISAVER).mp3',
+          cover: '../images/p2/stray_kids.jpg'
+        },
+        {
+          title: 'Pearlies (My oyster is the world)',
+          artist: 'LE SSERAFIM',
+          src: '../audio/playlist 2/LE SSERAFIM - Pearlies (My oyster is the world) (SPOTISAVER).mp3',
+          cover: '../images/p2/lesserafim.jpg'
+        },
+        {
+          title: 'Seven (feat. Latto)',
+          artist: 'Jung Kook, Latto',
+          src: '../audio/playlist 2/Jung Kook, Latto - Seven (feat. Latto) (Explicit Ver.) (SPOTISAVER).mp3',
+          cover: '../images/p2/jungkook.jpg'
+        },
+        {
+          title: 'ATTITUDE',
+          artist: 'IVE',
+          src: '../audio/playlist 2/IVE - ATTITUDE (SPOTISAVER).mp3',
+          cover: '../images/p2/ive.jpg'
+        },
+        {
+          title: 'jellyous',
+          artist: 'ILLIT',
+          src: '../audio/playlist 2/ILLIT - jellyous (SPOTISAVER).mp3',
+          cover: '../images/p2/illit.jpg'
+        },
+        {
+          title: 'Bad Desire (With or Without You)',
+          artist: 'ENHYPEN',
+          src: '../audio/playlist 2/ENHYPEN - Bad Desire (With or Without You) (English Ver.) (SPOTISAVER).mp3',
+          cover: '../images/p2/enhypen.jpg'
+        }
+      ],
+      'Playlist 3': [
+        {
+          title: 'Left Outside Alone',
+          artist: 'Anastacia',
+          src: '../audio/Playlist 3/Anastacia - Left Outside Alone (SPOTISAVER).mp3',
+          cover: '../images/p3/anastacia.jpg'
+        },
+        {
+          title: 'Choose Your Fighter',
+          artist: 'Ava Max',
+          src: '../audio/Playlist 3/Ava Max - Choose Your Fighter (SPOTISAVER).mp3',
+          cover: '../images/p3/ava_max.jpg'
+        },
+        {
+          title: 'Vampire',
+          artist: 'Blutengel',
+          src: '../audio/Playlist 3/Blutengel - Vampire (SPOTISAVER).mp3',
+          cover: '../images/p3/blutengel.jpg'
+        },
+        {
+          title: 'Hotel California - 2013 Remaster',
+          artist: 'Eagles',
+          src: '../audio/Playlist 3/Eagles - Hotel California - 2013 Remaster (SPOTISAVER).mp3',
+          cover: '../images/p3/eagles.jpg'
+        },
+        {
+          title: 'slip',
+          artist: 'Mylie Taylor, WesGhost',
+          src: '../audio/Playlist 3/Mylie Taylor, WesGhost - slip (SPOTISAVER).mp3',
+          cover: '../images/p3/wesghost.jpg'
+        },
+        {
+          title: 'Bigmouth Strikes Again - 2011 Remaster',
+          artist: 'The Smiths',
+          src: '../audio/Playlist 3/The Smiths - Bigmouth Strikes Again - 2011 Remaster (SPOTISAVER).mp3',
+          cover: '../images/p3/smiths.jpg'
+        },
+        {
+          title: 'Animal I Have Become',
+          artist: 'Three Days Grace',
+          src: '../audio/Playlist 3/Three Days Grace - Animal I Have Become (SPOTISAVER).mp3',
+          cover: '../images/p3/three_days_grace.jpg'
+        },
+        {
+          title: 'Verdien dich nicht',
+          artist: 'Traumatin',
+          src: '../audio/Playlist 3/Traumatin - Verdien dich nicht (SPOTISAVER).mp3',
+          cover: '../images/p3/traumatin.jpg'
+        }
+      ]
+    };
+
+    const USER_PLAYLIST_KEY = 'xpMusicCustomPlaylists';
+
+    function loadCustomPlaylists() {
+      try {
+        const stored = localStorage.getItem(USER_PLAYLIST_KEY);
+        return stored ? JSON.parse(stored) : {};
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function saveCustomPlaylists(playlistsData) {
+      localStorage.setItem(USER_PLAYLIST_KEY, JSON.stringify(playlistsData));
+    }
+
+    const customPlaylists = loadCustomPlaylists();
+    Object.entries(customPlaylists).forEach(([name, tracks]) => {
+      playlists[name] = tracks;
+    });
+
+    let currentPlaylist = 'Playlist 1';
+    let current = 0;
+    let state = 'stopped';
+    let shuffleMode = false;
+
+    const audio = document.getElementById('audioPlayer');
+    const trackTitle = document.getElementById('trackTitle');
+    const trackArtist = document.getElementById('trackArtist');
+    const currentTime = document.getElementById('currentTime');
+    const trackDuration = document.getElementById('trackDuration');
+    const progressFill = document.getElementById('progressFill');
+    const playerStatus = document.getElementById('playerStatus');
+    const playBtn = document.getElementById('playBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const trackList = document.getElementById('trackList');
+    const progressBar = document.getElementById('progressBar');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const volumeIcon = document.getElementById('volumeIcon');
+    const musicSearchInput = document.getElementById('musicSearchInput');
+    const searchResults = document.getElementById('searchResults');
+    const playlistButtons = document.querySelectorAll('.playlist-item');
+    const playlistName = document.getElementById('playlistName');
+    const playlistMenuItem = document.getElementById('playlistMenuItem');
+    const myMusicMenuItem = document.getElementById('myMusicMenuItem');
+    const shuffleMenuItem = document.getElementById('shuffleMenuItem');
+    const playlistPopup = document.getElementById('playlistPopup');
+    const myMusicPopup = document.getElementById('myMusicPopup');
+    
+    const albumImg = document.getElementById('albumImg');
+
+    function getTracks() {
+      return playlists[currentPlaylist];
+    }
+
+    function formatTime(seconds) {
+      const m = Math.floor(seconds / 60);
+      const s = Math.floor(seconds % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    function renderPlaylist() {
+      const tracks = getTracks();
+      trackList.innerHTML = '';
+      if (!tracks.length) {
+        const li = document.createElement('li');
+        li.textContent = 'No songs in this playlist';
+        li.style.opacity = '0.7';
+        li.style.cursor = 'default';
+        trackList.appendChild(li);
+        return;
+      }
+      tracks.forEach((track, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${track.title} - ${track.artist}`;
+        li.dataset.index = index;
+        if (index === current) li.classList.add('active');
+        li.addEventListener('click', () => {
+          selectTrack(index);
+          playTrack();
+        });
+        trackList.appendChild(li);
+      });
+    }
+
+    function updatePlaylistButtons() {
+      document.querySelectorAll('.playlist-item').forEach(button => {
+        button.classList.toggle('active', button.dataset.playlist === currentPlaylist);
+      });
+      playlistName.textContent = currentPlaylist;
+    }
+
+    function getAllTracks() {
+      return Object.entries(playlists).flatMap(([playlistName, tracks]) =>
+        tracks.map((track, index) => ({
+          playlist: playlistName,
+          index,
+          title: track.title,
+          artist: track.artist,
+          src: track.src,
+          cover: track.cover
+        }))
+      );
+    }
+
+    function renderSearchResults(query) {
+      const normalized = query.trim().toLowerCase();
+      const results = getAllTracks().filter(({title, artist, playlist}) => {
+        if (!normalized) return true;
+        return (
+          title.toLowerCase().includes(normalized) ||
+          artist.toLowerCase().includes(normalized) ||
+          playlist.toLowerCase().includes(normalized)
+        );
+      });
+      searchResults.innerHTML = '';
+      if (!results.length) {
+        const emptyItem = document.createElement('li');
+        emptyItem.className = 'search-empty';
+        emptyItem.textContent = normalized ? 'No matches found' : 'Type to search your music';
+        searchResults.appendChild(emptyItem);
+        return;
+      }
+      results.forEach(result => {
+        const li = document.createElement('li');
+        li.className = 'search-result-item';
+        li.innerHTML = `<strong>${result.title}</strong><br><span>${result.artist} — ${result.playlist}</span>`;
+        li.addEventListener('click', () => {
+          shuffleMode = false;
+          currentPlaylist = result.playlist;
+          loadTrack(result.index);
+          myMusicPopup.classList.add('hidden');
+        });
+        searchResults.appendChild(li);
+      });
+    }
+
+    function getRandomTrackEntry() {
+      const allTracks = getAllTracks();
+      if (!allTracks.length) return null;
+      return allTracks[Math.floor(Math.random() * allTracks.length)];
+    }
+
+    function startShuffleRadio() {
+      shuffleMode = true;
+      const entry = getRandomTrackEntry();
+      if (!entry) return;
+      currentPlaylist = entry.playlist;
+      loadTrack(entry.index);
+      state = 'playing';
+      audio.play();
+      updateButtons();
+      updateDisplay();
+    }
+
+    function loadTrack(index) {
+      current = index;
+      state = 'stopped';
+      const tracks = getTracks();
+      if (!tracks.length) {
+        audio.src = '';
+        audio.pause();
+        renderPlaylist();
+        updateDisplay();
+        updateButtons();
+        updatePlaylistButtons();
+        return;
+      }
+      const track = tracks[current];
+      audio.src = encodeURI(track.src);
+      audio.load();
+      renderPlaylist();
+      updateDisplay();
+      updateButtons();
+      updatePlaylistButtons();
+    }
+
+    function updateDisplay() {
+      const tracks = getTracks();
+      const hasTrack = tracks.length > 0 && tracks[current];
+      const duration = audio.duration || 0;
+      const elapsed = audio.currentTime || 0;
+      if (hasTrack) {
+        trackTitle.textContent = tracks[current].title;
+        trackArtist.textContent = tracks[current].artist;
+        if(albumImg) {
+          albumImg.src = tracks[current].cover || '../images/default_art.jpg';
+        }
+      } else {
+        trackTitle.textContent = 'No songs in this playlist';
+        trackArtist.textContent = '';
+        if(albumImg) {
+          albumImg.src = '../images/default_art.jpg';
+        }
+      }
+      trackDuration.textContent = formatTime(duration);
+      currentTime.textContent = formatTime(elapsed);
+      const pct = duration ? (elapsed / duration) * 100 : 0;
+      progressFill.style.width = `${Math.min(pct, 100)}%`;
+      if (state === 'playing' && shuffleMode) {
+        playerStatus.textContent = 'Shuffle';
+      } else {
+        playerStatus.textContent = state === 'playing' ? 'Playing' : state === 'paused' ? 'Paused' : 'Stopped';
+      }
+    }
+
+    function updateButtons() {
+      playBtn.textContent = state === 'playing' ? 'Pause' : 'Play';
+    }
+
+    function playTrack() {
+      if (state === 'playing') return;
+      if (!getTracks().length || !audio.src) return;
+      state = 'playing';
+      audio.play();
+      updateButtons();
+      updateDisplay();
+    }
+
+    function pauseTrack() {
+      state = 'paused';
+      audio.pause();
+      updateButtons();
+      updateDisplay();
+    }
+
+    function stopTrack() {
+      state = 'stopped';
+      audio.pause();
+      audio.currentTime = 0;
+      updateButtons();
+      updateDisplay();
+    }
+
+    function togglePlay() {
+      if (audio.paused) {
+        playTrack();
+      } else {
+        pauseTrack();
+      }
+    }
+
+    function nextTrack() {
+      const tracks = getTracks();
+      loadTrack((current + 1) % tracks.length);
+      playTrack();
+    }
+
+    function prevTrack() {
+      const tracks = getTracks();
+      loadTrack((current - 1 + tracks.length) % tracks.length);
+      playTrack();
+    }
+
+    function selectTrack(index) {
+      shuffleMode = false;
+      loadTrack(index);
+    }
+
+    function switchPlaylist(name) {
+      if (name === currentPlaylist) return;
+      shuffleMode = false;
+      currentPlaylist = name;
+      loadTrack(0);
+      playlistPopup.classList.add('hidden');
+    }
+
+    playlistMenuItem.addEventListener('click', (event) => {
+      event.stopPropagation();
+      playlistPopup.classList.toggle('hidden');
+      myMusicPopup.classList.add('hidden');
+      shuffleMode = false;
+    });
+
+    myMusicMenuItem.addEventListener('click', (event) => {
+      event.stopPropagation();
+      myMusicPopup.classList.toggle('hidden');
+      playlistPopup.classList.add('hidden');
+      shuffleMode = false;
+      if (!myMusicPopup.classList.contains('hidden')) {
+        musicSearchInput.focus();
+        renderSearchResults(musicSearchInput.value);
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!playlistPopup.contains(event.target) && event.target !== playlistMenuItem) {
+        playlistPopup.classList.add('hidden');
+      }
+      if (!myMusicPopup.contains(event.target) && event.target !== myMusicMenuItem) {
+        myMusicPopup.classList.add('hidden');
+      }
+    });
+
+    shuffleMenuItem.addEventListener('click', (event) => {
+      event.stopPropagation();
+      playlistPopup.classList.add('hidden');
+      myMusicPopup.classList.add('hidden');
+      startShuffleRadio();
+    });
+
+    musicSearchInput.addEventListener('input', () => {
+      renderSearchResults(musicSearchInput.value);
+    });
+
+    playlistButtons.forEach(button => {
+      button.addEventListener('click', (event) => {
+        event.stopPropagation();
+        switchPlaylist(button.dataset.playlist);
+      });
+    });
+
+    playBtn.addEventListener('click', togglePlay);
+    nextBtn.addEventListener('click', nextTrack);
+    prevBtn.addEventListener('click', prevTrack);
+    stopBtn.addEventListener('click', stopTrack);
+
+    progressBar.addEventListener('click', (event) => {
+      const rect = progressBar.getBoundingClientRect();
+      const pct = (event.clientX - rect.left) / rect.width;
+      if (!isNaN(audio.duration)) {
+        audio.currentTime = pct * audio.duration;
+        updateDisplay();
+      }
+    });
+
+    audio.addEventListener('timeupdate', updateDisplay);
+    audio.addEventListener('loadedmetadata', updateDisplay);
+    audio.addEventListener('ended', () => {
+      if (shuffleMode) {
+        startShuffleRadio();
+      } else {
+        nextTrack();
+      }
+    });
+
+    function updateVolumeIcon(value) {
+      if (value == 0) {
+        volumeIcon.textContent = '🔇';
+      } else if (value <= 0.4) {
+        volumeIcon.textContent = '🔈';
+      } else if (value <= 0.7) {
+        volumeIcon.textContent = '🔉';
+      } else {
+        volumeIcon.textContent = '🔊';
+      }
+    }
+
+    volumeSlider.addEventListener('input', (event) => {
+      audio.volume = Number(event.target.value);
+      updateVolumeIcon(event.target.value);
+    });
+
+    audio.volume = Number(volumeSlider.value);
+    updateVolumeIcon(volumeSlider.value);
+
+    renderPlaylist();
+    loadTrack(0);
+  </script>
+</body>
+</html>

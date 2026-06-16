@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>I Love You</title>
+    <link rel="stylesheet" href="../stylesheets/YouStyle.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="love-grid" aria-hidden="true">
+        <span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span>
+        <span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span>
+        <span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span>
+        <span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span>
+        <span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span>
+        <span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span>
+        <span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span>
+        <span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span>
+        <span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span>
+        <span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span><span>I Love You</span>
+      </div>
+      <main class="hero">
+        <div class="hero-card">
+          <div class="window-bar">
+            <div class="window-buttons">
+              <span class="btn close"></span>
+              <span class="btn minimize"></span>
+              <span class="btn maximize"></span>
+            </div>
+            <div class="window-title">I Love You.exe</div>
+          </div>
+          <div class="hero-body">
+            <p class="hero-eyebrow">DO YOU COPY?</p>
+            <h1>I LOVE YOU</h1>
+            <p class="hero-copy">To me, you are perfect.</p>
+            <button class="hero-note" type="button">Press Enter to repeat.</button>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script>
+      const loveButton = document.querySelector('.hero-note');
+      const loveGrid = document.querySelector('.love-grid');
+      let repeatInterval;
+
+      loveButton.addEventListener('click', () => {
+        if (repeatInterval) return;
+        loveButton.textContent = 'Repeating...';
+        loveButton.disabled = true;
+        repeatInterval = setInterval(() => {
+          const span = document.createElement('span');
+          span.textContent = 'I Love You';
+          loveGrid.appendChild(span);
+          if (loveGrid.childElementCount > 500) {
+            loveGrid.removeChild(loveGrid.firstElementChild);
+          }
+        }, 120);
+      });
+    </script>
+  </body>
+</html>

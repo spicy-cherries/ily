@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../stylesheets/ilystyle.css">
+    <title>I Love You</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="pink-text">I love you</h1>
+        <button class="btn btn-cute" onclick="showMessage('I love you too!')">I love you too</button>
+    </div>
+
+    <div id="message" style="display: none;">
+        <h1 class="pink-text">Are you sure?</h1>
+        <button class="btn btn-cute" onclick="showYesMessage()">Yes, I love you.</button> <button class="btn btn-cute" onclick="showNoMessage()">No, I don't love you.</button>
+    </div>
+
+    <div id="noMessage" style="display: none;">
+        <h1 class="pink-text">I don't think so. Try again.</h1>
+        <button class="btn btn-cute" onclick="hideMessage()">Try again</button>
+    </div>
+
+    <div id="yesMessage" style="display: none;">
+        <h1 class="pink-text">Naww, you're too cute!</h1>
+        <h1>You like pressing buttons, don't you?</h1>
+        <button class="btn btn-cute" onclick="showDiv5()">Yes, I do!</button>
+    </div>
+
+    <div id="div5" style="display: none;">
+        <h1 class="pink-text">Then I've got some more buttons for you to click!</h1>
+        <button class="btn btn-cute" onclick="window.location.href='./pages/still love u.html'">Show me more buttons!</button>
+    </div>
+</body>
+</html>
+
+<script>
+    function showMessage() {
+        document.getElementById('message').style.display = 'block';
+    }
+    
+    function showYesMessage() {
+        document.getElementById('yesMessage').style.display = 'block';
+    }
+    
+    function showNoMessage() {
+        document.getElementById('noMessage').style.display = 'block';
+    }
+    
+    function showDiv5() {
+        document.getElementById('div5').style.display = 'block';
+    }
+    
+    function hideMessage() {
+        document.getElementById('message').style.display = 'none';
+        document.getElementById('noMessage').style.display = 'none';
+        document.getElementById('yesMessage').style.display = 'none';
+        document.getElementById('div5').style.display = 'none';
+    }
+</script>
+

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>untitled - Paint</title>
+    <link rel="stylesheet" href="../stylesheets/paintStyle.css">
+</head>
+<body>
+
+    <div class="fog-overlay"></div>
+
+    <div class="paint-window" id="paint-window">
+        <div class="title-bar">
+            <div class="title-bar-text">untitled - Paint</div>
+            <div class="title-bar-controls">
+                <button aria-label="Close" onclick="closeToLovePage()"></button>
+            </div>
+        </div>
+        
+        <div class="paint-menu">
+            <span onclick="triggerMenuAlert('File')">File</span>
+            <span onclick="triggerMenuAlert('Edit')">Edit</span>
+            <span onclick="triggerMenuAlert('View')">View</span>
+            <span onclick="triggerMenuAlert('Image')">Image</span>
+            <span onclick="triggerMenuAlert('Colors')">Colors</span>
+            <span onclick="triggerMenuAlert('Help')">Help</span>
+        </div>
+        
+        <div class="paint-workspace">
+            <div class="paint-toolbar">
+                <div class="tool-btn active" id="tool-pencil" title="Pencil (1px Line)" onclick="selectTool('pencil')">✏️</div>
+                <div class="tool-btn" id="tool-brush" title="Brush (6px Line)" onclick="selectTool('brush')">🖌️</div>
+                <div class="tool-btn" id="tool-eraser" title="Eraser (Cuts layers)" onclick="selectTool('eraser')">🧽</div>
+                <div class="tool-btn" id="tool-bucket" title="Paint Bucket (Fill Background)" onclick="selectTool('bucket')">🪣</div>
+                <div class="tool-btn" id="tool-zoom" title="Toggle Zoom (200%)" onclick="selectTool('zoom')">🔍</div>
+                <div class="tool-btn" id="tool-text" title="Text Tool (Stamp Canvas)" onclick="selectTool('text')">🅰️</div>
+                <div class="tool-btn" id="tool-clear" title="Clear Canvas Completely" onclick="selectTool('clear')">🗑️</div>
+                <div class="tool-btn" id="tool-line" title="Straight Line Tool" onclick="selectTool('line')">📏</div>
+            </div>
+            
+            <div class="canvas-area" id="canvasFrame">
+                <canvas id="paintCanvas" width="500" height="350"></canvas>
+            </div>
+        </div>
+
+        <div class="paint-palette-container">
+            <div class="current-color-box">
+                <div class="active-color-preview" id="currentColor"></div>
+            </div>
+            <div class="palette-colors">
+                <div class="color-swatch" style="background: #000000;" onclick="changeColor('#000000')"></div>
+                <div class="color-swatch" style="background: #808080;" onclick="changeColor('#808080')"></div>
+                <div class="color-swatch" style="background: #800000;" onclick="changeColor('#800000')"></div>
+                <div class="color-swatch" style="background: #808000;" onclick="changeColor('#808000')"></div>
+                <div class="color-swatch" style="background: #008000;" onclick="changeColor('#008000')"></div>
+                <div class="color-swatch" style="background: #008080;" onclick="changeColor('#008080')"></div>
+                <div class="color-swatch" style="background: #000080;" onclick="changeColor('#000080')"></div>
+                <div class="color-swatch" style="background: #800080;" onclick="changeColor('#800080')"></div>
+                <div class="color-swatch" style="background: #ffffff;" onclick="changeColor('#ffffff')"></div>
+                <div class="color-swatch" style="background: #c0c0c0;" onclick="changeColor('#c0c0c0')"></div>
+                <div class="color-swatch" style="background: #ff0000;" onclick="changeColor('#ff0000')"></div>
+                <div class="color-swatch" style="background: #ffff00;" onclick="changeColor('#ffff00')"></div>
+                <div class="color-swatch" style="background: #00ff00;" onclick="changeColor('#00ff00')"></div>
+                <div class="color-swatch" style="background: #00ffff;" onclick="changeColor('#00ffff')"></div>
+                <div class="color-swatch" style="background: #0000ff;" onclick="changeColor('#0000ff')"></div>
+                <div class="color-swatch" style="background: #ff00ff;" onclick="changeColor('#ff00ff')"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- MICROSOFT PAINT ENGINE ---
+        let canvas, ctx;
+        let isDrawing = false;
+        let currentTool = 'pencil'; 
+        let currentHexColor = '#000000';
+        let startX = 0, startY = 0;
+        let savedCanvasSnapshot = null;
+
+        // Auto-initialize canvas on page load
+        window.onload = function() {
+            canvas = document.getElementById('paintCanvas');
+            ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            applyToolSettings();
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', drawAction);
+            window.addEventListener('mouseup', stopDrawing);
+        };
+
+        function triggerMenuAlert(menuName) {
+            const messages = {
+                'File': "Can't save it, sorry (idk how to do that yet)",
+                'Edit': "Are you aware you're editing the picture by drawing?",
+                'View': "Just look at the cover",
+                'Image': "Lovely Image you have there",
+                'Colors': "Lots of colours",
+                'Help': "Honestly, I can't help you from here"
+            };
+            alert(messages[menuName]);
+        }
+
+        function selectTool(toolName) {
+            if (toolName === 'clear') {
+                if(confirm("Wipe canvas slate?")) {
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                }
+                return; 
+            }
+            if (toolName === 'zoom') {
+                canvas.classList.toggle('zoomed-in');
+                document.getElementById('tool-zoom').classList.toggle('active');
+                return;
+            }
+
+            currentTool = toolName;
+            const buttons = document.querySelectorAll('.tool-btn');
+            buttons.forEach(btn => { if(btn.id !== 'tool-zoom') btn.classList.remove('active'); });
+            document.getElementById(`tool-${toolName}`).classList.add('active');
+            applyToolSettings();
+        }
+
+        function applyToolSettings() {
+            if (!ctx) return;
+            ctx.strokeStyle = currentHexColor;
+            ctx.fillStyle = currentHexColor;
+            ctx.globalCompositeOperation = 'source-over'; 
+
+            if (currentTool === 'pencil') ctx.lineWidth = 1;
+            else if (currentTool === 'brush') ctx.lineWidth = 6;
+            else if (currentTool === 'eraser') {
+                ctx.lineWidth = 20;
+                ctx.globalCompositeOperation = 'destination-out'; 
+            } else if (currentTool === 'line') ctx.lineWidth = 3;
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            const scale = canvas.classList.contains('zoomed-in') ? 2 : 1;
+            startX = (e.clientX - rect.left) / scale;
+            startY = (e.clientY - rect.top) / scale;
+
+            if (currentTool === 'bucket') {
+                ctx.fillStyle = currentHexColor;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                isDrawing = false;
+            } else if (currentTool === 'text') {
+                let userText = prompt("Enter text to imprint on your canvas:");
+                if(userText) {
+                    ctx.font = "bold 16px 'MS Sans Serif', Arial, sans-serif";
+                    ctx.fillStyle = currentHexColor;
+                    ctx.fillText(userText, startX, startY);
+                }
+                isDrawing = false;
+            } else if (currentTool === 'line') {
+                savedCanvasSnapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            } else {
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                drawAction(e);
+            }
+        }
+
+        function drawAction(e) {
+            if (!isDrawing) return;
+            const rect = canvas.getBoundingClientRect();
+            const scale = canvas.classList.contains('zoomed-in') ? 2 : 1;
+            const currentX = (e.clientX - rect.left) / scale;
+            const currentY = (e.clientY - rect.top) / scale;
+
+            if (currentTool === 'line') {
+                ctx.putImageData(savedCanvasSnapshot, 0, 0);
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.lineTo(currentX, currentY);
+                ctx.stroke();
+            } else if (currentTool === 'pencil' || currentTool === 'brush' || currentTool === 'eraser') {
+                ctx.lineTo(currentX, currentY);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(currentX, currentY);
+            }
+        }
+
+        function stopDrawing() { isDrawing = false; if (ctx) ctx.beginPath(); }
+        function changeColor(hex) { currentHexColor = hex; document.getElementById('currentColor').style.background = hex; applyToolSettings(); }
+    
+        function closeToLovePage() {
+        window.location.href = "still love u.html";
+        }
+    
+    </script>
+</body>
+</html>

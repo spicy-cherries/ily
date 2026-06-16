@@ -1,0 +1,193 @@
+/* Retro Website with Pink Theme */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  background: linear-gradient(45deg, #fff0f6 0%, #ffe6ef 50%, #ffd6e8 100%);
+  color: #2c2c2c;
+  min-height: 100vh;
+  text-align: center;
+  padding: 20px;
+  image-rendering: pixelated;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Container */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.95);
+  border: 4px solid #ff9ac4;
+  box-shadow: 8px 8px 0px rgba(255, 154, 196, 0.25);
+  padding: 40px;
+  text-align: center;
+  border-radius: 0;
+}
+
+/* Headers */
+h1, h2, h3 {
+  color: #ff77b6;
+  text-shadow: 2px 2px 0px rgba(255, 154, 196, 0.35);
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+}
+
+h1 {
+  font-size: 2.5em;
+  border-bottom: 4px dashed #ff9ac4;
+  padding-bottom: 10px;
+}
+
+h2 {
+  font-size: 1.8em;
+  margin-top: 30px;
+}
+
+/* Text */
+p {
+  line-height: 1.8;
+  margin-bottom: 15px;
+  font-size: 1.1em;
+}
+
+/* Simple Button Design */
+.btn-simple {
+  display: inline-block;
+  padding: 12px 24px;
+  margin: 10px 5px;
+  background: linear-gradient(135deg, #ff77b6, #e08bb0);
+  color: white;
+  border: 2px solid #e08bb0;
+  border-radius: 0;
+  font-family: 'Courier New', monospace;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-simple:hover {
+  background: linear-gradient(135deg, #ff77b6, #e08bb0);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px #ff9ac4;
+}
+
+.btn-simple:active {
+  transform: translate(0, 0);
+  box-shadow: 0px 0px 0px #ff9ac4;
+}
+
+/* Pixel Button Design */
+.btn-pixel {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px 5px;
+  background: #ff9ac4;
+  color: white;
+  border: 3px solid #ff77b6;
+  border-radius: 0;
+  font-family: 'Courier New', monospace;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 4px 4px 0px #e08bb0, 8px 8px 0px rgba(0, 0, 0, 0.12);
+  transition: all 0.1s ease;
+  clip-path: polygon(
+    0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px)
+  );
+}
+
+.btn-pixel:hover {
+  background: #ff77b6;
+  box-shadow: 6px 6px 0px #e08bb0, 10px 10px 0px rgba(0, 0, 0, 0.15);
+  transform: translate(-2px, -2px);
+}
+
+.btn-pixel:active {
+  box-shadow: 2px 2px 0px #e08bb0, 4px 4px 0px rgba(0, 0, 0, 0.1);
+  transform: translate(2px, 2px);
+}
+
+/* Button Group */
+.button-group {
+  margin: 30px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(255, 205, 220, 0.25), rgba(255, 205, 220, 0.2));
+  border: 2px solid #ffd1dc;
+  border-radius: 0;
+}
+
+/* Content Sections */
+.section {
+  margin-bottom: 40px;
+  padding: 20px;
+  border-left: 5px solid #ff9ac4;
+  background: rgba(255, 220, 230, 0.5);
+}
+
+/* Retro Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.grid-item {
+  background: linear-gradient(135deg, #fff0f6, #ffe6ef);
+  border: 3px solid #ff9ac4;
+  padding: 20px;
+  box-shadow: 4px 4px 0px rgba(255, 154, 196, 0.25);
+}
+
+.grid-item h3 {
+  margin-bottom: 10px;
+}
+
+/* Footer */
+footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 3px dashed #ff9ac4;
+  text-align: center;
+  color: #ff77b6;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Decorative Elements */
+.decoration {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: #ff77b6;
+  margin: 0 5px;
+  transform: rotate(45deg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

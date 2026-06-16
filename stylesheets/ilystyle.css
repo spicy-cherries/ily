@@ -1,0 +1,162 @@
+/* ilystyle.css — light pink themed site with centered pink text */
+
+:root{
+    --bg: #fff6f8;
+    --card: #fff0f5;
+    --muted: #f9e6ee;
+    --accent: #ff6ea6;
+    --accent-2: #ff8bbd;
+    --text: #c21f57; /* matching pink text */
+    --shadow: 0 6px 20px rgba(194,31,87,0.08);
+    --radius: 12px;
+    --glass: rgba(255,255,255,0.6);
+    --max-width: 1100px;
+}
+
+/* Page basics */
+* { box-sizing: border-box; }
+html,body {
+    height: 100%;
+    margin: 0;
+    background: linear-gradient(180deg, var(--bg) 0%, #fff 100%);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    color: var(--text);
+    text-align: center; /* center all text by default */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.45;
+}
+
+
+/* Page container */
+.container {
+    max-width: var(--max-width);
+    margin: 3.5rem auto;
+    padding: 1.5rem;
+    width: calc(100% - 2rem);
+}
+
+/* General div spacing */
+div {
+    margin: 3.5rem auto;
+}
+
+/* Headings and text */
+h1, h2, h3 {
+    color: var(--text);
+    margin: 0 0 0.6rem 0;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+h1 { font-size: 2.1rem; }
+h2 { font-size: 1.5rem; }
+p, li, label {
+    color: var(--text);
+    margin: 0 0 0.9rem 0;
+}
+
+/* Links */
+a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(255,110,166,0.25);
+}
+a:hover, a:focus {
+    color: var(--accent-2);
+    border-bottom-style: solid;
+    outline: none;
+}
+
+/* Card / panel */
+.card {
+    background: linear-gradient(180deg, var(--card), rgba(255,255,255,0.85));
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(194,31,87,0.06);
+    margin: 1rem auto;
+    text-align: center;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 0.6rem 1.05rem;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(255,110,166,0.14);
+    transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.btn:focus { outline: 3px solid rgba(194,31,87,0.12); }
+
+/* Cute variant matching theme */
+.btn-cute {
+    padding: 0.7rem 1.25rem;
+    border-radius: 999px;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+    border: 1px solid rgba(194,31,87,0.06);
+    background: linear-gradient(120deg, rgba(255,110,166,0.95), rgba(225,120,150,0.95));
+    box-shadow: 0 8px 20px rgba(194,31,87,0.08);
+    position: relative;
+    transition: transform 160ms cubic-bezier(.2,.9,.3,1), box-shadow 160ms;
+}
+.btn-cute:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 28px rgba(194,31,87,0.10);
+}
+/* small heart ornament */
+.btn-cute::after {
+    content: "♥";
+    margin-left: 0.5rem;
+    font-size: 0.95em;
+    color: rgba(255,255,255,0.95);
+    display: inline-block;
+    transform: translateY(-1px);
+    opacity: 0.95;
+}
+/* make sure the text remains centered on small screens */
+@media (max-width: 420px) {
+    .btn-cute { width: 100%; max-width: 320px; }
+}
+
+/* Form elements */
+input[type="text"], input[type="email"], textarea, select {
+    width: 100%;
+    max-width: 420px;
+    padding: 0.6rem 0.8rem;
+    border-radius: 10px;
+    border: 1px solid rgba(194,31,87,0.08);
+    background: var(--glass);
+    color: var(--text);
+    margin: 0.4rem auto 0.8rem auto;
+    display: block;
+    text-align: left;
+}
+textarea { min-height: 120px; resize: vertical; }
+
+/* Small utilities */
+.small { font-size: 0.9rem; opacity: 0.95; }
+.center { text-align: center; }
+.pink-text { color: var(--text); }
+
+/* Responsive tweaks */
+@media (min-width: 900px){
+    .container { padding: 2rem; }
+    h1 { font-size: 2.6rem; }
+}
+
+/* Decorative footer */
+.site-footer {
+    margin-top: 2.5rem;
+    color: rgba(194,31,87,0.85);
+    font-size: 0.9rem;
+    opacity: 0.95;
+}

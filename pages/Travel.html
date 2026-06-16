@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Maps - Mozilla Firefox</title>
+    <link rel="stylesheet" href="../stylesheets/TravelStyle.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head>
+<body>
+
+    <div id="browser-window">
+        
+        <div class="window-title-bar">
+            <div class="title-text">📌 Google Maps - Mozilla Firefox</div>
+            <div class="window-controls">
+                <span class="win-btn">_</span>
+                <span class="win-btn">🗖</span>
+                <span class="win-btn close-btn" onclick="closeBrowserWindow()">✕</span>
+            </div>
+        </div>
+
+        <header id="browser-header">
+            <div class="menu-bar">
+                <span>File</span> <span>Edit</span> <span>View</span> <span>Go</span> <span>Bookmarks</span> <span>Tools</span> <span>Help</span>
+            </div>
+            <div class="nav-bar">
+                <button class="nav-btn btn-back" onclick="resetSpace()" title="Back">🡨 Back</button>
+                <div class="address-bar">
+                    <span class="address-label">Address:</span>
+                    <input type="text" id="address-input" value="http://maps.google.com" readonly>
+                </div>
+            </div>
+        </header>
+
+        <div id="main-content">
+            
+            <aside id="maps-sidebar" onclick="event.stopPropagation()">
+                <div class="win98-vertical-strip">
+                    <div class="vertical-text"><span class="version-num"></span></div>
+                </div>
+
+                <div class="start-menu-content">
+                    <div id="country-view" class="menu-panel-layer active">
+                        <div class="start-menu-item item-header">
+                            <span class="start-icon">🌐</span>
+                            <span class="item-text">Global Index Update</span>
+                        </div>
+                        <div class="start-menu-separator"></div>
+
+                        <div class="start-menu-item clickable country-trigger" id="trigger-china" onclick="toggleSubMenu(event, 'china')">
+                            <span class="start-icon">📂</span>
+                            <span class="item-text"><u>C</u>hina</span>
+                            <span class="menu-arrow">►</span>
+                        </div>
+                        <div class="start-menu-item clickable country-trigger" id="trigger-england" onclick="toggleSubMenu(event, 'england')">
+                            <span class="start-icon">📂</span>
+                            <span class="item-text">England</span>
+                            <span class="menu-arrow">►</span>
+                        </div>
+                        <div class="start-menu-item clickable country-trigger" id="trigger-ireland" onclick="toggleSubMenu(event, 'ireland')">
+                            <span class="start-icon">📂</span>
+                            <span class="item-text"><u>I</u>reland</span>
+                            <span class="menu-arrow">►</span>
+                        </div>
+                        <div class="start-menu-item clickable country-trigger" id="trigger-italy" onclick="toggleSubMenu(event, 'italy')">
+                            <span class="start-icon">📂</span>
+                            <span class="item-text"><u>I</u>taly</span>
+                            <span class="menu-arrow">►</span>
+                        </div>
+                        <div class="start-menu-item clickable country-trigger" id="trigger-japan" onclick="toggleSubMenu(event, 'japan')">
+                            <span class="start-icon">📂</span>
+                            <span class="item-text"><u>J</u>apan</span>
+                            <span class="menu-arrow">►</span>
+                        </div>
+                        <div class="start-menu-item clickable country-trigger" id="trigger-korea" onclick="toggleSubMenu(event, 'korea')">
+                            <span class="start-icon">📂</span>
+                            <span class="item-text"><u>S</u>outh Korea</span>
+                            <span class="menu-arrow">►</span>
+                        </div>
+                        <div class="start-menu-item clickable country-trigger" id="trigger-norway" onclick="toggleSubMenu(event, 'norway')">
+                            <span class="start-icon">📂</span>
+                            <span class="item-text"><u>N</u>orway</span>
+                            <span class="menu-arrow">►</span>
+                        </div>
+                        <div class="start-menu-item clickable country-trigger" id="trigger-poland" onclick="toggleSubMenu(event, 'poland')">
+                            <span class="start-icon">📂</span>
+                            <span class="item-text"><u>P</u>oland</span>
+                            <span class="menu-arrow">►</span>
+                        </div>
+                        <div class="start-menu-item clickable country-trigger" id="trigger-portugal" onclick="toggleSubMenu(event, 'portugal')">
+                            <span class="start-icon">📂</span>
+                            <span class="item-text"><u>P</u>ortugal</span>
+                            <span class="menu-arrow">►</span>
+                        </div>
+                        <div class="start-menu-item clickable country-trigger" id="trigger-scotland" onclick="toggleSubMenu(event, 'scotland')">
+                            <span class="start-icon">📂</span>
+                            <span class="item-text"><u>S</u>cotland</span>
+                            <span class="menu-arrow">►</span>
+                        </div>
+                        <div class="start-menu-item clickable country-trigger" id="trigger-sweden" onclick="toggleSubMenu(event, 'sweden')">
+                            <span class="start-icon">📂</span>
+                            <span class="item-text"><u>S</u>weden</span>
+                            <span class="menu-arrow">►</span>
+                        </div>
+                        <div class="start-menu-item clickable country-trigger" id="trigger-thailand" onclick="toggleSubMenu(event, 'thailand')">
+                            <span class="start-icon">📂</span>
+                            <span class="item-text"><u>T</u>hailand</span>
+                            <span class="menu-arrow">►</span>
+                        </div>
+
+                        <div class="start-menu-separator"></div>
+                        <div class="start-menu-item disabled"><span class="start-icon">💾</span><span class="item-text">Log Off Explorer...</span></div>
+                        <div class="start-menu-item disabled"><span class="start-icon">💻</span><span class="item-text">Shut Down Engine...</span></div>
+                    </div>
+
+                    <div id="details-view" class="menu-panel-layer panel-padding">
+                        <button class="retro-link-btn" onclick="closeDetails()">🡨 Back to Index</button>
+                        <div class="retro-details-card">
+                            <h2 id="dataTitle" class="location-main-title">Destination</h2>
+                            <p id="dataRegion" class="location-sub-title">Region Info</p>
+                            <div class="retro-divider"></div>
+                            <p id="dataDesc" class="location-description">Description goes here...</p>
+                            <div class="retro-divider"></div>
+                            <div class="section-heading">Things to Do:</div>
+                            <ul id="rightActivities" class="retro-bullet-list"></ul>
+                            <div class="retro-divider"></div>
+                            <div class="section-heading">Satellite Snapshot:</div>
+                            <p id="snapshotDescription" style="font-size: 12px; color: #555; margin-bottom: 8px; font-style: italic;"></p><div id="leftPhotos" class="retro-photo-box"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="cascading-sub-menu" class="win98-flyout-tab"></div>
+            </aside>
+
+            <main id="viewport" onclick="closeAllFlyouts()">
+                <div class="retro-map-controls">
+                    <button class="ctrl-btn up" onclick="mapPan('up')">▲</button>
+                    <button class="ctrl-btn left" onclick="mapPan('right')">◀</button>
+                    <button class="ctrl-btn center" onclick="resetSpace()">●</button>
+                    <button class="ctrl-btn right" onclick="mapPan('left')">▶</button>
+                    <button class="ctrl-btn down" onclick="mapPan('down')">▼</button>
+                    <div class="zoom-slider">
+                        <button class="zoom-btn" onclick="mapZoomIn()">＋</button>
+                        <div class="slider-bar"></div>
+                        <button class="zoom-btn" onclick="mapZoomOut()">－</button>
+                    </div>
+                </div>
+
+                <div class="earth-lens" id="earthLens">
+                    <div id="canvas3d-container"></div>
+                </div>
+            </main>
+
+        </div>
+    </div>
+
+    <script>
+
+const countryData = {
+    china: {
+        places: [
+            { key: "beijing", name: "Beijing" },
+            { key: "great wall", name: "Great Wall of China" },
+            { key: "leshan giant buddha", name: "Leshan Giant Buddha" },
+            { key: "potala palace", name: "Potala Palace" },
+            { key: "shanghai", name: "Shanghai" },
+            { key: "terracotta army", name: "Terracotta Army" },
+            { key: "the bund", name: "The Bund" },
+            { key: "victoria peak", name: "Victoria Peak" },
+            { key: "wudang mountains", name: "Wudang Mountains" },
+            { key: "yellow mountain", name: "Yellow Mountain" }
+        ]
+    },
+    england: {
+        places: [
+            { key: "brighton", name: "Brighton" },
+            { key: "british museum", name: "British Museum" },
+            { key: "cambridge", name: "Cambridge" },
+            { key: "cornwall", name: "Cornwall" },
+            { key: "imperial war museum", name: "Imperial War Museum" },
+            { key: "lake district", name: "Lake District" },
+            { key: "london", name: "London" },
+            { key: "oxford", name: "Oxford" },
+            { key: "stonehenge", name: "Stonehenge" },
+            { key: "york", name: "York" }
+        ]
+    },
+    ireland: {
+        places: [
+            { key: "arann islands", name: "Arann Islands" },
+            { key: "blarney castle", name: "Blarney Castle" },
+            { key: "cliffs of moher", name: "Cliffs of Moher" },
+            { key: "dublin", name: "Dublin" },
+            { key: "giant's causeway", name: "Giant's Causeway" },
+            { key: "killarney national park", name: "Killarney National Park" },
+            { key: "kylemoe abbey and victorian walled garden", name: "Kylemoe Abbey and Victorian Walled Garden" },
+            { key: "ring of kerry", name: "Ring of Kerry" },
+            { key: "rock of cashel", name: "Rock of Cashel" },
+            { key: "wild atlantic way", name: "Wild Atlantic Way" }
+        ]
+    },
+    italy: {
+        places: [
+            { key: "amalfi coast", name: "Amalfi Coast" },
+            { key: "bologna", name: "Bologna" },
+            { key: "cinque terre", name: "Cinque Terre" },
+            { key: "dolomite mountains", name: "Dolomite Mountains" },
+            { key: "florence", name: "Florence" },
+            { key: "lake como", name: "Lake Como" },
+            { key: "milan", name: "Milan" },
+            { key: "pompeii", name: "Pompeii" },
+            { key: "rome", name: "Rome" },
+            { key: "venice", name: "Venice" }
+        ]
+    },
+    japan: {
+        places: [
+            { key: "arashiyama bamboo grove", name: "Arashiyama Bamboo Grove" },
+            { key: "fushimi inari shrine", name: "Fushimi Inari Shrine" },
+            { key: "hakone", name: "Hakone" },
+            { key: "himeji castle", name: "Himeji Castle" },
+            { key: "hiroshima peace memorial park", name: "Hiroshima Peace Memorial Park" },
+            { key: "mount fuji", name: "Mount Fuji" },
+            { key: "nara park", name: "Nara Park" },
+            { key: "osaka castle", name: "Osaka Castle" },
+            { key: "shibuya crossing", name: "Shibuya Crossing" },
+            { key: "tokyo skytree", name: "Tokyo Skytree" }
+        ]
+    },
+    korea: { 
+        places: [
+            {key: "busan", name: "Busan"},
+            {key: "bukhansan national park", name: "Bukhansan National Park"},
+            {key: "DMZ", name: "DMZ (Demilitarized Zone)"},
+            {key: "gyeongbokgung palace", name: "Gyeongbokgung Palace"},
+            {key: "gyeongju", name: "Gyeongju"},
+            {key: " haedong yonggungsa temple", name: "Haedong Yonggungsa Temple"},
+            {key: "jeju island", name: "Jeju Island"},
+            {key: "myeongdong", name: "Myeongdong"},
+            {key: "n seoul tower", name: "N Seoul Tower"},
+            { key: "seoul", name: "Seoul" }
+        ] 
+    },
+    norway: {
+        places: [
+            { key: "alesund", name: "Ålesund" },
+            { key: "bergen", name: "Bergen" },
+            { key: "flam railway", name: "Flåm Railway" },
+            { key: "geirangerfjord", name: "Geirangerfjord" },
+            { key: "lofoten islands", name: "Lofoten Islands" },
+            { key: "oslo", name: "Oslo" },
+            { key: "pulpit rock", name: "Pulpit Rock" },
+            { key: "sognefjord", name: "Sognefjord" },
+            { key: "svalbard", name: "Svalbard" },
+            { key: "tromso", name: "Tromsø" }
+        ]
+    },
+    poland: {
+        places: [
+            { key: "auschwitz-birkenau", name: "Auschwitz-Birkenau Memorial" },
+            { key: "bialowieza national park", name: "Białowieża National Park" },
+            { key: "gdansk old town", name: "Gdańsk Old Town" },
+            { key: "krakow old town", name: "Krakow Old Town" },
+            { key: "malbork castle", name: "Malbork Castle" },
+            { key: "masurian lake district", name: "Masurian Lake District" },
+            { key: "tatra mountains", name: "Tatra Mountains" },
+            { key: "warsaw", name: "Warsaw" },
+            { key: "wieliczka salt mine", name: "Wieliczka Salt Mine" },
+            { key: "wroclaw", name: "Wrocław" }
+        ]
+    },
+    portugal: {
+        places: [
+            { key: "algarve", name: "Algarve" },
+            { key: "aveiro", name: "Aveiro" },
+            { key: "azores", name: "Azores" },
+            { key: "coimbra", name: "Coimbra" },
+            { key: "douro valley", name: "Douro Valley" },
+            { key: "evora", name: "Évora" },
+            { key: "lagos", name: "Lagos" },
+            { key: "lisbon", name: "Lisbon" },
+            { key: "porto", name: "Porto" },
+            { key: "sintra", name: "Sintra" }
+        ]
+    },
+    scotland: { 
+        places: [
+            { key: "dunnottar castle", name: "Dunnottar Castle" },
+            {key: "eilean donan castle", name: "Eilean Donan Castle"},
+            { key: "edinburgh", name: "Edinburgh" },
+            {key:"isle of man", name: "Isle of Man"},
+            { key: "isle of skye", name: "Isle of Skye" },
+            { key: "lochness", name: "Loch Ness" },
+            {key: "orkney", name: "Orkney"},
+            {key: "outer hebrides", name: "Outer Hebrides"},
+            {key: "rogie falls", name: "Rogie Falls"},
+            {key: "stirling castle", name: "Stirling Castle"}
+        ]
+    },
+    sweden: {
+        places: [
+            { key: "abisko national park", name: "Abisko National Park" },
+            { key: "gothenburg", name: "Gothenburg" },
+            { key: "gota canal", name: "Göta Canal" },
+            { key: "icehotel", name: "Icehotel (Jukkasjärvi)" },
+            { key: "kosterhavet national park", name: "Kosterhavet National Park" },
+            { key: "malmo", name: "Malmö" },
+            { key: "stockholm", name: "Stockholm" },
+            { key: "swedish lapland", name: "Swedish Lapland" },
+            { key: "uppsala", name: "Uppsala" },
+            { key: "visby", name: "Visby" }
+        ]
+    },
+    thailand: {
+        places: [
+            { key: "ayutthaya historical park", name: "Ayutthaya Historical Park" },
+            { key: "bangkok", name: "Bangkok" },
+            { key: "chiang mai", name: "Chiang Mai" },
+            { key: "chiang rai", name: "Chiang Rai (White Temple)" },
+            { key: "floating market", name: "Damnoen Saduak Floating Market" },
+            { key: "khao sok national park", name: "Khao Sok National Park" },
+            { key: "koh tao", name: "Koh Tao" },
+            { key: "krabi", name: "Krabi" },
+            { key: "phi phi islands", name: "Phi Phi Islands" },
+            { key: "phuket", name: "Phuket" }
+        ]
+    }
+};
+
+
+const locations = {
+    // CHINA
+    beijing: { title: "Beijing", region: "China", targetLat: 39.9042, targetLon: 116.4074, zoomScale: 1.5, desc: "Imperial capital.", snapshotDesc:"Pictures of Beijing", photos: ["../../images/Locations/China/beijing_skyline.jpg", "../../images/Locations/China/beijing.jpg", "../../images/Locations/China/beijing_map.jpg"], todo: ["Explore"] },
+
+    "great wall": { title: "Great Wall", region: "China", targetLat: 40.4319, targetLon: 120.5704, zoomScale: 1.5, desc: "Ancient defensive fortification.", photos: ["../../images/Locations/China/wall_pic.jpg", "../../images/Locations/China/wall.jpg", "../../images/Locations/China/wall_map.jpg"], todo: ["Walk along historical site"] },
+
+    "leshan giant buddha": { title: "Leshan Giant Buddha", region: "China", targetLat: 29.5463, targetLon: 103.7744, zoomScale: 1.5, desc: "Massive stone statue.", photos: ["../../images/Locations/China/buddha2.jpg", "../../images/Locations/China/buddha_location.webp", "../../images/Locations/China/buddha_map.png"], todo: ["Explore"] },
+
+    "potala palace": { title: "Potala Palace", region: "China", targetLat: 29.6575, targetLon: 91.1172, zoomScale: 1.5, desc: "Historic Tibetan palace.", photos: ["../../images/Locations/China/palace_pic.jpg", "../../images/Locations/China/palace_location.webp", "../../images/Locations/China/palace_map.png"], todo: ["Explore"] },
+
+    shanghai: { title: "Shanghai", region: "China", targetLat: 31.2304, targetLon: 121.4737, zoomScale: 1.5, desc: "Global financial hub.", photos: ["../../images/Locations/China/shanghai.jpg", "../../images/Locations/China/shanghai_skyline.jpg", "../../images/Locations/China/shanghai_map.jpg"], todo: ["Sight-Seeing", "Eating local food"] },
+
+    "terracotta army": { title: "Terracotta Army", region: "China", targetLat: 34.3839, targetLon: 109.2785, zoomScale: 1.5, desc: "Ancient clay soldiers.", photos: ["../../images/Locations/China/terracota1.webp", "../../images/Locations/China/terracota2.webp", "../../images/Locations/China/terracota_map.jpg"], todo: ["Visit archeological site"] },
+
+    "the bund": { title: "The Bund", region: "China", targetLat: 31.2389, targetLon: 121.4883, zoomScale: 1.5, desc: "Waterfront cityscape.", photos: ["../../images/Locations/China/bund1.jpg", "../../images/Locations/China/bund2.webp", "../../images/Locations/China/bund_map.jpg"], todo: ["Shopping", "Sight-Seeing"] },
+
+    "victoria peak": { title: "Victoria Peak", region: "China", targetLat: 22.2759, targetLon: 114.1455, zoomScale: 1.5, desc: "Hong Kong skyline view.", photos: ["../../images/Locations/China/victoria1.jpg.", "../../images/Locations/China/victoria2.webp", "../../images/Locations/China/victoria_map.jpg"], todo: ["Sight-Seeing"] },
+
+    "wudang mountains": { title: "Wudang Mountains", region: "China", targetLat: 32.4167, targetLon: 111.0000, zoomScale: 1.5, desc: "Daoist cultural site.", photos: ["../../images/Locations/China/wudang1.jpeg", "../../images/Locations/China/wudang2.jpg", "../../images/Locations/China/wudang_map.png"], todo: ["Explore"] },
+
+    "yellow mountain": { title: "Yellow Mountain", region: "China", targetLat: 30.1423, targetLon: 118.1713, zoomScale: 1.5, desc: "Granite peaks.", photos: ["../../images/Locations/China/yellow1.jpg", "../../images/Locations/China/yellow2.jpg", "../../images/Locations/China/yellow_map.jpg"], todo: ["not die", "go for a walk"] },
+
+    // ENGLAND
+    brighton: { title: "Brighton", region: "England", targetLat: 50.8225, targetLon: -0.1372, zoomScale: 1.5, desc: "Coastal seaside resort.", photos: [], todo: [] },
+
+    "british museum": { title: "British Museum", region: "England", targetLat: 51.5194, targetLon: -0.1270, zoomScale: 1.5, desc: "Global history collection.", photos: [], todo: [] },
+
+    cambridge: { title: "Cambridge", region: "England", targetLat: 52.2053, targetLon: 0.1218, zoomScale: 1.5, desc: "Historic university town.", photos: [], todo: [] },
+
+    cornwall: { title: "Cornwall", region: "England", targetLat: 50.2660, targetLon: -5.0527, zoomScale: 1.5, desc: "Southwest coastal region.", photos: [], todo: [] },
+
+    "imperial war museum": { title: "Imperial War Museum", region: "England", targetLat: 51.4962, targetLon: -0.1064, zoomScale: 1.5, desc: "War history exhibit.", photos: [], todo: [] },
+
+    "lake district": { title: "Lake District", region: "England", targetLat: 54.4609, targetLon: -3.0886, zoomScale: 1.5, desc: "National park landscape.", photos: [], todo: [] },
+
+    london: { title: "London", region: "England", targetLat: 51.5074, targetLon: -0.1278, zoomScale: 1.5, desc: "Historic capital city.", photos: [], todo: [] },
+
+    oxford: { title: "Oxford", region: "England", targetLat: 51.7520, targetLon: -1.2577, zoomScale: 1.5, desc: "Famous university city.", photos: [], todo: [] },
+
+    stonehenge: { title: "Stonehenge", region: "England", targetLat: 51.1789, targetLon: -1.8262, zoomScale: 1.5, desc: "Prehistoric monument.", photos: [], todo: [] },
+
+    york: { title: "York", region: "England", targetLat: 53.9590, targetLon: -1.0815, zoomScale: 1.5, desc: "Walled medieval city.", photos: [], todo: [] },
+
+    // IRELAND
+    "arann islands": { title: "Arann Islands", region: "Ireland", targetLat: 53.1289, targetLon: -9.7196, zoomScale: 1.5, desc: "Remote island culture.", photos: [], todo: [] },
+
+    "blarney castle": { title: "Blarney Castle", region: "Ireland", targetLat: 51.9287, targetLon: -8.5645, zoomScale: 1.5, desc: "Famous stone site.", photos: [], todo: [] },
+
+    "cliffs of moher": { title: "Cliffs of Moher", region: "Ireland", targetLat: 52.9714, targetLon: -9.4264, zoomScale: 1.5, desc: "Dramatic sea cliffs.", photos: [], todo: [] },
+
+    dublin: { title: "Dublin", region: "Ireland", targetLat: 53.3498, targetLon: -6.2603, zoomScale: 1.5, desc: "Capital of Ireland.", photos: [], todo: [] },
+
+    "giant's causeway": { title: "Giant's Causeway", region: "Ireland", targetLat: 55.2408, targetLon: -6.5116, zoomScale: 1.5, desc: "Basalt column formations.", photos: [], todo: [] },
+
+    "killarney national park": { title: "Killarney NP", region: "Ireland", targetLat: 52.0000, targetLon: -9.5000, zoomScale: 1.5, desc: "Lakes and mountains.", photos: [], todo: [] },
+
+    "kylemoe abbey and victorian walled garden": { title: "Kylemoe Abbey", region: "Ireland", targetLat: 53.5623, targetLon: -9.8878, zoomScale: 1.5, desc: "Beautiful abbey.", photos: [], todo: [] },
+
+    "ring of kerry": { title: "Ring of Kerry", region: "Ireland", targetLat: 51.8667, targetLon: -10.0000, zoomScale: 1.5, desc: "Scenic coastal loop.", photos: [], todo: [] },
+
+    "rock of cashel": { title: "Rock of Cashel", region: "Ireland", targetLat: 52.5204, targetLon: -7.8906, zoomScale: 1.5, desc: "Historic ruins.", photos: [], todo: [] },
+
+    "wild atlantic way": { title: "Wild Atlantic Way", region: "Ireland", targetLat: 53.0000, targetLon: -9.0000, zoomScale: 1.5, desc: "Coastal driving route.", photos: [], todo: [] },
+
+    // ITALY
+    "amalfi coast": { title: "Amalfi Coast", region: "Italy", targetLat: 40.6333, targetLon: 14.6000, zoomScale: 1.5, desc: "Cliffside villages.", photos: [], todo: [] },
+
+    bologna: { title: "Bologna", region: "Italy", targetLat: 44.4949, targetLon: 11.3426, zoomScale: 1.5, desc: "Medieval historic center.", photos: [], todo: [] },
+
+    "cinque terre": { title: "Cinque Terre", region: "Italy", targetLat: 44.1451, targetLon: 9.6468, zoomScale: 1.5, desc: "Five coastal towns.", photos: [], todo: [] },
+
+    "dolomite mountains": { title: "Dolomites", region: "Italy", targetLat: 46.4333, targetLon: 12.1333, zoomScale: 1.5, desc: "Alpine mountain range.", photos: [], todo: [] },
+
+    florence: { title: "Florence", region: "Italy", targetLat: 43.7696, targetLon: 11.2558, zoomScale: 1.5, desc: "Renaissance art center.", photos: [], todo: [] },
+
+    "lake como": { title: "Lake Como", region: "Italy", targetLat: 46.0000, targetLon: 9.2667, zoomScale: 1.5, desc: "Deep alpine lake.", photos: [], todo: [] },
+
+    milan: { title: "Milan", region: "Italy", targetLat: 45.4642, targetLon: 9.1900, zoomScale: 1.5, desc: "Fashion and design.", photos: [], todo: [] },
+
+    pompeii: { title: "Pompeii", region: "Italy", targetLat: 40.7505, targetLon: 14.4855, zoomScale: 1.5, desc: "Ancient Roman ruins.", photos: [], todo: [] },
+
+    rome: { title: "Rome", region: "Italy", targetLat: 41.9028, targetLon: 12.4964, zoomScale: 1.5, desc: "The Eternal City.", photos: [], todo: [] },
+
+    venice: { title: "Venice", region: "Italy", targetLat: 45.4408, targetLon: 12.3155, zoomScale: 1.5, desc: "City of canals.", photos: [], todo: [] },
+
+    // JAPAN
+    "arashiyama bamboo grove": { title: "Bamboo Grove", region: "Japan", targetLat: 35.0173, targetLon: 135.6720, zoomScale: 1.5, desc: "Serene bamboo forest.", photos: [], todo: [] },
+
+    "fushimi inari shrine": { title: "Fushimi Inari", region: "Japan", targetLat: 34.9671, targetLon: 135.7727, zoomScale: 1.5, desc: "Famous torii gates.", photos: [], todo: [] },
+
+    hakone: { title: "Hakone", region: "Japan", targetLat: 35.2320, targetLon: 139.1062, zoomScale: 1.5, desc: "Hot springs area.", photos: [], todo: [] },
+
+    "himeji castle": { title: "Himeji Castle", region: "Japan", targetLat: 34.8394, targetLon: 134.6939, zoomScale: 1.5, desc: "White heritage castle.", photos: [], todo: [] },
+
+    "hiroshima peace memorial park": { title: "Hiroshima Park", region: "Japan", targetLat: 34.3916, targetLon: 132.4518, zoomScale: 1.5, desc: "Reflective memorial.", photos: [], todo: [] },
+
+    "mount fuji": { title: "Mount Fuji", region: "Japan", targetLat: 35.3606, targetLon: 138.7274, zoomScale: 1.5, desc: "Iconic volcanic peak.", photos: [], todo: [] },
+
+    "nara park": { title: "Nara Park", region: "Japan", targetLat: 34.6851, targetLon: 135.8435, zoomScale: 1.5, desc: "Home to free-roaming deer.", photos: [], todo: [] },
+
+    "osaka castle": { title: "Osaka Castle", region: "Japan", targetLat: 34.6873, targetLon: 135.5262, zoomScale: 1.5, desc: "Historic city landmark.", photos: [], todo: [] },
+
+    "shibuya crossing": { title: "Shibuya Crossing", region: "Japan", targetLat: 35.6595, targetLon: 139.7005, zoomScale: 1.5, desc: "Famous busy intersection.", photos: [], todo: [] },
+
+    "tokyo skytree": { title: "Tokyo Skytree", region: "Japan", targetLat: 35.7101, targetLon: 139.8107, zoomScale: 1.5, desc: "Tallest tower in Japan.", photos: [], todo: [] },
+    
+// SOUTH KOREA
+    busan: { title: "Busan", region: "South Korea", targetLat: 35.1796, targetLon: 129.0756, zoomScale: 1.5, desc: "Coastal port city.", photos: [], todo: [] },
+
+    "bukhansan national park": { title: "Bukhansan NP", region: "South Korea", targetLat: 37.6584, targetLon: 126.9880, zoomScale: 1.5, desc: "Mountainous national park.", photos: [], todo: [] },
+
+    DMZ: { title: "DMZ", region: "South Korea", targetLat: 37.9599, targetLon: 126.7713, zoomScale: 1.5, desc: "Demilitarized Zone.", photos: [], todo: [] },
+
+    "gyeongbokgung palace": { title: "Gyeongbokgung", region: "South Korea", targetLat: 37.5796, targetLon: 126.9770, zoomScale: 1.5, desc: "Historic royal palace.", photos: [], todo: [] },
+
+    gyeongju: { title: "Gyeongju", region: "South Korea", targetLat: 35.8562, targetLon: 129.2247, zoomScale: 1.5, desc: "Ancient capital city.", photos: [], todo: [] },   
+
+    "haedong yonggungsa temple": { title: "Haedong Yonggungsa", region: "South Korea", targetLat: 35.1595, targetLon: 129.1183, zoomScale: 1.5, desc: "Seaside Buddhist temple.", photos: [], todo: [] },
+
+    "jeju island": { title: "Jeju Island", region: "South Korea", targetLat: 33.4996, targetLon: 126.5312, zoomScale: 1.5, desc: "Volcanic island getaway.", photos: [], todo: [] },
+
+    "myeongdong": { title: "Myeongdong", region: "South Korea", targetLat: 37.5609, targetLon: 126.9850, zoomScale: 1.5, desc: "Vibrant shopping district.", photos: [], todo: [] },
+
+    "n seoul tower": { title: "N Seoul Tower", region: "South Korea", targetLat: 37.5512, targetLon: 126.9882, zoomScale: 1.5, desc: "Iconic city landmark.", photos: [], todo: [] },
+
+    seoul: { title: "Seoul", region: "South Korea", targetLat: 37.5667, targetLon: 126.9780, zoomScale: 1.5, desc: "Capital of South Korea.", photos: [], todo: [] },
+
+// NORWAY
+    alesund: { title: "Ålesund", region: "Norway", targetLat: 62.4722, targetLon: 6.1495, zoomScale: 1.4, desc: "Art Nouveau city.", photos: [], todo: [] },
+
+    bergen: { title: "Bergen", region: "Norway", targetLat: 60.3913, targetLon: 5.3221, zoomScale: 1.4, desc: "Gateway to the fjords.", photos: [], todo: [] },
+
+    "flam railway": { title: "Flåm Railway", region: "Norway", targetLat: 60.8608, targetLon: 7.1118, zoomScale: 1.4, desc: "Scenic mountain rail.", photos: [], todo: [] },
+
+    geirangerfjord: { title: "Geirangerfjord", region: "Norway", targetLat: 62.1008, targetLon: 7.2060, zoomScale: 1.4, desc: "Deep blue fjord.", photos: [], todo: [] },
+
+    "lofoten islands": { title: "Lofoten Islands", region: "Norway", targetLat: 68.2000, targetLon: 13.9000, zoomScale: 1.4, desc: "Dramatic mountain peaks.", photos: [], todo: [] },
+
+    oslo: { title: "Oslo", region: "Norway", targetLat: 59.9139, targetLon: 10.7522, zoomScale: 1.4, desc: "Capital of Norway.", photos: [], todo: [] },
+
+    "pulpit rock": { title: "Pulpit Rock", region: "Norway", targetLat: 58.9864, targetLon: 6.1264, zoomScale: 1.4, desc: "Famous cliff plateau.", photos: [], todo: [] },
+
+    sognefjord: { title: "Sognefjord", region: "Norway", targetLat: 61.1000, targetLon: 7.0000, zoomScale: 1.4, desc: "The king of fjords.", photos: [], todo: [] },
+
+    svalbard: { title: "Svalbard", region: "Norway", targetLat: 78.2232, targetLon: 15.6267, zoomScale: 1.4, desc: "Arctic wilderness.", photos: [], todo: [] },
+
+    tromso: { title: "Tromsø", region: "Norway", targetLat: 69.6492, targetLon: 18.9553, zoomScale: 1.4, desc: "Arctic gateway.", photos: [], todo: [] },
+
+    // POLAND
+    "auschwitz-birkenau": { title: "Auschwitz-Birkenau", region: "Poland", targetLat: 50.0354, targetLon: 19.1775, zoomScale: 1.5, desc: "Historical memorial.", photos: [], todo: [] },
+
+    "bialowieza national park": { title: "Białowieża NP", region: "Poland", targetLat: 52.7000, targetLon: 23.8500, zoomScale: 1.5, desc: "Ancient primeval forest.", photos: [], todo: [] },
+
+    "gdansk old town": { title: "Gdańsk", region: "Poland", targetLat: 54.3520, targetLon: 18.6466, zoomScale: 1.5, desc: "Beautiful Baltic port.", photos: [], todo: [] },
+
+    "krakow old town": { title: "Krakow", region: "Poland", targetLat: 50.0647, targetLon: 19.9450, zoomScale: 1.5, desc: "Stunning Old Town.", photos: [], todo: [] },
+
+    "malbork castle": { title: "Malbork Castle", region: "Poland", targetLat: 54.0398, targetLon: 19.0275, zoomScale: 1.5, desc: "Largest brick castle.", photos: [], todo: [] },
+
+    "masurian lake district": { title: "Masurian Lakes", region: "Poland", targetLat: 53.8000, targetLon: 21.5000, zoomScale: 1.5, desc: "Region of 2,000 lakes.", photos: [], todo: [] },
+
+    "tatra mountains": { title: "Tatra Mountains", region: "Poland", targetLat: 49.2000, targetLon: 20.0000, zoomScale: 1.5, desc: "Rugged Alpine range.", photos: [], todo: [] },
+
+    warsaw: { title: "Warsaw", region: "Poland", targetLat: 52.2297, targetLon: 21.0122, zoomScale: 1.5, desc: "Restored capital.", photos: [], todo: [] },
+
+    "wieliczka salt mine": { title: "Wieliczka Mine", region: "Poland", targetLat: 49.9822, targetLon: 20.0608, zoomScale: 1.5, desc: "Underground salt city.", photos: [], todo: [] },
+
+    wroclaw: { title: "Wrocław", region: "Poland", targetLat: 51.1079, targetLon: 17.0385, zoomScale: 1.5, desc: "City of bridges.", photos: [], todo: [] },
+
+    // PORTUGAL
+    algarve: { title: "Algarve", region: "Portugal", targetLat: 37.0194, targetLon: -7.9304, zoomScale: 1.5, desc: "Southern coastline.", photos: [], todo: [] },
+
+    aveiro: { title: "Aveiro", region: "Portugal", targetLat: 40.6405, targetLon: -8.6538, zoomScale: 1.5, desc: "Venice of Portugal.", photos: [], todo: [] },
+
+    azores: { title: "Azores", region: "Portugal", targetLat: 37.7412, targetLon: -25.6756, zoomScale: 1.5, desc: "Volcanic islands.", photos: [], todo: [] },
+
+    coimbra: { title: "Coimbra", region: "Portugal", targetLat: 40.2033, targetLon: -8.4103, zoomScale: 1.5, desc: "Historic university.", photos: [], todo: [] },
+
+    "douro valley": { title: "Douro Valley", region: "Portugal", targetLat: 41.1624, targetLon: -7.5385, zoomScale: 1.5, desc: "Vineyard landscape.", photos: [], todo: [] },
+
+    evora: { title: "Évora", region: "Portugal", targetLat: 38.5714, targetLon: -7.9135, zoomScale: 1.5, desc: "Medieval museum city.", photos: [], todo: [] },
+
+    lagos: { title: "Lagos", region: "Portugal", targetLat: 37.1028, targetLon: -8.6730, zoomScale: 1.5, desc: "Coastal surf town.", photos: [], todo: [] },
+
+    lisbon: { title: "Lisbon", region: "Portugal", targetLat: 38.7223, targetLon: -9.1393, zoomScale: 1.5, desc: "Hilly capital.", photos: [], todo: [] },
+
+    porto: { title: "Porto", region: "Portugal", targetLat: 41.1579, targetLon: -8.6291, zoomScale: 1.5, desc: "Port wine heritage.", photos: [], todo: [] },
+
+    sintra: { title: "Sintra", region: "Portugal", targetLat: 38.7936, targetLon: -9.3811, zoomScale: 1.5, desc: "Palace gardens.", photos: [], todo: [] },
+
+    // SWEDEN
+    "abisko national park": { title: "Abisko", region: "Sweden", targetLat: 68.3496, targetLon: 18.7845, zoomScale: 1.4, desc: "Northern lights site.", photos: [], todo: [] },
+
+    gothenburg: { title: "Gothenburg", region: "Sweden", targetLat: 57.7089, targetLon: 11.9746, zoomScale: 1.4, desc: "West coast city.", photos: [], todo: [] },
+
+    "gota canal": { title: "Göta Canal", region: "Sweden", targetLat: 58.4500, targetLon: 15.0000, zoomScale: 1.4, desc: "Historic waterway.", photos: [], todo: [] },
+
+    icehotel: { title: "Icehotel", region: "Sweden", targetLat: 67.8500, targetLon: 20.2200, zoomScale: 1.4, desc: "Famous ice structure.", photos: [], todo: [] },
+
+    "kosterhavet national park": { title: "Kosterhavet", region: "Sweden", targetLat: 58.8833, targetLon: 11.0000, zoomScale: 1.4, desc: "Marine wilderness.", photos: [], todo: [] },
+
+    malmo: { title: "Malmö", region: "Sweden", targetLat: 55.6050, targetLon: 13.0038, zoomScale: 1.4, desc: "Modern coastal city.", photos: [], todo: [] },
+
+    stockholm: { title: "Stockholm", region: "Sweden", targetLat: 59.3293, targetLon: 18.0686, zoomScale: 1.4, desc: "Archipelago capital.", photos: [], todo: [] },
+    
+    "swedish lapland": { title: "Swedish Lapland", region: "Sweden", targetLat: 66.5000, targetLon: 19.0000, zoomScale: 1.4, desc: "Northern expanse.", photos: [], todo: [] },
+
+    uppsala: { title: "Uppsala", region: "Sweden", targetLat: 59.8586, targetLon: 17.6389, zoomScale: 1.4, desc: "Historic university.", photos: [], todo: [] },
+
+    visby: { title: "Visby", region: "Sweden", targetLat: 57.6409, targetLon: 18.2946, zoomScale: 1.4, desc: "Walled medieval town.", photos: [], todo: [] },
+
+    // THAILAND
+    "ayutthaya historical park": { title: "Ayutthaya", region: "Thailand", targetLat: 14.3528, targetLon: 100.5667, zoomScale: 1.5, desc: "Ancient temple ruins.", photos: [], todo: [] },
+
+    bangkok: { title: "Bangkok", region: "Thailand", targetLat: 13.7563, targetLon: 100.5018, zoomScale: 1.5, desc: "Bustling capital.", photos: [], todo: [] },
+
+    "chiang mai": { title: "Chiang Mai", region: "Thailand", targetLat: 18.7061, targetLon: 98.9817, zoomScale: 1.5, desc: "Northern mountain city.", photos: [], todo: [] },
+
+    "chiang rai": { title: "Chiang Rai", region: "Thailand", targetLat: 19.9061, targetLon: 99.8333, zoomScale: 1.5, desc: "Famous White Temple.", photos: [], todo: [] },
+
+    "floating market": { title: "Floating Market", region: "Thailand", targetLat: 13.5186, targetLon: 99.9576, zoomScale: 1.5, desc: "River commerce.", photos: [], todo: [] },
+
+    "khao sok national park": { title: "Khao Sok NP", region: "Thailand", targetLat: 8.8967, targetLon: 98.5303, zoomScale: 1.5, desc: "Rainforest preserve.", photos: [], todo: [] },
+
+    "koh tao": { title: "Koh Tao", region: "Thailand", targetLat: 10.0898, targetLon: 99.8335, zoomScale: 1.5, desc: "Diving paradise.", photos: [], todo: [] },
+
+    krabi: { title: "Krabi", region: "Thailand", targetLat: 8.0863, targetLon: 98.9063, zoomScale: 1.5, desc: "Coastal cliffs.", photos: [], todo: [] },
+
+    "phi phi islands": { title: "Phi Phi Islands", region: "Thailand", targetLat: 7.7407, targetLon: 98.7784, zoomScale: 1.5, desc: "Iconic blue waters.", photos: [], todo: [] },
+
+    phuket: { title: "Phuket", region: "Thailand", targetLat: 7.8804, targetLon: 98.3923, zoomScale: 1.5, desc: "Major island resort.", photos: [], todo: [] },
+
+    // SCOTLAND
+    "dunnottar castle": { title: "Dunnottar Castle", region: "Scotland", targetLat: 56.9455, targetLon: -2.1979, zoomScale: 1.5, desc: "Ruined medieval fortress.", photos: [], todo: [] },
+
+    "eilean donan castle": { title: "Eilean Donan", region: "Scotland", targetLat: 57.2738, targetLon: -5.5161, zoomScale: 1.5, desc: "Iconic island castle.", photos: [], todo: [] },
+
+    edinburgh: { title: "Edinburgh", region: "Scotland", targetLat: 55.9533, targetLon: -3.1883, zoomScale: 1.5, desc: "Historic capital.", photos: [], todo: [] },
+
+    "isle of man": { title: "Isle of Man", region: "Scotland", targetLat: 54.2361, targetLon: -4.5481, zoomScale: 1.5, desc: "Self-governing island.", photos: [], todo: [] },
+
+    "isle of skye": { title: "Isle of Skye", region: "Scotland", targetLat: 57.4129, targetLon: -6.2298, zoomScale: 1.5, desc: "Misty rugged landscapes.", photos: [], todo: [] },
+
+    lochness: { title: "Loch Ness", region: "Scotland", targetLat: 57.3229, targetLon: -4.4244, zoomScale: 1.5, desc: "Famous deep lake.", photos: [], todo: [] },
+
+    orkney: { title: "Orkney", region: "Scotland", targetLat: 58.9819, targetLon: -2.9608, zoomScale: 1.5, desc: "Archipelago of history.", photos: [], todo: [] },
+
+    "outer hebrides": { title: "Outer Hebrides", region: "Scotland", targetLat: 57.6500, targetLon: -7.0000, zoomScale: 1.5, desc: "Remote island chain.", photos: [], todo: [] },
+
+    "rogie falls": { title: "Rogie Falls", region: "Scotland", targetLat: 57.5833, targetLon: -4.6167, zoomScale: 1.5, desc: "Beautiful waterfalls.", photos: [], todo: [] },
+
+    "stirling castle": { title: "Stirling Castle", region: "Scotland", targetLat: 56.1242, targetLon: -3.9450, zoomScale: 1.5, desc: "Important royal site.", photos: [], todo: [] }
+};
+
+
+let currentActiveCountryKey = null;
+let scene, camera, renderer, globeGroup, actualEarthMesh;
+let targetRotationX = 0, targetRotationY = 0;
+let isZoomed = false;
+
+let baseNormalizedScale = 1.0; 
+let currentScalePercentage = 1.0; 
+
+function init3DGLobe() {
+    const container = document.getElementById('canvas3d-container');
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0a101d); 
+
+    camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+    camera.position.set(0, 0, 3.5); 
+
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(width, height);
+    renderer.outputEncoding = THREE.sRGBEncoding; 
+    container.appendChild(renderer.domElement);
+
+    // --- HIGH-POWER MULTI-ANGLE LIGHTING ---
+    const ambientLight = new THREE.AmbientLight(0xffffff, 2.5);
+    scene.add(ambientLight);
+
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.0);
+    keyLight.position.set(6, 6, 6);
+    scene.add(keyLight);
+
+    const fillLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    fillLight.position.set(-6, -3, 4);
+    scene.add(fillLight);
+
+    globeGroup = new THREE.Group();
+    scene.add(globeGroup);
+
+    console.log("Loading model file from destination pathway: ../Models/Earth_1_12756.glb");
+    const loader = new THREE.GLTFLoader();
+    
+    loader.load(
+        '../Models/Earth_1_12756.glb', 
+        function (gltf) {
+            actualEarthMesh = gltf.scene;
+            
+            const box = new THREE.Box3().setFromObject(actualEarthMesh);
+            const size = box.getSize(new THREE.Vector3());
+            const maxDim = Math.max(size.x, size.y, size.z);
+            
+            baseNormalizedScale = 2.4 / maxDim; 
+            actualEarthMesh.scale.set(baseNormalizedScale, baseNormalizedScale, baseNormalizedScale);
+
+            const center = box.getCenter(new THREE.Vector3());
+            actualEarthMesh.position.x = -center.x * baseNormalizedScale;
+            actualEarthMesh.position.y = -center.y * baseNormalizedScale;
+            actualEarthMesh.position.z = -center.z * baseNormalizedScale;
+
+            const startLat = 45.0770; 
+            const startLon = 10.3651; 
+
+            const modelOffset = 180 ;
+
+            globeGroup.rotation.x = (startLat * Math.PI) / 180;
+            globeGroup.rotation.y = -((startLon + modelOffset)* Math.PI) / 180;
+
+            targetRotationX = globeGroup.rotation.x;
+            targetRotationY = globeGroup.rotation.y;
+
+            globeGroup.add(actualEarthMesh);
+        }
+    );
+
+    animate();
+    window.addEventListener('resize', onWindowResize);
+}
+
+function onWindowResize() {
+    const container = document.getElementById('canvas3d-container');
+    if (!container || !camera || !renderer) return;
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+    
+    if (globeGroup) {
+        if (!isZoomed) {
+            globeGroup.rotation.y += 0.0015;
+        } else {
+            globeGroup.rotation.y += (targetRotationY - globeGroup.rotation.y) * 0.1;
+            globeGroup.rotation.x += (targetRotationX - globeGroup.rotation.x) * 0.1;
+        }
+    }
+
+    if (actualEarthMesh) {
+        const targetScaleValue = baseNormalizedScale * currentScalePercentage;
+        actualEarthMesh.scale.set(targetScaleValue, targetScaleValue, targetScaleValue);
+    }
+
+    renderer.render(scene, camera);
+}
+
+function rotateGlobeTo(lat, lon, destinationScale) {
+    isZoomed = true;
+
+console.log("Rotating to -> Lat: " + lat + ", Lon: " + lon);
+
+    const modelOffset = 180;
+    const radLat = (lat * Math.PI) / 180;
+    const radLon = -((lon + modelOffset) * Math.PI) / 180;
+
+    targetRotationX = radLat;
+    targetRotationY = radLon;
+
+    currentScalePercentage = destinationScale;
+}
+
+function mapZoomIn() {
+    if (!actualEarthMesh) return;
+    if (currentScalePercentage < 4.0) { 
+        currentScalePercentage += 0.05; 
+    }
+    isZoomed = true;
+}
+
+function mapZoomOut() {
+    if (!actualEarthMesh) return;
+    if (currentScalePercentage > 0.4) {
+        currentScalePercentage -= 0.05;
+        console.log(`Zoom Scale: ${Math.round(currentScalePercentage * 100)}%`);
+    }
+    isZoomed = true;
+}
+
+function mapPan(dir) {
+    if(!globeGroup) return;
+    if(dir === 'left') targetRotationY -= 0.25;
+    if(dir === 'right') targetRotationY += 0.25;
+    if(dir === 'up') targetRotationX += 0.2;
+    if(dir === 'down') targetRotationX -= 0.2;
+    isZoomed = true;
+}
+
+function toggleSubMenu(event, countryKey) {
+    event.stopPropagation();
+    const flyout = document.getElementById('cascading-sub-menu');
+    if (currentActiveCountryKey === countryKey && flyout.classList.contains('open')) {
+        closeAllFlyouts();
+        return;
+    }
+    currentActiveCountryKey = countryKey;
+    document.querySelectorAll('.country-trigger').forEach(el => el.classList.remove('highlighted'));
+    const triggerRow = document.getElementById(`trigger-${countryKey}`);
+    if (triggerRow) triggerRow.classList.add('highlighted');
+    flyout.style.top = `${triggerRow.offsetTop}px`;
+    flyout.innerHTML = "";
+    
+    countryData[countryKey].places.forEach(item => {
+        const row = document.createElement('div');
+        row.className = "start-menu-item clickable";
+        row.innerHTML = `📍 <span class="item-text">${item.name}</span>`;
+        row.onclick = (e) => { e.stopPropagation(); zoomTo(item.key); };
+        flyout.appendChild(row);
+    });
+    flyout.classList.add('open');
+}
+
+function zoomTo(key) {
+    const data = locations[key];
+    if (!data) return;
+    closeAllFlyouts();
+    rotateGlobeTo(data.targetLat, data.targetLon, data.zoomScale);
+    document.getElementById('dataTitle').innerText = data.title;
+    document.getElementById('dataRegion').innerText = data.region;
+    document.getElementById('dataDesc').innerText = data.desc;
+    document.getElementById('address-input').value = `http://googleusercontent.com/maps.google.com/model/${key}`;
+    document.getElementById('country-view').classList.remove('active');
+    document.getElementById('details-view').classList.add('active');
+
+    const todoDescEl = document.getElementById('todoDescription');
+    if (todoDescEl) {
+        todoDescEl.innerText = data.todoDesc || ""; 
+    }
+
+    const actList = document.getElementById('rightActivities');
+    actList.innerHTML = "";
+    if (data.todo) {
+        data.todo.forEach(item => {
+            const li = document.createElement('li');
+            li.innerText = item;
+            actList.appendChild(li);
+        });
+    }
+
+    const snapDescEl = document.getElementById('snapshotDescription');
+    if (snapDescEl) {
+        snapDescEl.innerText = data.snapshotDesc || ""; 
+    }
+
+const leftPhotos = document.getElementById('leftPhotos');
+const rightGallery = document.getElementById('rightGallery');
+
+if (leftPhotos) leftPhotos.innerHTML = "";
+if (rightGallery) rightGallery.innerHTML = "";
+
+// Inject the images vertically
+if (data.photos && data.photos.length > 0) {
+    // .slice(0, 3) ensures only the first 3 images are used
+    data.photos.slice(0, 3).forEach((src) => {
+        const img = document.createElement('img');
+        img.src = src;
+        
+        // Force the layout rules to stack images vertically
+        img.style.width = "100%";
+        img.style.height = "auto";
+        img.style.display = "block";    /* Forces the image onto its own line */
+        img.style.marginBottom = "12px"; /* Adds a clean retro gap between stacked photos */
+
+        // Handle image loading errors gracefully
+        img.onerror = function() {
+            console.error("Failed to load image: " + src);
+            this.style.border = "1px dashed red";
+            this.alt = "Image missing (" + src + ")";
+        };
+
+        // If you want them in the Left Tab under Satellite Snapshot:
+        if (leftPhotos) leftPhotos.appendChild(img);
+        
+        // OR: If you want them in the Right Tab under Additional Photos instead, use:
+        // if (rightGallery) rightGallery.appendChild(img);
+    });
+}
+
+    document.getElementById('details-view').classList.add('active');
+}
+
+function closeAllFlyouts() {
+    document.getElementById('cascading-sub-menu').classList.remove('open');
+    document.querySelectorAll('.country-trigger').forEach(el => el.classList.remove('highlighted'));
+    currentActiveCountryKey = null;
+}
+function closeDetails() {
+    document.getElementById('details-view').classList.remove('active');
+    document.getElementById('country-view').classList.add('active');
+    resetSpace();
+}
+function resetSpace() {
+    closeAllFlyouts();
+    isZoomed = false;
+    currentScalePercentage = 1.0;
+    if(globeGroup) {
+        globeGroup.rotation.x = 0; 
+    }
+    document.getElementById('address-input').value = "http://maps.google.com/beta";
+}
+function closeBrowserWindow() {
+    console.log("Closing interface... Redirecting back to main portal layout.");
+    
+    window.location.href="../pages/still love u.html";
+}
+
+window.onload = init3DGLobe;
+document.addEventListener('click', closeAllFlyouts);
+    </script>
+</body>
+</html>

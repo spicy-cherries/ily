@@ -1,0 +1,123 @@
+:root {
+  --clr-vibrant-red: #ff0505;  
+  --clr-crimson: #9e1620;      
+  --clr-deep-wine: #4d2d39;    
+  --clr-midnight: #21253b;    
+  --clr-abyss: #0b0c10;        
+  
+  --clr-text-main: #e2e4eb;
+  --clr-text-muted: #8d93a5;
+  
+  --radius-soft: 8px;         
+  --radius-tight: 4px;        
+
+  --glow-soft: 0 8px 32px rgba(11, 12, 16, 0.5);
+  --glow-crimson: 0 0 15px rgba(255, 5, 5, 0.2);
+}
+
+
+body {
+  background-color: var(--clr-abyss);
+  background-image: radial-gradient(circle at center, var(--clr-midnight) 0%, var(--clr-abyss) 100%);
+  background-attachment: fixed;
+  color: var(--clr-text-main);
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  
+
+  margin: 0;
+  padding: 0;
+  height: 100vh; 
+  overflow: hidden; 
+}
+
+
+.cinematic-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  height: 100vh;           
+  width: 100vw;            
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+
+.cinematic-container .card {
+  max-width: 550px;
+  width: 100%;
+  text-align: center;
+  padding: 3rem 2.5rem;
+  
+  background: linear-gradient(145deg, rgba(77, 45, 57, 0.45), rgba(33, 37, 59, 0.45));
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px); 
+  
+  border: 1px solid rgba(255, 5, 5, 0.15);
+  border-radius: var(--radius-soft);
+  box-shadow: var(--glow-soft);
+}
+
+.cinematic-container h1 {
+  font-size: 1.8rem;
+  line-height: 1.4;
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 5, 5, 0.6), 0 0 20px rgba(158, 22, 32, 0.4);
+}
+
+.message-body p {
+  font-size: 1.15rem;
+  margin: 0.8rem 0;
+  color: var(--clr-text-muted);
+}
+
+.message-body p.text-glow {
+  color: #fff;
+  font-weight: 500;
+  text-shadow: 0 0 10px var(--clr-vibrant-red);
+}
+
+.cinematic-container .sub-prompt {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--clr-text-main);
+  opacity: 0.85;
+  margin-top: 2rem;
+  margin-bottom: 0;
+  font-style: italic;
+}
+
+
+.gloomy-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--clr-deep-wine), var(--clr-crimson), var(--clr-deep-wine), transparent);
+  border: none;
+  margin: 2rem 0;
+}
+
+.action-area {
+  margin-top: 2.5rem;
+}
+
+.btn {
+  display: inline-block;
+  background-color: var(--clr-crimson);
+  color: #fff;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--radius-tight);
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+  background-color: var(--clr-vibrant-red);
+  box-shadow: 0 0 15px rgba(255, 5, 5, 0.4);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Catcher Mini-Game</title>
+    <style>
+        /* --- Core Layout Resets --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #0b0711;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- Scoreboard & Lives Display --- */
+        .game-ui {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: #9c73b0;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .stats {
+            font-size: 18px;
+            color: #cccccc;
+        }
+
+        .stats span {
+            font-weight: bold;
+        }
+
+        #score { color: #00ffcc; }
+        #lives { color: #ff0055; }
+
+        /* --- Game Screen Arena --- */
+        .arena {
+            width: 450px;
+            height: 500px;
+            background-color: #000000;
+            border: 4px solid #3d2553;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: none; /* Hides mouse cursor so it doesn't get in the way of the catcher */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        /* --- Game Elements --- */
+        .basket {
+            width: 70px;
+            height: 15px;
+            background-color: #9c73b0;
+            border: 2px solid #ffffff;
+            position: absolute;
+            bottom: 10px;
+            left: 190px; /* Centered initially */
+            border-radius: 4px;
+            box-shadow: 0 0 12px #9c73b0;
+            pointer-events: none; /* Prevents the mouse from glitching over the element */
+        }
+
+        .falling-item {
+            width: 20px;
+            height: 20px;
+            background-color: #00ffcc;
+            border: 2px solid #ffffff;
+            position: absolute;
+            top: -20px;
+            left: 200px;
+            border-radius: 3px;
+            box-shadow: 0 0 10px #00ffcc;
+        }
+
+        /* --- Game Over Overlay Matrix --- */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(11, 7, 17, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            cursor: auto; /* Brings cursor back so you can click restart */
+        }
+
+        .overlay h2 {
+            font-size: 36px;
+            color: #ff0055;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .restart-btn {
+            background-color: #3d2553;
+            color: #ffffff;
+            border: 2px solid #9c73b0;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: all 0.2s;
+        }
+
+        .restart-btn:hover {
+            background-color: #9c73b0;
+            box-shadow: 0 0 15px #9c73b0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-ui">
+        <h1>Neon Catcher</h1>
+        <div class="stats">
+            Score: <span id="score">0</span> | Lives: <span id="lives">❤❤❤</span>
+        </div>
+    </div>
+
+    <div class="arena" id="gameArena">
+        <div class="basket" id="basket"></div>
+        
+        <div class="falling-item" id="fallingItem"></div>
+
+        <div class="overlay" id="gameOverScreen">
+            <h2>Game Over</h2>
+            <p style="font-size: 18px; color: #aaa;">Your Final Score: <span id="finalScore" style="color:#00ffcc; font-weight:bold;">0</span></p>
+            <button class="restart-btn" onclick="resetGame()">Try Again</button>
+        </div>
+    </div>
+
+    <script>
+        const arena = document.getElementById('gameArena');
+        const basket = document.getElementById('basket');
+        const item = document.getElementById('fallingItem');
+        const scoreDisplay = document.getElementById('score');
+        const livesDisplay = document.getElementById('lives');
+        const gameOverScreen = document.getElementById('gameOverScreen');
+        const finalScore = document.getElementById('finalScore');
+
+        let score = 0;
+        let lives = 3;
+        let speed = 4; // Starting vertical falling increment speed
+        let itemY = -20;
+        let itemX = 200;
+        let basketX = 190;
+        let gameActive = true;
+        let animationId;
+
+        // Track mouse movement to glide the basket horizontally
+        arena.addEventListener('mousemove', (e) => {
+            if (!gameActive) return;
+            
+            // Calculate mouse position relative to the arena boundaries
+            const arenaRect = arena.getBoundingClientRect();
+            let relativeX = e.clientX - arenaRect.left;
+            
+            // Keep entire basket bounded inside the arena frame sides
+            basketX = relativeX - (basket.offsetWidth / 2);
+            if (basketX < 0) basketX = 0;
+            if (basketX > arena.offsetWidth - basket.offsetWidth) {
+                basketX = arena.offsetWidth - basket.offsetWidth;
+            }
+            
+            basket.style.left = basketX + 'px';
+        });
+
+        function spawnItem() {
+            itemY = -20;
+            // Generate a random spawn coordinate along the top ceiling edge
+            itemX = Math.floor(Math.random() * (arena.offsetWidth - item.offsetWidth));
+            item.style.left = itemX + 'px';
+        }
+
+        function gameLoop() {
+            if (!gameActive) return;
+
+            // Move item downwards
+            itemY += speed;
+            item.style.top = itemY + 'px';
+
+            // Check Collision with bottom boundary (Catcher Zone)
+            if (itemY >= arena.offsetHeight - basket.offsetHeight - item.offsetHeight - 10) {
+                
+                // Collision alignment verify check (Is item over the basket container horizontally?)
+                if (itemX + item.offsetWidth >= basketX && itemX <= basketX + basket.offsetWidth) {
+                    score++;
+                    scoreDisplay.textContent = score;
+                    
+                    // Increment speed scale gradually every 5 points to build tension
+                    if (score % 5 === 0) speed += 0.75;
+                    
+                    spawnItem();
+                } 
+                // If it passes past the basket baseline floor boundary completely
+                else if (itemY >= arena.offsetHeight) {
+                    lives--;
+                    updateLivesDisplay();
+                    
+                    if (lives <= 0) {
+                        endGame();
+                        return;
+                    }
+                    spawnItem();
+                }
+            }
+
+            animationId = requestAnimationFrame(gameLoop);
+        }
+
+        function updateLivesDisplay() {
+            let hearts = '';
+            for(let i=0; i<lives; i++) hearts += '❤';
+            livesDisplay.textContent = hearts || 'None';
+        }
+
+        function endGame() {
+            gameActive = false;
+            cancelAnimationFrame(animationId);
+            finalScore.textContent = score;
+            gameOverScreen.style.visibility = 'visible';
+        }
+
+        function resetGame() {
+            score = 0;
+            lives = 3;
+            speed = 4;
+            gameActive = true;
+            
+            scoreDisplay.textContent = score;
+            updateLivesDisplay();
+            gameOverScreen.style.visibility = 'hidden';
+            
+            spawnItem();
+            gameLoop();
+        }
+
+        // Initialize engine sequence on frame load
+        spawnItem();
+        gameLoop();
+    </script>
+
+</body>
+</html>
