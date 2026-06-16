@@ -1,11 +1,10 @@
-/* --- RETRO WINDOWS 95/98 ENVIRONMENT VARIABLES --- */
 :root {
     --win-gray: #d4d0c8;
     --win-border-light: #ffffff;
     --win-border-dark: #808080;
     --win-blue-start: #0a246a;
     --win-blue-end: #a6caf0;
-    --map-blue: #040914; /* Deep space dark tone to frame the 3D globe */
+    --map-blue: #040914;
     --link-blue: #0000cc;
     
     --start-bg: #c0c0c0;
@@ -32,7 +31,6 @@ body {
     overflow: hidden;
 }
 
-/* --- WORKSPACE WINDOW WRAPPER FRAME --- */
 #browser-window {
     width: 100%;
     max-width: 1100px;
@@ -125,7 +123,6 @@ body {
     overflow: hidden;
 }
 
-/* --- THE MAIN SIDEBAR ENGINE --- */
 #maps-sidebar {
     width: var(--sidebar-width);
     background: var(--start-bg);
@@ -240,7 +237,6 @@ body {
     margin: 5px 2px;
 }
 
-/* --- THE CASCADING FLY-OUT TAB PANEL --- */
 .win98-flyout-tab {
     position: absolute;
     left: 100%;
@@ -271,7 +267,6 @@ body {
     color: #ff0000; 
 }
 
-/* --- LOCATION ARRAYS SHEET DATA PACKAGES --- */
 .retro-details-card { 
     display: flex; 
     flex-direction: column; 
@@ -313,7 +308,6 @@ body {
     background: #fff;
 }
 
-/* --- RIGHT VIEWPORT STAGE CONFIGS --- */
 #viewport {
     flex-grow: 1;
     background: var(--map-blue);
@@ -325,7 +319,6 @@ body {
     z-index: 10;
 }
 
-/* Round aperture housing the dynamic live-rendered 3D canvas viewport meshes */
 .earth-lens {
     position: absolute;
     top: 0;
@@ -336,7 +329,6 @@ body {
     background: transparent;
 }
 
-/* Three.js Canvas Element Container layout mapping */
 #canvas3d-container {
     width: 100%;
     height: 100%;
@@ -350,7 +342,6 @@ body {
     height: 100% !important;
 }
 
-/* --- NAVIGATION CONTROL SYSTEM OVERLAYS --- */
 .retro-map-controls {
     position: absolute;
     top: 15px;

@@ -1,11 +1,9 @@
-/* --- Global Master Document Configuration resets --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Custom background image attached directly to body system */
 html, body {
     width: 100%;
     min-height: 100vh;
@@ -17,11 +15,11 @@ body {
     font-size: 13px;
     line-height: 1.3;
     background-image: url('../images/space_bg_purble.jpg');
-    background-size: contain;     /* Fits the image nicely without massive zooming */
-    background-repeat: no-repeat; /* Stops it from tiling */
-    background-position: center;  /* Centers it on the screen */
-    background-attachment: fixed; /* Keeps it locked in place */
-    background-color: #000000;    /* Fills the empty edges with black */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-color: #000000;
 }
 
 a {
@@ -35,7 +33,6 @@ a:hover {
     color: #d2a4e2;
 }
 
-/* --- Universal Structural Fixed Header --- */
 .fp-navbar {
     background: #000000;
     border-bottom: 3px solid #27143a;
@@ -104,18 +101,16 @@ a:hover {
     margin-left: 8px;
 }
 
-/* --- Profile Splitter Matrix Frame --- */
 .main-container {
     width: 100%;
     max-width: 1200px;
     margin: 30px auto;
-    padding: 0 20px 60px 20px; /* Added extra bottom padding to replace footer whitespace */
+    padding: 0 20px 60px 20px;
     display: grid;
     grid-template-columns: 400px 1fr;
     gap: 30px;
 }
 
-/* --- Semi-Transparent Thick Profile Panels --- */
 .box {
     background-color: rgba(0, 0, 0, 0.9); 
     border: 4px solid #3d2553; 
@@ -136,7 +131,6 @@ a:hover {
     padding: 12px;
 }
 
-/* --- Left Structural Module Specifications --- */
 .ad-ribbon {
     margin-bottom: 20px;
 }
@@ -244,7 +238,6 @@ a:hover {
     color: #888888;
 }
 
-/* --- Right Structural Module Specifications --- */
 .container-text h3 {
     font-size: 14px;
     color: #ffffff;
@@ -270,7 +263,6 @@ a:hover {
     color: #444444;
 }
 
-/* Friend Panel Setup */
 .friend-total {
     margin-bottom: 15px;
     font-size: 13px;
@@ -317,7 +309,6 @@ a:hover {
     margin-top: 20px;
 }
 
-/* Thick Comment Table Element Settings */
 .comments-counter-meta {
     border-bottom: 2px solid #3d2553;
     padding-bottom: 8px;
@@ -382,7 +373,6 @@ a:hover {
     font-size: 12px;
 }
 
-/* --- Responsive Adaptability Override Matrix --- */
 @media (max-width: 900px) {
     .main-container {
         grid-template-columns: 1fr;
