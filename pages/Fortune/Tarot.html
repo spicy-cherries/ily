@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarot Meanings Compendium</title>
+    <link rel="stylesheet" href="tarotStyle.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="collage-bg"></div>
+    <div class="vignette-overlay"></div>
+
+    <a href="Spread.html" class="nav-back-btn">
+        <span class="star-icon">✦</span> Back to Spread
+    </a>
+
+    <div class="library-container">
+        <header class="library-header">
+            <h1>The Sacred Compendium</h1>
+            <p class="subtitle">An alchemical archive of all seventy-eight keys</p>
+            <div class="dividing-star">✦</div>
+        </header>
+
+        <main class="meanings-grid" id="meanings-grid"></main>
+    </div>
+
+    <script>
+const tarotDeck = [
+    // ==========================================
+    // MAJOR ARCANA (22 Cards)
+    // ==========================================
+    { title: "The Fool", image: "01-fool.webp", text: "New beginnings, optimism, innocence, freedom, spontaneity, and a leap of faith." },
+    { title: "The Magician", image: "01-magician.webp", text: "Manifestation, willpower, desire, resourcefulness, capability, and skill." },
+    { title: "The High Priestess", image: "02-priestess-scaled.webp", text: "Intuition, sacred wisdom, mystery, the divine feminine, and subconscious guidance." },
+    { title: "The Empress", image: "03-empress-scaled.webp", text: "Femininity, beauty, nature, nurturing, growth, and absolute abundance." },
+    { title: "The Emperor", image: "04-emperor-scaled.webp", text: "Authority, structure, solid establishment, control, security, and protective leadership." },
+    { title: "The Hierophant", image: "05-hierophant-scaled.webp", text: "Spiritual wisdom, religious beliefs, conformity, tradition, and structured guidance." },
+    { title: "The Lovers", image: "06-lovers-scaled.webp", text: "Love, harmony, relationships, core value alignment, and choosing a definitive path." },
+    { title: "The Chariot", image: "07-chariot-scaled.webp", text: "Direction, control, willpower, victory, determination, and overcoming obstacles." },
+    { title: "Justice", image: "08-justice-scaled.webp", text: "Inner strength, raw courage, quiet persuasion, patient influence, and soft compassion." },
+    { title: "The Hermit", image: "09-hermit-scaled.webp", text: "Soul-searching, introspection, inner guidance, purposeful solitude, and reflection." },
+    { title: "Wheel of Fortune", image: "10-fortune-scaled.webp", text: "Good luck, karma, natural life cycles, destiny, a sudden turning point, and changing fortunes." },
+    { title: "Strength", image: "11-strength-scaled.webp", text: "Justice, fairness, absolute truth, cause and effect, law, and structural balance." },
+    { title: "The Traitor", image: "12-traitor-scaled.webp", text: "Pause, intentional surrender, letting go of control, sacrifice, and new perspectives." },
+    { title: "Death", image: "13-death-scaled.webp", text: "Endings, sweeping change, total transformation, transition, and clearing away old dynamics." },
+    { title: "Temperance", image: "14-temperance-scaled.webp", text: "Balance, moderation, patience, purposeful alchemy, meaning, and divine alignment." },
+    { title: "The Devil", image: "15-devil-scaled.webp", text: "Shadow self, unhealthy attachments, addiction, restriction, and a call to reclaim freedom." },
+    { title: "The Tower", image: "16-tower-scaled.webp", text: "Sudden change, disruption, upheaval, chaos, revelation, and breaking down illusions." },
+    { title: "The Star", image: "17-star-scaled.webp", text: "Hope, faith, cosmic purpose, spiritual renewal, serenity, and a clear path forward." },
+    { title: "The Moon", image: "18-moon-scaled.webp", text: "Illusion, fear, anxiety, deception, the hidden subconscious, and shifting intuition." },
+    { title: "The Sun", image: "19-sun-scaled.webp", text: "Positivity, fun, warmth, success, clear vitality, celebration, and supreme happiness." },
+    { title: "Judgement", image: "20-judgement-scaled.webp", text: "Reflection, cosmic rebirth, inner evaluation, an important calling, and absolution." },
+    { title: "The World", image: "21-world-scaled.webp", text: "Completion, integration, absolute accomplishment, fulfillment, and a beautifully closed cycle." },
+
+    // ==========================================
+    // SUIT OF WANDS (14 Cards)
+    // ==========================================
+    { title: "Ace of Wands", image: "wands-01-scaled.webp", text: "Inspiration, new opportunities, growth, potential, and creative sparks." },
+    { title: "Two of Wands", image: "wands-02-scaled.webp", text: "Future planning, progress, making decisions, discovery, and leaving your comfort zone." },
+    { title: "Three of Wands", image: "wands-03-scaled.webp", text: "Expansion, foresight, looking ahead, overseas opportunities, and strategy." },
+    { title: "Four of Wands", image: "wands-04-scaled.webp", text: "Celebration, joy, harmony, homecoming, community, and relaxation." },
+    { title: "Five of Wands", image: "wands-05-scaled.webp", text: "Conflict, competition, disagreements, rivalry, and structural tension." },
+    { title: "Six of Wands", image: "wands-06-scaled.webp", text: "Success, public recognition, victory, progress, and self-confidence." },
+    { title: "Seven of Wands", image: "wands-07-scaled.webp", text: "Challenge, competition, perseverance, defense, and holding your ground." },
+    { title: "Eight of Wands", image: "wands-08-scaled.webp", text: "Speed, rapid movement, quick action, alignment, and fast-paced travel." },
+    { title: "Nine of Wands", image: "wands-09-scaled.webp", text: "Resilience, courage, persistence, test of faith, and pushing through fatigue." },
+    { title: "Ten of Wands", image: "wands-10-scaled.webp", text: "Burden, extra responsibility, hard work, stress, and reaching a breaking point." },
+    { title: "Page of Wands", image: "wands-11-page-scaled.webp", text: "Inspiration, ideas, discovery, limitless potential, and free spirit." },
+    { title: "Knight of Wands", image: "wands-12-knight-scaled.webp", text: "Energy, passion, lust, action, adventure, and impulsiveness." },
+    { title: "Queen of Wands", image: "wands-13-queen-scaled.webp", text: "Courage, confidence, independence, social vitality, and determination." },
+    { title: "King of Wands", image: "wands-14-king-scaled.webp", text: "Natural leadership, vision, entrepreneurship, honor, and source authority." },
+
+    // ==========================================
+    // SUIT OF CUPS (14 Cards)
+    // ==========================================
+    { title: "Ace of Cups", image: "cups-01-scaled.webp", text: "Love, new emotional beginnings, intuition, spirituality, and creativity." },
+    { title: "Two of Cups", image: "cups-02-scaled.webp", text: "Unified love, mutual attraction, partnership, and deep emotional connections." },
+    { title: "Three of Cups", image: "cups-03-scaled.webp", text: "Celebration, friendship, creativity, collaborations, and community." },
+    { title: "Four of Cups", image: "cups-04-scaled.webp", text: "Apathy, discontent, reevaluation, and missing out on offered blessings." },
+    { title: "Five of Cups", image: "cups-05-scaled.webp", text: "Regret, loss, focusing on the negative, and mourning past disruptions." },
+    { title: "Six of Cups", image: "cups-06-scaled.webp", text: "Nostalgia, childhood memories, innocence, joy, and emotional reunions." },
+    { title: "Seven of Cups", image: "cups-07-scaled.webp", text: "Searching for choices, illusions, wishful thinking, and multiple opportunities." },
+    { title: "Eight of Cups", image: "cups-08-scaled.webp", text: "Disappointment, abandonment, walking away, and embarking on a journey." },
+    { title: "Nine of Cups", image: "cups-09-scaled.webp", text: "Contentment, satisfaction, gratitude, wish fulfillment, and pleasure." },
+    { title: "Ten of Cups", image: "cups-10-scaled.webp", text: "Divine love, blissful relationships, alignment, and family harmony." },
+    { title: "Page of Cups", image: "cups-11-page-scaled.webp", text: "Creative opportunities, intuitive messages, curiosity, and possibilities." },
+    { title: "Knight of Cups", image: "cups-12-knight-scaled.webp", text: "Creativity, romance, charm, imagination, and following your heart." },
+    { title: "Queen of Cups", image: "cups-13-queen-scaled.webp", text: "Compassion, emotional security, intuition, and protective warmth." },
+    { title: "King of Cups", image: "cups-14-king-scaled.webp", text: "Emotional balance, control, generosity, wisdom, and diplomatic leadership." },
+
+    // ==========================================
+    // SUIT OF SWORDS (14 Cards)
+    // ==========================================
+    { title: "Ace of Swords", image: "swords-01-scaled.webp", text: "Breakthroughs, new ideas, mental clarity, absolute truth, and success." },
+    { title: "Two of Swords", image: "swords-02-scaled.webp", text: "Difficult decisions, weighing options, gridlock, and avoidance." },
+    { title: "Three of Swords", image: "swords-03-scaled.webp", text: "Heartbreak, emotional pain, sorrow, grief, and necessary release." },
+    { title: "Four of Swords", image: "swords-04-scaled.webp", text: "Rest, relaxation, meditation, recovery, and quiet sanctuary." },
+    { title: "Five of Swords", image: "swords-05-scaled.webp", text: "Conflict, disagreements, competition, win at all costs, and hostility." },
+    { title: "Six of Swords", image: "swords-06-scaled.webp", text: "Transition, change, moving away, necessary distance, and finding calm shores." },
+    { title: "Seven of Swords", image: "swords-07-scaled.webp", text: "Betrayal, deception, getting away with something, strategy, and secrecy." },
+    { title: "Eight of Swords", image: "swords-08-scaled.webp", text: "Negative self-talk, restriction, feeling trapped, and mental isolation." },
+    { title: "Nine of Swords", image: "swords-09-scaled.webp", text: "Anxiety, worry, fear, nightmares, trauma, and deep stress." },
+    { title: "Ten of Swords", image: "swords-10-scaled.webp", text: "Painful endings, deep betrayal, hitting rock bottom, and fresh rebirth." },
+    { title: "Page of Swords", image: "swords-11-page-scaled.webp", text: "New ideas, curiosity, mental energy, communications, and sharp wit." },
+    { title: "Knight of Swords", image: "swords-12-knight-scaled.webp", text: "Ambition, fast action, driven attitude, communication, and impulsiveness." },
+    { title: "Queen of Swords", image: "swords-13-queen-scaled.webp", text: "Independent nature, unbiased judgment, clear boundaries, and direct truth." },
+    { title: "King of Swords", image: "swords-14-king-scaled.webp", text: "Mental discipline, power, authority, objective truth, and supreme intellect." },
+
+    // ==========================================
+    // SUIT OF PENTACLES (14 Cards)
+    // ==========================================
+    { title: "Ace of Pentacles", image: "pentacles-01-scaled.webp", text: "New financial opportunities, abundance, realization, and manifest wealth." },
+    { title: "Two of Pentacles", image: "pentacles-02-scaled.webp", text: "Multiple priorities, balance, time management, adaptability, and harmony." },
+    { title: "Three of Pentacles", image: "pentacles-03-scaled.webp", text: "Teamwork, structural collaboration, building skills, and quality output." },
+    { title: "Four of Pentacles", image: "pentacles-04-scaled.webp", text: "Saving money, security, stability, control, and a scarcity mindset." },
+    { title: "Five of Pentacles", image: "pentacles-05-scaled.webp", text: "Financial loss, poverty, isolation, bad luck, and seeking support." },
+    { title: "Six of Pentacles", image: "pentacles-06-scaled.webp", text: "Generosity, charity, sharing wealth, gratitude, and mutual support." },
+    { title: "Seven of Pentacles", image: "pentacles-07-scaled.webp", text: "Long-term planning, sustainable growth, patience, investment, and rewards." },
+    { title: "Eight of Pentacles", image: "pentacles-08-scaled.webp", text: "Apprenticeship, education, building expertise, craft skill, and dedication." },
+    { title: "Nine of Pentacles", image: "pentacles-09-scaled.webp", text: "Fruits of labor, financial independence, self-sufficiency, and luxury." },
+    { title: "Ten of Pentacles", image: "pentacles-10-scaled.webp", text: "Legacy, family heritage, long-term wealth, stability, and culmination." },
+    { title: "Page of Pentacles", image: "pentacles-11-page-scaled.webp", text: "Manifestation, financial opportunities, skill development, and ambition." },
+    { title: "Knight of Pentacles", image: "pentacles-12-knight-scaled.webp", text: "Hard work, structural productivity, routine, patience, and dependability." },
+    { title: "Queen of Pentacles", image: "pentacles-13-queen-scaled.webp", text: "Practicality, security, nurturing nature, domestic luxury, and abundance." },
+    { title: "King of Pentacles", image: "pentacles-14-king-scaled.webp", text: "Wealth, business acumen, absolute security, abundance, and structural success." }
+];
+
+        // Dynamically build the cards on screen load
+        window.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('meanings-grid');
+            
+            tarotDeck.forEach(card => {
+                const cardMarkup = `
+                    <div class="library-card">
+                        <div class="card-art-box">
+                            <img src="tarot-cards/${card.image}" alt="${card.title}" onerror="this.style.display='none'">
+                        </div>
+                        <div class="card-details">
+                            <h3>${card.title}</h3>
+                            <p>${card.text}</p>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardMarkup;
+            });
+        });
+    </script>
+</body>
+</html>

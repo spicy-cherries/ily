@@ -1,0 +1,208 @@
+/* ==========================================================================
+   ECLECTIC PORTAL STYLESHEET
+   Color Palette Reference: #1D1F1B, #243245, #C4A46D, #AB7F8B, #603C53
+   ========================================================================== */
+
+/* Full-Screen Swirling Background Configuration */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    color: #f3e9dc;
+    overflow-x: hidden;
+    position: relative;
+    
+    /* Using the vibrant colorful swirl image as full cover background */
+    background-image: url('../../images/eclec-bg.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: #1D1F1B;
+}
+
+/* Atmospheric dark vignette overlay to ensure text stays friendly and readable */
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle, rgba(29, 31, 27, 0.5) 20%, rgba(29, 31, 27, 0.92) 85%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Central Workspace Wrapper */
+.portal-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 680px;
+    padding: 40px 24px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* Retro Header Decorators */
+.symbol-banner {
+    color: #C4A46D; /* Muted Gold */
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    letter-spacing: 8px;
+    user-select: none;
+}
+
+.main-title {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 3.8rem;
+    color: #C4A46D;
+    margin: 0;
+    letter-spacing: 6px;
+    text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+}
+
+.subtitle-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px 0 25px 0;
+}
+
+.sub-title {
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: #AB7F8B; /* Dusty Rose */
+    margin: 0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.retro-decorator {
+    font-size: 1.5rem;
+    color: #AB7F8B;
+    user-select: none;
+    margin: 0 12px;
+}
+
+.portal-description {
+    font-weight: 300;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: #f3e9dc;
+    line-height: 1.6;
+    margin: 0 auto 40px auto;
+    max-width: 500px;
+}
+
+/* Rounded, Whimsical Option Layout Grid */
+.button-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+/* Pillow-Soft, Friendly Navigation Cards */
+.portal-link-card {
+    background: rgba(36, 50, 69, 0.85); /* Slate Blue */
+    border: 3px solid rgba(171, 127, 139, 0.4); /* Dusty Rose Border hint */
+    border-radius: 30px; /* Pillow-soft round curves */
+    padding: 30px 20px;
+    width: 100%;
+    max-width: 280px;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: #f3e9dc;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.portal-link-card.special-border {
+    border-color: rgba(196, 164, 109, 0.4); /* Muted Gold tint alternative */
+}
+
+/* Card Icons */
+.card-icon {
+    font-size: 2.5rem;
+    color: #C4A46D;
+    margin-bottom: 12px;
+    transition: transform 0.4s ease;
+}
+
+.portal-link-card h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    color: #C4A46D;
+    margin: 0 0 10px 0;
+    letter-spacing: 1px;
+}
+
+.portal-link-card p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    font-weight: 300;
+    margin: 0 0 20px 0;
+    color: #e2d7ca;
+}
+
+/* Round Badge Indicator */
+.card-badge {
+    background: #603C53; /* Deep Plum */
+    border: 1px solid #AB7F8B;
+    padding: 6px 16px;
+    border-radius: 20px; /* Completely capsule-round */
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: auto; /* Pushes badge gracefully to the bottom */
+}
+
+/* Shifting Hover Reactions */
+.portal-link-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    background: rgba(96, 60, 83, 0.95); /* Swaps background to rich warm Plum on hover */
+    border-color: #C4A46D;
+    box-shadow: 0 15px 35px rgba(196, 164, 109, 0.25);
+}
+
+.portal-link-card:hover .card-icon {
+    transform: rotate(45deg) scale(1.15); /* Whimsical twist effect */
+}
+
+.portal-link-card:hover .card-badge {
+    background: #243245; /* Swaps badge to deep Slate Blue on hover */
+    border-color: #C4A46D;
+}
+
+/* Footer Section Decorator */
+.footer-divider {
+    color: #C4A46D;
+    font-size: 1.2rem;
+    margin-top: 45px;
+    user-select: none;
+    opacity: 0.6;
+}
+
+/* Responsive Scaling optimization */
+@media (max-width: 640px) {
+    .button-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    .main-title {
+        font-size: 2.8rem;
+    }
+}

@@ -1,0 +1,367 @@
+/* --- Base Reset & Setup --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #090214;
+    color: #e6e1f2;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* --- Cosmic Space Canvas Background --- */
+.stars, .twinkling {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100%; height: 100%;
+    display: block;
+    z-index: -1;
+}
+
+.stars {
+    background: #090214 url('https://www.script-tutorials.com/demos/360/images/stars.png') repeat top center;
+}
+
+.twinkling {
+    background: transparent url('https://www.script-tutorials.com/demos/360/images/twinkling.png') repeat top center;
+    animation: move-twink-back 250s linear infinite;
+}
+
+@keyframes move-twink-back {
+    from { background-position: 0 0; }
+    to { background-position: -10000px 5000px; }
+}
+
+/* --- Sanctuary Layout Container --- */
+.oracle-container {
+    background: rgba(18, 9, 31, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(138, 79, 255, 0.25);
+    padding: 2.5rem;
+    border-radius: 24px;
+    width: 90%;
+    max-width: 460px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 40px rgba(123, 44, 191, 0.15);
+}
+
+h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    color: #d6b4fc;
+    margin-bottom: 0.5rem;
+    letter-spacing: 3px;
+    text-shadow: 0 0 12px rgba(214, 180, 252, 0.4);
+}
+
+.subtitle {
+    font-size: 0.85rem;
+    color: #9d4edd;
+    margin-bottom: 2rem;
+    line-height: 1.4;
+}
+
+/* --- Intuitive Interface Controls --- */
+.input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 2rem;
+}
+
+input[type="text"] {
+    background: rgba(10, 4, 19, 0.9);
+    border: 1px solid #5a189a;
+    padding: 14px 20px;
+    border-radius: 4px; /* Classic gothic framing sharpness */
+    color: #fff;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+input[type="text"]:focus {
+    border-color: #c77dff;
+    box-shadow: 0 0 12px rgba(199, 125, 255, 0.3);
+}
+
+button {
+    background: linear-gradient(135deg, #5a189a, #7b2cbf);
+    color: #fff;
+    border: 1px solid #9d4edd;
+    padding: 14px;
+    border-radius: 4px;
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #7b2cbf, #9d4edd);
+    box-shadow: 0 0 15px rgba(157, 78, 221, 0.5);
+}
+
+/* --- Proportional Tarot Card Engine --- */
+.oracle-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+/* 1. Stop the card or its container from swaying/floating completely */
+.card-container, .card {
+    animation: none !important;
+    transform: none;
+}
+
+/* 2. Hide the star banner frame box sitting on top of the card completely */
+.card-back-pattern, .inner-frame, .card-face::before {
+    display: none !important;
+}
+
+/* 3. Re-structure the front face so the image takes up its proper space */
+.card-face.card-front {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Aligns everything from the top down */
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    overflow: hidden;
+    background: #140b24; /* Seamless dark backing color */
+}
+
+/* 4. Fix the image wrapper so it takes up the top portion cleanly */
+.card-image-wrapper {
+    width: 100%;
+    height: 70%; /* Gives the artwork 70% of the vertical space */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* 5. Ensure the .webp artwork fills the area neatly without being cut off */
+#card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Keeps the whole card art fully visible inside the box */
+    display: block;
+    background: #ffffff; /* Gives the minimalist ink sketch a clean white background matching its canvas */
+}
+
+/* 6. Push the text data section down beautifully to the bottom 30% */
+.card-info {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    background: #0d0618; /* Slightly darker shade to give contrast to the text zone */
+}
+
+
+
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+/* Ensure the front face of your card can display content */
+.card-face.card-front {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Force the picture container box to take up the layout space */
+.card-image-wrapper {
+    width: 100%;
+    height: 65%; /* Leaves 35% of the card height for the Title and Text reading below */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #140b24; /* A dark color so you can see if the box structure is working */
+    overflow: hidden;
+}
+
+/* Force the .webp picture asset to fill the bounding box rules */
+#card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Change to 'contain' if your cards look cut off on the sides */
+    display: block;
+}
+
+.card-back-pattern {
+    border: 1px solid rgba(188, 150, 230, 0.4);
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #130624;
+}
+
+.inner-frame {
+    font-size: 2.5rem;
+    color: rgba(188, 150, 230, 0.7);
+    border: 1px dashed rgba(188, 150, 230, 0.3);
+    width: 85%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Card Front Art Frame & Reading Text */
+.card-front {
+    background: #110721;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-image-wrapper {
+    width: 100%;
+    height: 60%; 
+    background: #000;
+    border-bottom: 2px solid #bc96e6;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-image-wrapper canvas {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Keeps aspect ratios safe and properly bounded */
+    display: block;
+}
+
+.card-info {
+    width: 100%;
+    height: 40%; /* Bottom portion hosts names and interpretations */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #170b2b;
+}
+
+.card-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    color: #e0aaff;
+    margin-bottom: 6px;
+    text-align: center;
+}
+
+.card-reading {
+    font-size: 0.75rem;
+    line-height: 1.35;
+    color: #c77dff;
+    text-align: center;
+    overflow-y: auto; /* Handles longer dynamic descriptions elegantly */
+    padding: 0 4px;
+}
+
+/* History Context Echo */
+.question-echo {
+    font-style: italic;
+    font-size: 0.8rem;
+    color: #9d4edd;
+    margin-top: 1rem;
+    min-height: 18px;
+}
+/* Fixed Positioning Context for the Meanings Library Portal Button */
+.nav-library-btn {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 100;
+    
+    background: rgba(26, 15, 46, 0.75);
+    border: 1px solid #bc96e6;
+    border-radius: 30px;
+    padding: 10px 20px;
+    
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    color: #e0aaff;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    backdrop-filter: blur(5px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 15px rgba(188, 150, 230, 0.1);
+}
+
+/* Hover Interface Transformations */
+.nav-library-btn:hover {
+    color: #ffffff;
+    background: #5c2092;
+    border-color: #e0aaff;
+    box-shadow: 0 0 20px rgba(224, 170, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Make the internal cosmic symbol spark rotate cleanly on focus transition */
+.nav-library-btn span {
+    font-size: 0.95rem;
+    transition: transform 0.6s ease;
+}
+
+.nav-library-btn:hover span {
+    transform: rotate(180deg);
+}
+
+/* Responsive Handling: Shifts clean behavior parameters to center for narrow view screens */
+@media (max-width: 768px) {
+    .nav-library-btn {
+        position: absolute;
+        top: 15px;
+        right: 50%;
+        transform: translateX(50%);
+    }
+    .nav-library-btn:hover {
+        transform: translateX(50%) translateY(-2px);
+    }
+}

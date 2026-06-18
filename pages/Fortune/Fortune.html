@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystic Tarot Reader</title>
+    
+    <link rel="stylesheet" href="fortuneStyle.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Poppins:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <style>
+        /* Global Whimsical Occult Settings */
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            overflow-x: hidden;
+            position: relative;
+            font-family: 'Poppins', sans-serif;
+            color: #f3e9dc; 
+        }
+
+        /* Balanced Collage Overlay matching image_356088.jpg colors */
+        .collage-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('../../images/oracle-bg.jpg'); /* Updated reference to color palette backdrop image */
+            background-size: cover;
+            background-position: center;
+            opacity: 0.22; 
+            mix-blend-mode: normal; 
+            z-index: -2;
+            filter: blur(0.5px);
+            pointer-events: none;
+        }
+
+        /* Moody vignette frame holding focus in the center */
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 70%, rgba(6, 7, 24, 0.95) 95%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Friendly, Rounded Input Fields */
+        .oracle-input {
+            width: 100%;
+            max-width: 420px;
+            background: rgba(36, 50, 69, 0.85); /* Slate Blue from palette */
+            border: 2px solid rgba(196, 164, 109, 0.4); /* Muted Gold trim */
+            border-radius: 25px; /* Round and friendly */
+            padding: 14px 25px;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 20px;
+            outline: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .oracle-input:focus {
+            border-color: #C4A46D; /* Muted Gold */
+            background: rgba(36, 50, 69, 0.95);
+            box-shadow: 0 0 15px rgba(196, 164, 109, 0.3);
+        }
+
+        /* Pillow-Soft Friendly Button */
+        .oracle-button {
+            width: 100%;
+            max-width: 420px;
+            background: linear-gradient(135deg, #603C53 0%, #4a2b3f 100%); /* Deep Plum from palette */
+            border: 2px solid #AB7F8B; /* Dusty Rose */
+            border-radius: 25px; /* Smooth rounded shape */
+            padding: 14px;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .oracle-button:hover {
+            background: linear-gradient(135deg, #AB7F8B 0%, #603C53 100%); /* Flipped gradient on hover */
+            border-color: #C4A46D;
+            box-shadow: 0 8px 25px rgba(171, 127, 139, 0.4);
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        /* COZY ROUNDED CARD FRAME REVEAL */
+        #oracle-card-display {
+            display: none;
+            width: 310px;
+            height: 530px;
+            flex-direction: column;
+            border: 3px solid #C4A46D; /* Beautiful gold framing */
+            border-radius: 30px; /* Fully soft and friendly corners */
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            background: #243245; /* Deep Slate Blue background layer */
+            margin-top: 35px;
+            margin-bottom: 60px;
+            animation: ritualFadeIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+        }
+
+        /* Inner canvas frame with soft curves */
+        .artwork-canvas {
+            width: 100%;
+            height: 66%;
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding: 16px;
+            box-sizing: border-box;
+            border-bottom: 2px solid #C4A46D;
+        }
+
+        .artwork-canvas img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 12px; /* Softens up the card artwork display */
+        }
+
+        /* Description container matching palette colors */
+        .reading-details {
+            width: 100%;
+            height: 34%;
+            background: linear-gradient(to bottom, #243245 0%, #1D1F1B 100%);
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        /* Decorative Retro Elements styles */
+        .retro-decorator {
+            font-size: 1.5rem;
+            color: #AB7F8B;
+            user-select: none;
+            margin: 0 10px;
+        }
+
+        @keyframes ritualFadeIn {
+            from { opacity: 0; transform: translateY(25px) scale(0.95); filter: blur(3px); }
+            to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="collage-bg"></div>
+    <div class="vignette"></div>
+
+    <!-- DELICATE NAVIGATION PORTALS (ROUNDED & PALETTE SYNCED) -->
+    <a href="Eclectics.html" id="fixed-oracle-btn" style="position: fixed !important; top: 20px !important; left: 20px !important; z-index: 99999 !important; background: rgba(36, 50, 69, 0.9) !important; border: 2px solid #AB7F8B !important; border-radius: 20px !important; padding: 6px 16px !important; font-family: 'Poppins', sans-serif !important; font-weight: 600 !important; font-size: 0.75rem !important; color: #ffffff !important; text-decoration: none !important; text-transform: uppercase !important; letter-spacing: 1px !important; display: flex !important; align-items: center !important; gap: 6px !important; backdrop-filter: blur(4px) !important; -webkit-backdrop-filter: blur(4px) !important; box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important; transition: all 0.3s ease !important;" 
+       onmouseover="this.style.background='#603C53'; this.style.borderColor='#C4A46D';" 
+       onmouseout="this.style.background='rgba(36, 50, 69, 0.9)'; this.style.borderColor='#AB7F8B';">
+       𖦹 Back
+    </a>
+
+    <a href="Tarot.html" id="fixed-library-btn" style="position: fixed !important; top: 20px !important; right: 20px !important; z-index: 99999 !important; background: rgba(36, 50, 69, 0.9) !important; border: 2px solid #AB7F8B !important; border-radius: 20px !important; padding: 6px 16px !important; font-family: 'Poppins', sans-serif !important; font-weight: 600 !important; font-size: 0.75rem !important; color: #ffffff !important; text-decoration: none !important; text-transform: uppercase !important; letter-spacing: 1px !important; display: flex !important; align-items: center !important; gap: 6px !important; backdrop-filter: blur(4px) !important; -webkit-backdrop-filter: blur(4px) !important; box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important; transition: all 0.3s ease !important;" 
+       onmouseover="this.style.background='#603C53'; this.style.borderColor='#C4A46D';" 
+       onmouseout="this.style.background='rgba(36, 50, 69, 0.9)'; this.style.borderColor='#AB7F8B';">
+       ✦ Card Meanings
+    </a>
+
+    <!-- CENTRAL WORKSPACE -->
+    <div style="width: 100%; max-width: 520px; display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 100px; padding: 0 20px; box-sizing: border-box; z-index: 10;">
+        
+        <!-- Retro Symbols Header Grouping -->
+        <div style="color: #C4A46D; font-size: 1.4rem; margin-bottom: 5px; letter-spacing: 6px;">
+            ✺ 𖦹 🌀 ✦ 🌀 𖦹 ✺
+        </div>
+
+        <h1 style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 3.4rem; color: #C4A46D; margin: 0; letter-spacing: 4px; text-shadow: 2px 2px 8px rgba(0,0,0,0.5);">ORACLE</h1>
+        
+        <div style="display: flex; align-items: center; margin: 5px 0 20px 0;">
+            <span class="retro-decorator" style="color: #AB7F8B;">𖦹</span>
+            <h2 style="font-family: 'Poppins', sans-serif; font-weight: 400; font-size: 1.2rem; color: #AB7F8B; margin: 0; letter-spacing: 2px; text-transform: uppercase;">Seek Your Guidance</h2>
+            <span class="retro-decorator" style="color: #AB7F8B;">𖦹</span>
+        </div>
+        
+        <p style="font-family: 'Poppins', sans-serif; font-weight: 300; font-style: italic; font-size: 0.95rem; color: #f3e9dc; line-height: 1.6; margin: 0 0 30px 0; max-width: 440px;">
+            Cast your intention into the cosmic spin. Type your question below, align your thoughts, and draw a dynamic key from the shifting deck.
+        </p>
+
+        <input type="text" id="user-question" class="oracle-input" placeholder="What secrets await my path?..." autocomplete="off">
+        
+        <button class="oracle-button" onclick="readOracleCard()">
+            <span>✺</span> Consult the Cards <span>✺</span>
+        </button>
+
+        <!-- Spiral/Squiggle Spacer Divider -->
+        <div style="color: #C4A46D; font-size: 1.2rem; margin-top: 20px; user-select: none; opacity: 0.7;">
+            𖦹 ─── 🌀 ─── 𖦹
+        </div>
+
+        <!-- COZY ROUNDED ARTWORK CONTAINER -->
+        <div id="oracle-card-display">
+            <!-- Image Frame Window -->
+            <div class="artwork-canvas">
+                <img id="card-image" src="" alt="Tarot Card Art">
+            </div>
+            <!-- Description Zone -->
+            <div class="reading-details">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 4px;">
+                    <span style="color: #C4A46D; font-size: 0.9rem;">✦</span>
+                    <h3 id="card-title" style="font-family: 'Poppins', sans-serif; font-weight: 600; color: #C4A46D; font-size: 1.15rem; margin: 0; letter-spacing: 1.5px; text-transform: uppercase;">Card Title</h3>
+                    <span style="color: #C4A46D; font-size: 0.9rem;">✦</span>
+                </div>
+                <p id="card-reading" style="font-family: 'Poppins', sans-serif; color: #f3e9dc; font-size: 0.82rem; line-height: 1.5; margin: 0; font-weight: 300;">Card message details...</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
+        const pdfUrl = 'tarot-deck.pdf'; 
+        let pdfDocument = null;
+
+        const tarotDeck = [
+            // ==========================================
+            // MAJOR ARCANA (22 Cards)
+            // ==========================================
+            { title: "The Fool", image: "01-fool.webp", text: "New beginnings, optimism, innocence, freedom, spontaneity, and a leap of faith." },
+            { title: "The Magician", image: "01-magician.webp", text: "Manifestation, willpower, desire, resourcefulness, capability, and skill." },
+            { title: "The High Priestess", image: "02-priestess-scaled.webp", text: "Intuition, sacred wisdom, mystery, the divine feminine, and subconscious guidance." },
+            { title: "The Empress", image: "03-empress-scaled.webp", text: "Femininity, beauty, nature, nurturing, growth, and absolute abundance." },
+            { title: "The Emperor", image: "04-emperor-scaled.webp", text: "Authority, structure, solid establishment, control, security, and protective leadership." },
+            { title: "The Hierophant", image: "05-hierophant-scaled.webp", text: "Spiritual wisdom, religious beliefs, conformity, tradition, and structured guidance." },
+            { title: "The Lovers", image: "06-lovers-scaled.webp", text: "Love, harmony, relationships, core value alignment, and choosing a definitive path." },
+            { title: "The Chariot", image: "07-chariot-scaled.webp", text: "Direction, control, willpower, victory, determination, and overcoming obstacles." },
+            { title: "Justice", image: "08-justice-scaled.webp", text: "Inner strength, raw courage, quiet persuasion, patient influence, and soft compassion." },
+            { title: "The Hermit", image: "09-hermit-scaled.webp", text: "Soul-searching, introspection, inner guidance, purposeful solitude, and reflection." },
+            { title: "Wheel of Fortune", image: "10-fortune-scaled.webp", text: "Good luck, karma, natural life cycles, destiny, a sudden turning point, and changing fortunes." },
+            { title: "Strength", image: "11-strength-scaled.webp", text: "Justice, fairness, absolute truth, cause and effect, law, and structural balance." },
+            { title: "The Traitor", image: "12-traitor-scaled.webp", text: "Pause, intentional surrender, letting go of control, sacrifice, and new perspectives." },
+            { title: "Death", image: "13-death-scaled.webp", text: "Endings, sweeping change, total transformation, transition, and clearing away old dynamics." },
+            { title: "Temperance", image: "14-temperance-scaled.webp", text: "Balance, moderation, patience, purposeful alchemy, meaning, and divine alignment." },
+            { title: "The Devil", image: "15-devil-scaled.webp", text: "Shadow self, unhealthy attachments, addiction, restriction, and a call to reclaim freedom." },
+            { title: "The Tower", image: "16-tower-scaled.webp", text: "Sudden change, disruption, upheaval, chaos, revelation, and breaking down illusions." },
+            { title: "The Star", image: "17-star-scaled.webp", text: "Hope, faith, cosmic purpose, spiritual renewal, serenity, and a clear path forward." },
+            { title: "The Moon", image: "18-moon-scaled.webp", text: "Illusion, fear, anxiety, deception, the hidden subconscious, and shifting intuition." },
+            { title: "The Sun", image: "19-sun-scaled.webp", text: "Positivity, fun, warmth, success, clear vitality, celebration, and supreme happiness." },
+            { title: "Judgement", image: "20-judgement-scaled.webp", text: "Reflection, cosmic rebirth, inner evaluation, an important calling, and absolution." },
+            { title: "The World", image: "21-world-scaled.webp", text: "Completion, integration, absolute accomplishment, fulfillment, and a beautifully closed cycle." },
+
+            // ==========================================
+            // SUIT OF WANDS (14 Cards)
+            // ==========================================
+            { title: "Ace of Wands", image: "wands-01-scaled.webp", text: "Inspiration, new opportunities, growth, potential, and creative sparks." },
+            { title: "Two of Wands", image: "wands-02-scaled.webp", text: "Future planning, progress, making decisions, discovery, and leaving your comfort zone." },
+            { title: "Three of Wands", image: "wands-03-scaled.webp", text: "Expansion, foresight, looking ahead, overseas opportunities, and strategy." },
+            { title: "Four of Wands", image: "wands-04-scaled.webp", text: "Celebration, joy, harmony, homecoming, community, and relaxation." },
+            { title: "Five of Wands", image: "wands-05-scaled.webp", text: "Conflict, competition, disagreements, rivalry, and structural tension." },
+            { title: "Six of Wands", image: "wands-06-scaled.webp", text: "Success, public recognition, victory, progress, and self-confidence." },
+            { title: "Seven of Wands", image: "wands-07-scaled.webp", text: "Challenge, competition, perseverance, defense, and holding your ground." },
+            { title: "Eight of Wands", image: "wands-08-scaled.webp", text: "Speed, rapid movement, quick action, alignment, and fast-paced travel." },
+            { title: "Nine of Wands", image: "wands-09-scaled.webp", text: "Resilience, courage, persistence, test of faith, and pushing through fatigue." },
+            { title: "Ten of Wands", image: "wands-10-scaled.webp", text: "Burden, extra responsibility, hard work, stress, and reaching a breaking point." },
+            { title: "Page of Wands", image: "wands-11-page-scaled.webp", text: "Inspiration, ideas, discovery, limitless potential, and free spirit." },
+            { title: "Knight of Wands", image: "wands-12-knight-scaled.webp", text: "Energy, passion, lust, action, adventure, and impulsiveness." },
+            { title: "Queen of Wands", image: "wands-13-queen-scaled.webp", text: "Courage, confidence, independence, social vitality, and determination." },
+            { title: "King of Wands", image: "wands-14-king-scaled.webp", text: "Natural leadership, vision, entrepreneurship, honor, and source authority." },
+
+            // ==========================================
+            // SUIT OF CUPS (14 Cards)
+            // ==========================================
+            { title: "Ace of Cups", image: "cups-01-scaled.webp", text: "Love, new emotional beginnings, intuition, spirituality, and creativity." },
+            { title: "Two of Cups", image: "cups-02-scaled.webp", text: "Unified love, mutual attraction, partnership, and deep emotional connections." },
+            { title: "Three of Cups", image: "cups-03-scaled.webp", text: "Celebration, friendship, creativity, collaborations, and community." },
+            { title: "Four of Cups", image: "cups-04-scaled.webp", text: "Apathy, discontent, reevaluation, and missing out on offered blessings." },
+            { title: "Five of Cups", image: "cups-05-scaled.webp", text: "Regret, loss, focusing on the negative, and mourning past disruptions." },
+            { title: "Six of Cups", image: "cups-06-scaled.webp", text: "Nostalgia, childhood memories, innocence, joy, and emotional reunions." },
+            { title: "Seven of Cups", image: "cups-07-scaled.webp", text: "Searching for choices, illusions, wishful thinking, and multiple opportunities." },
+            { title: "Eight of Cups", image: "cups-08-scaled.webp", text: "Disappointment, abandonment, walking away, and embarking on a journey." },
+            { title: "Nine of Cups", image: "cups-09-scaled.webp", text: "Contentment, satisfaction, gratitude, wish fulfillment, and pleasure." },
+            { title: "Ten of Cups", image: "cups-10-scaled.webp", text: "Divine love, blissful relationships, alignment, and family harmony." },
+            { title: "Page of Cups", image: "cups-11-page-scaled.webp", text: "Creative opportunities, intuitive messages, curiosity, and possibilities." },
+            { title: "Knight of Cups", image: "cups-12-knight-scaled.webp", text: "Creativity, romance, charm, imagination, and following your heart." },
+            { title: "Queen of Cups", image: "cups-13-queen-scaled.webp", text: "Compassion, emotional security, intuition, and protective warmth." },
+            { title: "King of Cups", image: "cups-14-king-scaled.webp", text: "Emotional balance, control, generosity, wisdom, and diplomatic leadership." },
+
+            // ==========================================
+            // SUIT OF SWORDS (14 Cards)
+            // ==========================================
+            { title: "Ace of Swords", image: "swords-01-scaled.webp", text: "Breakthroughs, new ideas, mental clarity, absolute truth, and success." },
+            { title: "Two of Swords", image: "swords-02-scaled.webp", text: "Difficult decisions, weighing options, gridlock, and avoidance." },
+            { title: "Three of Swords", image: "swords-03-scaled.webp", text: "Heartbreak, emotional pain, sorrow, grief, and necessary release." },
+            { title: "Four of Swords", image: "swords-04-scaled.webp", text: "Rest, relaxation, meditation, recovery, and quiet sanctuary." },
+            { title: "Five of Swords", image: "swords-05-scaled.webp", text: "Conflict, disagreements, competition, win at all costs, and hostility." },
+            { title: "Six of Swords", image: "swords-06-scaled.webp", text: "Transition, change, moving away, necessary distance, and finding calm shores." },
+            { title: "Seven of Swords", image: "swords-07-scaled.webp", text: "Betrayal, deception, getting away with something, strategy, and secrecy." },
+            { title: "Eight of Swords", image: "swords-08-scaled.webp", text: "Negative self-talk, restriction, feeling trapped, and mental isolation." },
+            { title: "Nine of Swords", image: "swords-09-scaled.webp", text: "Anxiety, worry, fear, nightmares, trauma, and deep stress." },
+            { title: "Ten of Swords", image: "swords-10-scaled.webp", text: "Painful endings, deep betrayal, hitting rock bottom, and fresh rebirth." },
+            { title: "Page of Swords", image: "swords-11-page-scaled.webp", text: "New ideas, curiosity, mental energy, communications, and sharp wit." },
+            { title: "Knight of Swords", image: "swords-12-knight-scaled.webp", text: "Ambition, fast action, driven attitude, communication, and impulsiveness." },
+            { title: "Queen of Swords", image: "swords-13-queen-scaled.webp", text: "Independent nature, unbiased judgment, clear boundaries, and direct truth." },
+            { title: "King of Swords", image: "swords-14-king-scaled.webp", text: "Mental discipline, power, authority, objective truth, and supreme intellect." },
+
+            // ==========================================
+            // SUIT OF PENTACLES (14 Cards)
+            // ==========================================
+            { title: "Ace of Pentacles", image: "pentacles-01-scaled.webp", text: "New financial opportunities, abundance, realization, and manifest wealth." },
+            { title: "Two of Pentacles", image: "pentacles-02-scaled.webp", text: "Multiple priorities, balance, time management, adaptability, and harmony." },
+            { title: "Three of Pentacles", image: "pentacles-03-scaled.webp", text: "Teamwork, structural collaboration, building skills, and quality output." },
+            { title: "Four of Pentacles", image: "pentacles-04-scaled.webp", text: "Saving money, security, stability, control, and a scarcity mindset." },
+            { title: "Five of Pentacles", image: "pentacles-05-scaled.webp", text: "Financial loss, poverty, isolation, bad luck, and seeking support." },
+            { title: "Six of Pentacles", image: "pentacles-06-scaled.webp", text: "Generosity, charity, sharing wealth, gratitude, and mutual support." },
+            { title: "Seven of Pentacles", image: "pentacles-07-scaled.webp", text: "Long-term planning, sustainable growth, patience, investment, and rewards." },
+            { title: "Eight of Pentacles", image: "pentacles-08-scaled.webp", text: "Apprenticeship, education, building expertise, craft skill, and dedication." },
+            { title: "Nine of Pentacles", image: "pentacles-09-scaled.webp", text: "Fruits of labor, financial independence, self-sufficiency, and luxury." },
+            { title: "Ten of Pentacles", image: "pentacles-10-scaled.webp", text: "Legacy, family heritage, long-term wealth, stability, and culmination." },
+            { title: "Page of Pentacles", image: "pentacles-11-page-scaled.webp", text: "Manifestation, financial opportunities, skill development, and ambition." },
+            { title: "Knight of Pentacles", image: "pentacles-12-knight-scaled.webp", text: "Hard work, structural productivity, routine, patience, and dependability." },
+            { title: "Queen of Pentacles", image: "pentacles-13-queen-scaled.webp", text: "Practicality, security, nurturing nature, domestic luxury, and abundance." },
+            { title: "King of Pentacles", image: "pentacles-14-king-scaled.webp", text: "Wealth, business acumen, absolute security, abundance, and structural success." }
+        ];
+
+        function readOracleCard() {
+            console.log("Oracle button pressed successfully.");
+            
+            const inputField = document.getElementById('user-question');
+            const cardDisplay = document.getElementById('oracle-card-display');
+            
+            const cardImg = document.getElementById('card-image');
+            const cardTitle = document.getElementById('card-title');
+            const cardReading = document.getElementById('card-reading');
+
+            if (!inputField || !cardDisplay || !cardImg || !cardTitle || !cardReading) {
+                alert("Missing HTML items. Please ensure you copied the entire file code!");
+                return;
+            }
+
+            const questionText = inputField.value.trim();
+
+            if (questionText === "") {
+                return;
+            }
+
+            const randomIndex = Math.floor(Math.random() * tarotDeck.length);
+            const drawn = tarotDeck[randomIndex];
+
+            cardTitle.innerText = drawn.title;
+            cardReading.innerText = drawn.text;
+            cardImg.src = `tarot-cards/${drawn.image}`;
+
+            cardDisplay.style.setProperty('display', 'flex', 'important');
+            
+            inputField.value = "";
+        }
+    </script>
+</body>
+</html>
