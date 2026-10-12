@@ -8,39 +8,119 @@
     <style>
         body {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             min-height: 100vh;
+            padding: 32px 20px;
+            background:
+                linear-gradient(rgba(61, 25, 35, 0.34), rgba(61, 25, 35, 0.42)),
+                url('../images/stillloveu.jpg') center center / cover no-repeat fixed;
         }
+
+        .page-shell {
+            width: min(820px, 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 22px;
+        }
+
         .div1 {
             width: 100%;
+            text-align: center;
         }
+
+        .div1 h1 {
+            display: inline-block;
+            margin: 0;
+            padding: 18px 34px 16px;
+            border: 4px solid rgba(26, 14, 18, 0.88);
+            background: rgba(248, 229, 235, 0.8);
+            box-shadow: 0 0 0 4px rgba(179, 106, 135, 0.28), 8px 8px 0 rgba(51, 24, 34, 0.24);
+            color: #3d1d2a;
+            text-shadow: 2px 2px 0 rgba(224, 164, 190, 0.7);
+            letter-spacing: 2px;
+            font-size: clamp(1.7rem, 2vw, 2.6rem);
+            backdrop-filter: blur(2px);
+        }
+
         .div2 {
-            border: 4px solid #ff9ac4;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 8px 8px 0px rgba(255, 154, 196, 0.25);
-            margin-top: auto;
-            margin-bottom: auto;
-            transform: translateY(-10px);
+            width: 100%;
+            border: 4px solid rgba(26, 14, 18, 0.9);
+            padding: 30px 22px;
+            background: rgba(248, 229, 235, 0.63);
+            box-shadow: 0 0 0 5px rgba(173, 103, 129, 0.22), 10px 10px 0 rgba(47, 24, 33, 0.2);
+            backdrop-filter: blur(2px);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            width: 100%;
+            padding: 18px 20px;
+            border: 3px solid rgba(45, 19, 28, 0.82);
+            background: linear-gradient(135deg, rgba(255, 241, 246, 0.8), rgba(214, 154, 178, 0.54));
+            color: #2b171d;
+            text-decoration: none;
+            font-size: 1rem;
+            box-shadow: 4px 4px 0 rgba(61, 30, 40, 0.16);
+            transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+        }
+
+        .menu-item:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 rgba(61, 30, 40, 0.18);
+            background: linear-gradient(135deg, rgba(255, 245, 247, 0.86), rgba(223, 177, 196, 0.64));
+        }
+
+        .menu-item:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 rgba(41, 22, 30, 0.12);
+        }
+
+        .menu-item span:last-child {
+            font-size: 1.35rem;
+            filter: drop-shadow(0 1px 0 rgba(255,255,255,0.8));
+        }
+
+        @media (max-width: 640px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .div2 {
+                padding: 18px 14px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="div1">
-        <h1>Pick a Topic!</h1>
-    </div>
+    <div class="page-shell">
+        <div class="div1">
+            <h1>Pick a Topic!</h1>
+        </div>
 
-    <div class="div2">
-        <p><a href="mySpace.html" style="text-decoration: none; color: #000;">Me &#127826;</a></p>
-        <p><a href="You.html" style="text-decoration: none; color: #000;">You &#x1F9C5;</a></p>
-        <p><a href="experiment.html" style="text-decoration: none; color: #000;" target="_blank">Music &#127901;</a></p>
-        <p><a href="MoviesShows.html" style="text-decoration: none; color: #000;">Watchlist &#127909;</a></p>
-        <p><a href="Food.html" style="text-decoration: none; color: #000;">Our Menu &#129473;</a></p>
-        <p><a href="The Future.html" style="text-decoration: none; color: #000;">The Future &#128576;</a></p>
-        <p><a href="Travel.html" style="text-decoration: none; color: #000;">Travel &#128743;</a></p>
-        <p><a href="Sad.html" style="text-decoration: none; color: #000;">When you're sad &#128575;</a></p>
-        <p><a href="../pages/Fortune/Eclectics.html" style="text-decoration: none; color: #000;">Fortune &#x1F52E;</a></p>
+        <div class="div2">
+            <div class="menu-grid">
+                <a class="menu-item" href="mySpace.html"><span>Me</span><span>&#127826;</span></a>
+                <a class="menu-item" href="letter.html"><span>You</span><span>&#x1F9C5;</span></a>
+                <a class="menu-item" href="experiment.html" target="_blank"><span>Music</span><span>&#127901;</span></a>
+                <a class="menu-item" href="MoviesShows.html"><span>Watchlist</span><span>&#127909;</span></a>
+                <a class="menu-item" href="Food.html"><span>Our Menu</span><span>&#129473;</span></a>
+                <a class="menu-item" href="The Future.html"><span>The Future</span><span>&#128576;</span></a>
+                <a class="menu-item" href="Travel.html"><span>Travel</span><span>&#128743;</span></a>
+                <a class="menu-item" href="Sad.html"><span>When you're sad</span><span>&#128575;</span></a>
+                <a class="menu-item" href="../pages/Fortune/Eclectics.html" style="grid-column: 1 / -1;"><span>Fortune</span><span>&#x1F52E;</span></a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

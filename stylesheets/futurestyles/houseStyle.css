@@ -6,6 +6,11 @@
 
 body {
     background-color: #f3ece3; 
+    background-image: linear-gradient(rgba(95, 70, 50, 0.18), rgba(80, 58, 42, 0.38)), url("../../images/future_images/librarybg.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     font-family: 'Playfair Display', serif;
     min-height: 100vh;
     display: flex;
@@ -23,6 +28,7 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
+    background: transparent;
 }
 
 .carousel-ring {
@@ -31,7 +37,8 @@ body {
     position: relative;
     transform-style: preserve-3d;
     transform: translateZ(-700px) rotateY(-120deg);
-    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
 }
 
 .book-wrapper {
@@ -43,7 +50,8 @@ body {
     transform-style: preserve-3d;
     backface-visibility: visible;
     filter: brightness(0.55) blur(2px);
-    transition: filter 0.8s ease;
+    transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1), filter 1s ease;
+    will-change: transform, filter;
 }
 
 .book-wrapper.slot-1 { transform: rotateY(0deg) translateZ(650px) translateX(-50%); }
@@ -56,7 +64,7 @@ body {
 
 .book-title {
     font-size: 1.6rem;
-    color: #5a4e46;
+    color: #f7efe8;
     text-align: center;
     position: absolute;
     top: -70px;
@@ -65,6 +73,7 @@ body {
     transform: translateX(-50%);
     font-weight: 400;
     letter-spacing: 1px;
+    text-shadow: 0 2px 8px rgba(32, 22, 17, 0.48);
 }
 
 .book-container {
@@ -79,6 +88,32 @@ body {
     height: 100%;
     position: relative;
     transform-style: preserve-3d;
+    border-radius: 14px;
+    background: linear-gradient(90deg,
+        rgba(78, 57, 41, 0.92) 0%,
+        rgba(117, 90, 68, 0.88) 12%,
+        rgba(148, 108, 75, 0.82) 18%,
+        rgba(90, 67, 52, 0.90) 100%);
+    box-shadow: 0 22px 36px rgba(42, 29, 20, 0.30), inset 0 0 0 1px rgba(54, 39, 29, 0.35), inset 18px 0 24px rgba(255,255,255,0.08), inset -18px 0 20px rgba(34, 23, 19, 0.20);
+}
+
+.book::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    background: linear-gradient(90deg, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.05) 14%, rgba(255,255,255,0.06) 16%, rgba(0,0,0,0.08) 100%);
+    pointer-events: none;
+}
+
+.book::after {
+    content: "";
+    position: absolute;
+    inset: 8px 7px 8px 7px;
+    border-radius: 10px;
+    border: 1px solid rgba(42, 29, 20, 0.18);
+    pointer-events: none;
+    opacity: 0.65;
 }
 
 .book-leaf {
@@ -89,7 +124,8 @@ body {
     top: 0;
     transform-origin: left center;
     transform-style: preserve-3d;
-    transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    border-right: 1px solid rgba(75, 60, 50, 0.08);
 }
 
 .book-leaf.flipped {
@@ -100,29 +136,33 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: #fbf9f5;
+    background: linear-gradient(90deg, #e9dcc2 0%, #f3ebdf 100%);
     padding: 2.5rem;
-    backface-visibility: hidden; 
+    backface-visibility: hidden;
+    border: 1px solid rgba(90, 71, 59, 0.10);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.10);
 }
 
 .leaf-front {
     left: 0;
     z-index: 2;
     border-radius: 0 12px 12px 0;
-    box-shadow: inset 20px 0 30px rgba(0,0,0,0.02), -2px 0 5px rgba(0,0,0,0.01);
+    box-shadow: inset 18px 0 22px rgba(0,0,0,0.02), inset -2px 0 0 rgba(100,86,75,0.04), -2px 0 5px rgba(0,0,0,0.02);
 }
 
 .leaf-back {
     left: 0;
     transform: rotateY(180deg); 
     border-radius: 12px 0 0 12px;
-    box-shadow: inset -20px 0 30px rgba(0,0,0,0.02), 2px 0 5px rgba(0,0,0,0.01);
+    box-shadow: inset -18px 0 22px rgba(0,0,0,0.02), inset 2px 0 0 rgba(100,86,75,0.04), 2px 0 5px rgba(0,0,0,0.02);
 }
 
 .page-content {
     width: 100%;
     height: 100%;
     position: relative;
+    overflow: hidden;
+    border-radius: 4px;
 }
 
 .page-content img {
@@ -130,7 +170,7 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 4px;
-    box-shadow: 0 4px 15px rgba(90, 78, 70, 0.05);
+    box-shadow: inset 0 0 0 1px rgba(90, 78, 70, 0.06);
 }
 
 .page-number {
@@ -147,16 +187,16 @@ body {
     position: absolute;
     left: 0; 
     top: 0;
-    width: 40px;
+    width: 34px;
     height: 100%;
     transform: translateX(-50%);
-    background: linear-gradient(
-        to right, 
-        rgba(0,0,0,0.06) 0%, 
-        rgba(0,0,0,0.0) 30%, 
-        rgba(0,0,0,0.0) 70%, 
-        rgba(0,0,0,0.06) 100%
-    );
+    background: linear-gradient(90deg,
+        rgba(43, 30, 22, 0.85) 0%,
+        rgba(90, 68, 53, 0.72) 20%,
+        rgba(154, 120, 88, 0.38) 42%,
+        rgba(52, 38, 29, 0.72) 100%);
+    border-radius: 6px 0 0 6px;
+    box-shadow: inset -3px 0 4px rgba(0,0,0,0.22), inset 2px 0 2px rgba(255,255,255,0.10);
     z-index: 100; 
     pointer-events: none; 
 }
@@ -187,3 +227,4 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(90, 78, 70, 0.2);
 }
+

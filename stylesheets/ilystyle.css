@@ -23,6 +23,17 @@ html,body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.45;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+img, video, canvas, svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 
@@ -114,8 +125,26 @@ a:hover, a:focus {
     opacity: 0.95;
 }
 
+@media (max-width: 768px) {
+    .container {
+        width: min(100%, calc(100% - 1rem));
+        padding: 1rem;
+        margin: 2rem auto;
+    }
+
+    h1 { font-size: clamp(1.8rem, 8vw, 2.6rem); }
+    h2 { font-size: clamp(1.3rem, 6vw, 1.8rem); }
+}
+
 @media (max-width: 420px) {
     .btn-cute { width: 100%; max-width: 320px; }
+    .container {
+        padding: 0.9rem;
+        margin: 1rem auto;
+    }
+    .card {
+        padding: 0.9rem;
+    }
 }
 
 input[type="text"], input[type="email"], textarea, select {

@@ -139,9 +139,9 @@
             <main id="viewport" onclick="closeAllFlyouts()">
                 <div class="retro-map-controls">
                     <button class="ctrl-btn up" onclick="mapPan('up')">▲</button>
-                    <button class="ctrl-btn left" onclick="mapPan('right')">◀</button>
+                    <button class="ctrl-btn left" onclick="mapPan('left')">◀</button>
                     <button class="ctrl-btn center" onclick="resetSpace()">●</button>
-                    <button class="ctrl-btn right" onclick="mapPan('left')">▶</button>
+                    <button class="ctrl-btn right" onclick="mapPan('right')">▶</button>
                     <button class="ctrl-btn down" onclick="mapPan('down')">▼</button>
                     <div class="zoom-slider">
                         <button class="zoom-btn" onclick="mapZoomIn()">＋</button>
@@ -334,25 +334,25 @@ const countryData = {
 
 const locations = {
     // CHINA
-    beijing: { title: "Beijing", region: "China", targetLat: 39.9042, targetLon: 116.4074, zoomScale: 1.5, desc: "Imperial capital.", snapshotDesc:"Pictures of Beijing", photos: ["../../images/Locations/China/beijing_skyline.jpg", "../../images/Locations/China/beijing.jpg", "../../images/Locations/China/beijing_map.jpg"], todo: ["Explore"] },
+    beijing: { title: "Beijing", region: "China", targetLat: 39.9042, targetLon: 116.4074, zoomScale: 1.5, desc: "Imperial capital.", snapshotDesc:"Pictures of Beijing", photos: ["../images/Locations/China/beijing_skyline.jpg", "../images/Locations/China/beijing.jpg", "../images/Locations/China/beijing_map.jpg"], todo: ["Explore"] },
 
-    "great wall": { title: "Great Wall", region: "China", targetLat: 40.4319, targetLon: 120.5704, zoomScale: 1.5, desc: "Ancient defensive fortification.", photos: ["../../images/Locations/China/wall_pic.jpg", "../../images/Locations/China/wall.jpg", "../../images/Locations/China/wall_map.jpg"], todo: ["Walk along historical site"] },
+    "great wall": { title: "Great Wall", region: "China", targetLat: 40.4319, targetLon: 120.5704, zoomScale: 1.5, desc: "Ancient defensive fortification.", photos: ["../images/Locations/China/wall_pic.jpg", "../images/Locations/China/wall.jpg", "../images/Locations/China/wall_map.jpg"], todo: ["Walk along historical site"] },
 
-    "leshan giant buddha": { title: "Leshan Giant Buddha", region: "China", targetLat: 29.5463, targetLon: 103.7744, zoomScale: 1.5, desc: "Massive stone statue.", photos: ["../../images/Locations/China/buddha2.jpg", "../../images/Locations/China/buddha_location.webp", "../../images/Locations/China/buddha_map.png"], todo: ["Explore"] },
+    "leshan giant buddha": { title: "Leshan Giant Buddha", region: "China", targetLat: 29.5463, targetLon: 103.7744, zoomScale: 1.5, desc: "Massive stone statue.", photos: ["../images/Locations/China/buddha2.jpg", "../images/Locations/China/buddha_location.webp", "../images/Locations/China/buddha_map.png"], todo: ["Explore"] },
 
-    "potala palace": { title: "Potala Palace", region: "China", targetLat: 29.6575, targetLon: 91.1172, zoomScale: 1.5, desc: "Historic Tibetan palace.", photos: ["../../images/Locations/China/palace_pic.jpg", "../../images/Locations/China/palace_location.webp", "../../images/Locations/China/palace_map.png"], todo: ["Explore"] },
+    "potala palace": { title: "Potala Palace", region: "China", targetLat: 29.6575, targetLon: 91.1172, zoomScale: 1.5, desc: "Historic Tibetan palace.", photos: ["../images/Locations/China/palace_pic.jpg", "../images/Locations/China/palace_location.webp", "../images/Locations/China/palace_map.png"], todo: ["Explore"] },
 
-    shanghai: { title: "Shanghai", region: "China", targetLat: 31.2304, targetLon: 121.4737, zoomScale: 1.5, desc: "Global financial hub.", photos: ["../../images/Locations/China/shanghai.jpg", "../../images/Locations/China/shanghai_skyline.jpg", "../../images/Locations/China/shanghai_map.jpg"], todo: ["Sight-Seeing", "Eating local food"] },
+    shanghai: { title: "Shanghai", region: "China", targetLat: 31.2304, targetLon: 121.4737, zoomScale: 1.5, desc: "Global financial hub.", photos: ["../images/Locations/China/shanghai.jpg", "../images/Locations/China/shanghai_skyline.jpg", "../images/Locations/China/shanghai_map.jpg"], todo: ["Sight-Seeing", "Eating local food"] },
 
-    "terracotta army": { title: "Terracotta Army", region: "China", targetLat: 34.3839, targetLon: 109.2785, zoomScale: 1.5, desc: "Ancient clay soldiers.", photos: ["../../images/Locations/China/terracota1.webp", "../../images/Locations/China/terracota2.webp", "../../images/Locations/China/terracota_map.jpg"], todo: ["Visit archeological site"] },
+    "terracotta army": { title: "Terracotta Army", region: "China", targetLat: 34.3839, targetLon: 109.2785, zoomScale: 1.5, desc: "Ancient clay soldiers.", photos: ["../images/Locations/China/terracota1.webp", "../images/Locations/China/terracota2.webp", "../images/Locations/China/terracota_map.jpg"], todo: ["Visit archeological site"] },
 
-    "the bund": { title: "The Bund", region: "China", targetLat: 31.2389, targetLon: 121.4883, zoomScale: 1.5, desc: "Waterfront cityscape.", photos: ["../../images/Locations/China/bund1.jpg", "../../images/Locations/China/bund2.webp", "../../images/Locations/China/bund_map.jpg"], todo: ["Shopping", "Sight-Seeing"] },
+    "the bund": { title: "The Bund", region: "China", targetLat: 31.2389, targetLon: 121.4883, zoomScale: 1.5, desc: "Waterfront cityscape.", photos: ["../images/Locations/China/bund1.jpg", "../images/Locations/China/bund2.webp", "../images/Locations/China/bund_map.jpg"], todo: ["Shopping", "Sight-Seeing"] },
 
-    "victoria peak": { title: "Victoria Peak", region: "China", targetLat: 22.2759, targetLon: 114.1455, zoomScale: 1.5, desc: "Hong Kong skyline view.", photos: ["../../images/Locations/China/victoria1.jpg.", "../../images/Locations/China/victoria2.webp", "../../images/Locations/China/victoria_map.jpg"], todo: ["Sight-Seeing"] },
+    "victoria peak": { title: "Victoria Peak", region: "China", targetLat: 22.2759, targetLon: 114.1455, zoomScale: 1.5, desc: "Hong Kong skyline view.", photos: ["../images/Locations/China/victoria1.jpg", "../images/Locations/China/victoria2.webp", "../images/Locations/China/victoria_map.jpg"], todo: ["Sight-Seeing"] },
 
-    "wudang mountains": { title: "Wudang Mountains", region: "China", targetLat: 32.4167, targetLon: 111.0000, zoomScale: 1.5, desc: "Daoist cultural site.", photos: ["../../images/Locations/China/wudang1.jpeg", "../../images/Locations/China/wudang2.jpg", "../../images/Locations/China/wudang_map.png"], todo: ["Explore"] },
+    "wudang mountains": { title: "Wudang Mountains", region: "China", targetLat: 32.4167, targetLon: 111.0000, zoomScale: 1.5, desc: "Daoist cultural site.", photos: ["../images/Locations/China/wudang1.jpeg", "../images/Locations/China/wudang2.jpg", "../images/Locations/China/wudang_map.png"], todo: ["Explore"] },
 
-    "yellow mountain": { title: "Yellow Mountain", region: "China", targetLat: 30.1423, targetLon: 118.1713, zoomScale: 1.5, desc: "Granite peaks.", photos: ["../../images/Locations/China/yellow1.jpg", "../../images/Locations/China/yellow2.jpg", "../../images/Locations/China/yellow_map.jpg"], todo: ["not die", "go for a walk"] },
+    "yellow mountain": { title: "Yellow Mountain", region: "China", targetLat: 30.1423, targetLon: 118.1713, zoomScale: 1.5, desc: "Granite peaks.", photos: ["../images/Locations/China/yellow1.jpg", "../images/Locations/China/yellow2.jpg", "../images/Locations/China/yellow_map.jpg"], todo: ["not die", "go for a walk"] },
 
     // ENGLAND
     brighton: { title: "Brighton", region: "England", targetLat: 50.8225, targetLon: -0.1372, zoomScale: 1.5, desc: "Coastal seaside resort.", photos: [], todo: [] },
@@ -590,10 +590,25 @@ const locations = {
 let currentActiveCountryKey = null;
 let scene, camera, renderer, globeGroup, actualEarthMesh;
 let targetRotationX = 0, targetRotationY = 0;
+let currentRotationX = 0, currentRotationY = 0;
 let isZoomed = false;
 
 let baseNormalizedScale = 1.0; 
 let currentScalePercentage = 1.0; 
+
+function normalizePhotoSource(src) {
+    if (!src || typeof src !== 'string') return "";
+    const cleaned = src.trim().replace(/\.+$/, '').replace(/\?[^\s]*$/, '');
+    return cleaned || "";
+}
+
+function getLocationPhotos(data) {
+    const photos = Array.isArray(data?.photos) ? data.photos : [];
+    return photos
+        .map(normalizePhotoSource)
+        .filter((src) => src && src.length > 0)
+        .slice(0, 3);
+}
 
 function init3DGLobe() {
     const container = document.getElementById('canvas3d-container');
@@ -677,14 +692,17 @@ function onWindowResize() {
 
 function animate() {
     requestAnimationFrame(animate);
-    
+
     if (globeGroup) {
         if (!isZoomed) {
-            globeGroup.rotation.y += 0.0015;
-        } else {
-            globeGroup.rotation.y += (targetRotationY - globeGroup.rotation.y) * 0.1;
-            globeGroup.rotation.x += (targetRotationX - globeGroup.rotation.x) * 0.1;
+            targetRotationY += 0.0015;
         }
+
+        currentRotationY += (targetRotationY - currentRotationY) * 0.08;
+        currentRotationX += (targetRotationX - currentRotationX) * 0.08;
+
+        globeGroup.rotation.y = currentRotationY;
+        globeGroup.rotation.x = currentRotationX;
     }
 
     if (actualEarthMesh) {
@@ -692,17 +710,17 @@ function animate() {
         actualEarthMesh.scale.set(targetScaleValue, targetScaleValue, targetScaleValue);
     }
 
-    renderer.render(scene, camera);
+    if (renderer && scene && camera) {
+        renderer.render(scene, camera);
+    }
 }
 
 function rotateGlobeTo(lat, lon, destinationScale) {
     isZoomed = true;
 
-console.log("Rotating to -> Lat: " + lat + ", Lon: " + lon);
-
-    const modelOffset = 180;
-    const radLat = (lat * Math.PI) / 180;
-    const radLon = -((lon + modelOffset) * Math.PI) / 180;
+    const clampedLat = Math.max(-89, Math.min(89, lat));
+    const radLat = (clampedLat * Math.PI) / 180;
+    const radLon = -(lon * Math.PI) / 180;
 
     targetRotationX = radLat;
     targetRotationY = radLon;
@@ -722,17 +740,16 @@ function mapZoomOut() {
     if (!actualEarthMesh) return;
     if (currentScalePercentage > 0.4) {
         currentScalePercentage -= 0.05;
-        console.log(`Zoom Scale: ${Math.round(currentScalePercentage * 100)}%`);
     }
     isZoomed = true;
 }
 
 function mapPan(dir) {
     if(!globeGroup) return;
-    if(dir === 'left') targetRotationY -= 0.25;
-    if(dir === 'right') targetRotationY += 0.25;
-    if(dir === 'up') targetRotationX += 0.2;
-    if(dir === 'down') targetRotationX -= 0.2;
+    if(dir === 'left') targetRotationY += 0.18;
+    if(dir === 'right') targetRotationY -= 0.18;
+    if(dir === 'up') targetRotationX -= 0.15;
+    if(dir === 'down') targetRotationX += 0.15;
     isZoomed = true;
 }
 
@@ -792,33 +809,30 @@ function zoomTo(key) {
         snapDescEl.innerText = data.snapshotDesc || ""; 
     }
 
-const leftPhotos = document.getElementById('leftPhotos');
-const rightGallery = document.getElementById('rightGallery');
+    const leftPhotos = document.getElementById('leftPhotos');
+    const rightGallery = document.getElementById('rightGallery');
 
-if (leftPhotos) leftPhotos.innerHTML = "";
-if (rightGallery) rightGallery.innerHTML = "";
+    if (leftPhotos) leftPhotos.innerHTML = "";
+    if (rightGallery) rightGallery.innerHTML = "";
 
+    const photoList = getLocationPhotos(data);
+    if (photoList.length === 0 && leftPhotos) {
+        leftPhotos.innerHTML = "";
+    } else {
+        photoList.forEach((src) => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.loading = 'lazy';
+            img.alt = data.title || 'Location photo';
+            img.style.width = "100%";
+            img.style.height = "auto";
+            img.style.display = "block";
+            img.style.marginBottom = "12px";
+            img.style.borderRadius = "6px";
 
-if (data.photos && data.photos.length > 0) {
-    data.photos.slice(0, 3).forEach((src) => {
-        const img = document.createElement('img');
-        img.src = src;
-        
-        img.style.width = "100%";
-        img.style.height = "auto";
-        img.style.display = "block";   
-        img.style.marginBottom = "12px"; 
-
-        img.onerror = function() {
-            console.error("Failed to load image: " + src);
-            this.style.border = "1px dashed red";
-            this.alt = "Image missing (" + src + ")";
-        };
-
-        if (leftPhotos) leftPhotos.appendChild(img);
-
-    });
-}
+            if (leftPhotos) leftPhotos.appendChild(img);
+        });
+    }
 
     document.getElementById('details-view').classList.add('active');
 }
@@ -837,8 +851,13 @@ function resetSpace() {
     closeAllFlyouts();
     isZoomed = false;
     currentScalePercentage = 1.0;
+    targetRotationX = 0;
+    targetRotationY = 0;
     if(globeGroup) {
-        globeGroup.rotation.x = 0; 
+        currentRotationX = 0;
+        currentRotationY = 0;
+        globeGroup.rotation.x = 0;
+        globeGroup.rotation.y = 0;
     }
     document.getElementById('address-input').value = "http://maps.google.com/beta";
 }

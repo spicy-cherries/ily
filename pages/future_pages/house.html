@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Carousel Gallery</title>
-    <link rel="stylesheet" href="houseStyle.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="../../stylesheets/futurestyles/houseStyle.css" rel="stylesheet">
@@ -81,7 +80,7 @@
             </div>
 
             <div class="book-wrapper slot-3">
-                <h2 class="book-title">Volume III: Life</h2>
+                <h2 class="book-title">Volume III: The Life</h2>
                 <div class="book-container">
                     <div class="book">
                         <div class="book-leaf">
@@ -165,34 +164,30 @@
         const ring = document.getElementById('carouselRing');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
-        const wrappers = document.querySelectorAll('.book-wrapper');
-        
-        let currentRotation = -240; 
-        let activeIndex = 1;
+        const wrappers = Array.from(document.querySelectorAll('.book-wrapper'));
+
+        let activeIndex = 0;
 
         function updateCarouselClasses() {
             wrappers.forEach((wrap, idx) => {
-                if (idx === activeIndex) {
-                    wrap.classList.add('front-focus');
-                } else {
-                    wrap.classList.remove('front-focus');
-                }
+                const isActive = idx === activeIndex;
+                wrap.classList.toggle('front-focus', isActive);
+                wrap.style.transform = `rotateY(${idx * 120}deg) translateZ(650px) translateX(-50%)`;
             });
+
+            const totalRotation = activeIndex * -120;
+            ring.style.transform = `translateZ(-700px) rotateY(${totalRotation}deg)`;
         }
 
         updateCarouselClasses();
 
         nextBtn.addEventListener('click', () => {
-            currentRotation -= 120; 
             activeIndex = (activeIndex + 1) % wrappers.length;
-            ring.style.transform = `translateZ(-700px) rotateY(${currentRotation}deg)`;
             updateCarouselClasses();
         });
 
         prevBtn.addEventListener('click', () => {
-            currentRotation += 120;
             activeIndex = (activeIndex - 1 + wrappers.length) % wrappers.length;
-            ring.style.transform = `translateZ(-700px) rotateY(${currentRotation}deg)`;
             updateCarouselClasses();
         });
 </script>

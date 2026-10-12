@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Letter for You</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Parisienne&display=swap" rel="stylesheet">
     <!-- External Stylesheet -->
-    <link rel="stylesheet" href="letterStyle.css">
+    <link rel="stylesheet" href="../stylesheets/letterStyle.css">
 </head>
 <body>
 
+    <!-- Header centered with a slight upward shift -->
     <header class="mail-header" id="mailHeader">
-        <h1>You Got Mail</h1>
-        <p>A secret correspondence awaits your touch...</p>
+        <h1 id="headerTitle">You Got Mail</h1>
     </header>
 
     <div class="scene">
@@ -32,46 +32,44 @@
         <!-- Letter Book / Multiple Pages -->
         <div class="letter-book" id="letterBook">
             <div class="book-wrapper">
+                <button class="re-seal-button" type="button" onclick="closeLetter()" aria-label="Put the letter back in the envelope">
+                    <span class="seal-icon">♥</span>
+                    <span>Seal it shut</span>
+                </button>
                 
                 <!-- Page 1 -->
-                <div class="page" id="page1" onclick="flipPage(1)">
+                <div class="page" id="page1">
                     <div class="page-header">
                         <span>My Dearest,</span>
                         <span class="page-number">I</span>
                     </div>
                     <div class="letter-body">
-                        <textarea class="letter-textarea" placeholder="Begin your love letter here... Write your deepest thoughts, midnight confessions, or quiet devotion..."></textarea>
-                    </div>
-                    <div class="page-footer">
-                        <span>1 / 3</span>
+                        <p class="letter-copy">I will cook up something for this part</p>
+                        <p class="letter-copy">I haven't found the time yet, I'm sorry</p>
                     </div>
                 </div>
 
                 <!-- Page 2 -->
-                <div class="page" id="page2" onclick="flipPage(2)">
+                <div class="page" id="page2">
                     <div class="page-header">
-                        <span>Forever Yours,</span>
+                        <span>For now,</span>
                         <span class="page-number">II</span>
                     </div>
                     <div class="letter-body">
-                        <textarea class="letter-textarea" placeholder="Continue writing on the next page..."></textarea>
-                    </div>
-                    <div class="page-footer">
-                        <span>2 / 3</span>
+                        <p class="letter-copy">A beautiful quote from Van Helsing</p>
+                        <p class="letter-copy">That perfectly describes you:</p>
                     </div>
                 </div>
 
                 <!-- Page 3 -->
                 <div class="page" id="page3">
                     <div class="page-header">
-                        <span>Yours in Shadow & Light,</span>
+                        <span></span>
                         <span class="page-number">III</span>
                     </div>
                     <div class="letter-body">
-                        <textarea class="letter-textarea" placeholder="Write your final sentiment here..."></textarea>
-                    </div>
-                    <div class="page-footer">
-                        <span>3 / 3</span>
+                        <p class="letter-copy">There are darknesses in life and there are lights, and you are one of the lights, the light of all lights.</p>
+                        <p class="letter-copy">- Van Helsing in Bram Stokers Dracula</p>
                     </div>
                 </div>
 
@@ -79,30 +77,43 @@
         </div>
     </div>
 
-    <!-- Subtle Navigation Controls -->
-    <div class="controls" id="controls">
-        <button class="subtle-btn" onclick="prevPage()">← previous page</button>
-        <button class="subtle-btn" onclick="resetLetter()">seal envelope</button>
-        <button class="subtle-btn" onclick="nextPage()">next page →</button>
-    </div>
-
     <script>
         let currentPage = 0;
+
+        function handleLetterClick(event) {
+            const page = event.currentTarget;
+            const textArea = event.target.closest('textarea');
+
+            if (textArea) {
+                return;
+            }
+
+            const rect = page.getBoundingClientRect();
+            const clickX = event.clientX - rect.left;
+
+            if (clickX < rect.width / 2) {
+                prevPage();
+            } else {
+                nextPage();
+            }
+        }
 
         function openEnvelope() {
             const envelope = document.getElementById('envelopeContainer');
             const letterBook = document.getElementById('letterBook');
-            const controls = document.getElementById('controls');
-            const header = document.getElementById('mailHeader');
+            const headerTitle = document.getElementById('headerTitle');
+            const headerSubtitle = document.getElementById('headerSubtitle');
 
             envelope.classList.add('open');
 
             setTimeout(() => {
                 envelope.classList.add('fadeOut');
                 letterBook.classList.add('active');
-                controls.classList.add('active');
-                header.querySelector('h1').textContent = "Your Love Letter";
-                header.querySelector('p').textContent = "Click any page to turn it or use the subtle links below.";
+                headerTitle.textContent = "I wonder who it's from...";
+
+                if (headerSubtitle) {
+                    headerSubtitle.textContent = "";
+                }
             }, 600);
         }
 
@@ -134,27 +145,28 @@
             }
         }
 
-        function resetLetter() {
+        function closeLetter() {
+            const envelope = document.getElementById('envelopeContainer');
+            const letterBook = document.getElementById('letterBook');
+            const headerTitle = document.getElementById('headerTitle');
+
             document.getElementById('page2').classList.remove('flipped');
             document.getElementById('page1').classList.remove('flipped');
             currentPage = 0;
 
-            const envelope = document.getElementById('envelopeContainer');
-            const letterBook = document.getElementById('letterBook');
-            const controls = document.getElementById('controls');
-            const header = document.getElementById('mailHeader');
-
             letterBook.classList.remove('active');
-            controls.classList.remove('active');
-
-            header.querySelector('h1').textContent = "You Got Mail";
-            header.querySelector('p').textContent = "A secret correspondence awaits your touch...";
-
-            setTimeout(() => {
-                envelope.classList.remove('fadeOut');
-                envelope.classList.remove('open');
-            }, 400);
+            envelope.classList.remove('fadeOut');
+            envelope.classList.remove('open');
+            headerTitle.textContent = "You Got Mail";
         }
+
+        function resetLetter() {
+            closeLetter();
+        }
+
+        document.querySelectorAll('.page').forEach((page) => {
+            page.addEventListener('click', handleLetterClick);
+        });
     </script>
 </body>
 </html>
