@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Letter for You</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="letterStyle.css">
+</head>
+<body>
+
+    <header class="mail-header" id="mailHeader">
+        <h1>You Got Mail</h1>
+        <p>A secret correspondence awaits your touch...</p>
+    </header>
+
+    <div class="scene">
+        <!-- Closed Envelope -->
+        <div class="envelope-container" id="envelopeContainer" onclick="openEnvelope()">
+            <div class="envelope">
+                <div class="envelope-pocket-back"></div>
+                <div class="envelope-pocket-bottom"></div>
+                <div class="envelope-pocket-left"></div>
+                <div class="envelope-pocket-right"></div>
+                <div class="envelope-flap-top"></div>
+                <div class="wax-seal"></div>
+            </div>
+        </div>
+
+        <!-- Letter Book / Multiple Pages -->
+        <div class="letter-book" id="letterBook">
+            <div class="book-wrapper">
+                
+                <!-- Page 1 -->
+                <div class="page" id="page1" onclick="flipPage(1)">
+                    <div class="page-header">
+                        <span>My Dearest,</span>
+                        <span class="page-number">I</span>
+                    </div>
+                    <div class="letter-body">
+                        <textarea class="letter-textarea" placeholder="Begin your love letter here... Write your deepest thoughts, midnight confessions, or quiet devotion..."></textarea>
+                    </div>
+                    <div class="page-footer">
+                        <span>1 / 3</span>
+                    </div>
+                </div>
+
+                <!-- Page 2 -->
+                <div class="page" id="page2" onclick="flipPage(2)">
+                    <div class="page-header">
+                        <span>Forever Yours,</span>
+                        <span class="page-number">II</span>
+                    </div>
+                    <div class="letter-body">
+                        <textarea class="letter-textarea" placeholder="Continue writing on the next page..."></textarea>
+                    </div>
+                    <div class="page-footer">
+                        <span>2 / 3</span>
+                    </div>
+                </div>
+
+                <!-- Page 3 -->
+                <div class="page" id="page3">
+                    <div class="page-header">
+                        <span>Yours in Shadow & Light,</span>
+                        <span class="page-number">III</span>
+                    </div>
+                    <div class="letter-body">
+                        <textarea class="letter-textarea" placeholder="Write your final sentiment here..."></textarea>
+                    </div>
+                    <div class="page-footer">
+                        <span>3 / 3</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Subtle Navigation Controls -->
+    <div class="controls" id="controls">
+        <button class="subtle-btn" onclick="prevPage()">← previous page</button>
+        <button class="subtle-btn" onclick="resetLetter()">seal envelope</button>
+        <button class="subtle-btn" onclick="nextPage()">next page →</button>
+    </div>
+
+    <script>
+        let currentPage = 0;
+
+        function openEnvelope() {
+            const envelope = document.getElementById('envelopeContainer');
+            const letterBook = document.getElementById('letterBook');
+            const controls = document.getElementById('controls');
+            const header = document.getElementById('mailHeader');
+
+            envelope.classList.add('open');
+
+            setTimeout(() => {
+                envelope.classList.add('fadeOut');
+                letterBook.classList.add('active');
+                controls.classList.add('active');
+                header.querySelector('h1').textContent = "Your Love Letter";
+                header.querySelector('p').textContent = "Click any page to turn it or use the subtle links below.";
+            }, 600);
+        }
+
+        function flipPage(pageNum) {
+            if (pageNum === 1 && currentPage === 0) {
+                document.getElementById('page1').classList.add('flipped');
+                currentPage = 1;
+            } else if (pageNum === 2 && currentPage === 1) {
+                document.getElementById('page2').classList.add('flipped');
+                currentPage = 2;
+            }
+        }
+
+        function nextPage() {
+            if (currentPage === 0) {
+                flipPage(1);
+            } else if (currentPage === 1) {
+                flipPage(2);
+            }
+        }
+
+        function prevPage() {
+            if (currentPage === 2) {
+                document.getElementById('page2').classList.remove('flipped');
+                currentPage = 1;
+            } else if (currentPage === 1) {
+                document.getElementById('page1').classList.remove('flipped');
+                currentPage = 0;
+            }
+        }
+
+        function resetLetter() {
+            document.getElementById('page2').classList.remove('flipped');
+            document.getElementById('page1').classList.remove('flipped');
+            currentPage = 0;
+
+            const envelope = document.getElementById('envelopeContainer');
+            const letterBook = document.getElementById('letterBook');
+            const controls = document.getElementById('controls');
+            const header = document.getElementById('mailHeader');
+
+            letterBook.classList.remove('active');
+            controls.classList.remove('active');
+
+            header.querySelector('h1').textContent = "You Got Mail";
+            header.querySelector('p').textContent = "A secret correspondence awaits your touch...";
+
+            setTimeout(() => {
+                envelope.classList.remove('fadeOut');
+                envelope.classList.remove('open');
+            }, 400);
+        }
+    </script>
+</body>
+</html>
