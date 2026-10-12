@@ -102,6 +102,10 @@ canvas {
     cursor: crosshair !important;
     transform-origin: top left;
     transition: transform 0.15s ease-in-out;
+    touch-action: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 canvas.zoomed-in {
     transform: scale(2);

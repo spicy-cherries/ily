@@ -25,6 +25,7 @@
             <span onclick="triggerMenuAlert('View')">View</span>
             <span onclick="triggerMenuAlert('Image')">Image</span>
             <span onclick="triggerMenuAlert('Colors')">Colors</span>
+            <a href="mini-game.html">Mini Game</a>
             <span onclick="triggerMenuAlert('Help')">Help</span>
         </div>
         
@@ -85,11 +86,16 @@
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
+            canvas.style.touchAction = 'none';
+            canvas.style.userSelect = 'none';
             applyToolSettings();
 
-            canvas.addEventListener('mousedown', startDrawing);
-            canvas.addEventListener('mousemove', drawAction);
-            window.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('pointerdown', startDrawing);
+            canvas.addEventListener('pointermove', drawAction);
+            canvas.addEventListener('pointerup', stopDrawing);
+            canvas.addEventListener('pointerleave', stopDrawing);
+            canvas.addEventListener('pointercancel', stopDrawing);
+            window.addEventListener('pointerup', stopDrawing);
         };
 
         function triggerMenuAlert(menuName) {
@@ -140,7 +146,9 @@
         }
 
         function startDrawing(e) {
+            e.preventDefault();
             isDrawing = true;
+            canvas.setPointerCapture?.(e.pointerId);
             const rect = canvas.getBoundingClientRect();
             const scale = canvas.classList.contains('zoomed-in') ? 2 : 1;
             startX = (e.clientX - rect.left) / scale;
@@ -169,6 +177,7 @@
 
         function drawAction(e) {
             if (!isDrawing) return;
+            e.preventDefault();
             const rect = canvas.getBoundingClientRect();
             const scale = canvas.classList.contains('zoomed-in') ? 2 : 1;
             const currentX = (e.clientX - rect.left) / scale;
@@ -188,7 +197,14 @@
             }
         }
 
-        function stopDrawing() { isDrawing = false; if (ctx) ctx.beginPath(); }
+        function stopDrawing(e) {
+            if (e && e.preventDefault) e.preventDefault();
+            isDrawing = false;
+            if (ctx) ctx.beginPath();
+            if (canvas && canvas.hasPointerCapture?.(e?.pointerId)) {
+                canvas.releasePointerCapture(e.pointerId);
+            }
+        }
         function changeColor(hex) { currentHexColor = hex; document.getElementById('currentColor').style.background = hex; applyToolSettings(); }
     
         function closeToLovePage() {
