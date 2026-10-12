@@ -176,3 +176,42 @@ textarea { min-height: 120px; resize: vertical; }
     font-size: 0.9rem;
     opacity: 0.95;
 }
+
+@media (max-width: 480px) {
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    body {
+        padding: 0;
+        background-attachment: scroll;
+    }
+
+    .container {
+        width: min(100%, calc(100% - 1rem)) !important;
+        margin: 1rem auto !important;
+        padding: 0.9rem !important;
+    }
+
+    .card,
+    .btn-cute,
+    input,
+    textarea,
+    select {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    .btn-cute {
+        display: block !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    img, canvas, svg, video {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}

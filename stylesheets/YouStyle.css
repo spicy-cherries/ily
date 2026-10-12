@@ -205,3 +205,40 @@ body {
     border-radius: 1.5rem;
   }
 }
+
+@media (max-width: 480px) {
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .page-shell,
+  .hero,
+  .hero-card,
+  .love-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .hero {
+    padding: 1rem;
+  }
+
+  .hero-card {
+    padding: 1rem !important;
+    border-radius: 1rem !important;
+  }
+
+  .love-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.5rem !important;
+    padding: 0.75rem !important;
+  }
+
+  .hero-copy,
+  .hero-card h1,
+  .hero-eyebrow {
+    word-break: break-word;
+  }
+}

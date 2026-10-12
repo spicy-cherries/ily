@@ -259,3 +259,41 @@ canvas.zoomed-in {
 body, button {
     cursor: url('https://cur.cursors-4u.net/windows/win-6/win518.cur'), default !important;
 }
+
+@media (max-width: 480px) {
+    body {
+        width: 100vw;
+        min-height: 100vh;
+        overflow-x: hidden;
+        padding: 10px 8px;
+        display: block;
+    }
+
+    .window {
+        width: min(90vw, 320px) !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+    }
+
+    .window-body,
+    .retro-input-container,
+    .button-container,
+    .vertical-button-box {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .retro-btn,
+    .retro-field {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .button-container.split-buttons {
+        flex-direction: column;
+    }
+
+    .message-text {
+        word-break: break-word;
+    }
+}

@@ -121,3 +121,38 @@ body {
 .btn:active {
   transform: scale(0.98);
 }
+
+@media (max-width: 480px) {
+  body {
+    height: auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding: 14px 10px;
+    background-attachment: scroll;
+  }
+
+  .cinematic-container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .cinematic-container .card {
+    max-width: 100%;
+    padding: 2rem 1.25rem;
+  }
+
+  .cinematic-container h1 {
+    font-size: clamp(1.5rem, 8vw, 2.4rem);
+  }
+
+  .message-body p,
+  .sub-prompt {
+    word-break: break-word;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 220px;
+  }
+}

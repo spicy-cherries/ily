@@ -215,3 +215,37 @@ footer {
     color: inherit;      
     display: block;        
 }
+
+@media (max-width: 480px) {
+    body {
+        overflow-x: hidden;
+        background-attachment: scroll;
+    }
+
+    .hero {
+        padding: 60px 14px 40px;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.1rem, 12vw, 3rem);
+    }
+
+    .container {
+        margin: 40px auto;
+        padding: 0 14px;
+    }
+
+    .card {
+        gap: 18px;
+    }
+
+    .card-text,
+    .card-image {
+        padding: 18px 16px;
+    }
+
+    .menu-back {
+        width: 100%;
+        max-width: 280px;
+    }
+}

@@ -135,3 +135,39 @@ canvas.zoomed-in {
 body, button {
     cursor: url('https://cur.cursors-4u.net/windows/win-6/win518.cur'), default !important;
 }
+
+@media (max-width: 480px) {
+    body {
+        width: 100vw;
+        height: auto;
+        min-height: 100vh;
+        overflow-x: hidden;
+        padding: 10px 8px;
+        display: block;
+    }
+
+    .paint-window {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .paint-workspace {
+        flex-direction: column;
+    }
+
+    .paint-toolbar {
+        width: 100%;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .canvas-area {
+        max-width: 100% !important;
+        overflow: auto;
+    }
+
+    canvas {
+        max-width: 100%;
+        height: auto;
+    }
+}

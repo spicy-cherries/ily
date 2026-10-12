@@ -406,3 +406,48 @@ body {
     left: -4px; 
     top: 15px; 
 }
+
+@media (max-width: 480px) {
+    body {
+        height: auto;
+        min-height: 100vh;
+        overflow: auto;
+        padding: 8px;
+    }
+
+    #browser-window {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    #main-content {
+        flex-direction: column;
+        overflow: auto;
+    }
+
+    #maps-sidebar {
+        width: 100%;
+        min-height: 180px;
+    }
+
+    .nav-bar,
+    .menu-bar,
+    .address-bar {
+        flex-wrap: wrap;
+    }
+
+    .nav-btn,
+    .retro-link-btn,
+    .start-menu-item {
+        min-width: 0;
+    }
+
+    .location-main-title,
+    .location-description,
+    .retro-bullet-list,
+    .section-heading {
+        word-break: break-word;
+    }
+}

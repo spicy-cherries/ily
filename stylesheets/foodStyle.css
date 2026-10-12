@@ -188,3 +188,39 @@ h1 {
     height: 50vh;
   }
 }
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px 8px;
+    overflow-x: hidden;
+  }
+
+  .myspace-container,
+  .menu-box {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .myspace-container {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+  }
+
+  .menu-box {
+    height: auto !important;
+    padding: 16px 12px !important;
+  }
+
+  .food-header {
+    align-items: flex-start;
+  }
+
+  img,
+  svg,
+  canvas,
+  video {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}

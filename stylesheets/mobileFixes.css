@@ -1,0 +1,155 @@
+@media (max-width: 480px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    background-attachment: scroll;
+    padding: 10px 8px;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  img,
+  svg,
+  canvas,
+  video,
+  iframe {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  a,
+  p,
+  li,
+  h1,
+  h2,
+  h3,
+  h4,
+  span,
+  button,
+  input,
+  textarea,
+  select {
+    word-break: break-word;
+  }
+
+  .container,
+  .myspace-container,
+  .menu-box,
+  .hero-card,
+  .page-shell,
+  .player,
+  .paint-window,
+  .window,
+  .cinematic-container,
+  .carousel-stage,
+  .book-container,
+  .card,
+  .card-text,
+  .card-image,
+  .main-container,
+  .box,
+  .comment-item-table,
+  #browser-window,
+  .scene,
+  .envelope-container,
+  .letter-book,
+  .page {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .main-container,
+  .nav-global,
+  .profile-flex,
+  .contact-grid,
+  .friends-layout-matrix,
+  .grid,
+  .big-controls,
+  .gallery-controls,
+  .button-group,
+  .panel-padding,
+  .window-body,
+  .vertical-button-box,
+  .bottom-row {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .btn,
+  .btn-simple,
+  .btn-pixel,
+  .bubbly-button,
+  .retro-btn,
+  .nav-btn,
+  .hero-note,
+  .melancholic-btn {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .love-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.5rem !important;
+    padding: 0.75rem !important;
+  }
+
+  .nav-bar,
+  .menu-bar,
+  .address-bar,
+  .nav-links,
+  .nav-right,
+  .account-links,
+  .profile-flex,
+  .food-header,
+  .window-controls,
+  .button-container,
+  .top-controls {
+    flex-wrap: wrap !important;
+  }
+
+  #main-content,
+  body {
+    overflow-x: hidden !important;
+  }
+
+  .titlebar,
+  .menu,
+  .statusbar,
+  .paint-menu,
+  .window-bar,
+  .hero {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .hero {
+    min-height: auto !important;
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
+  }
+
+  .hero-card h1,
+  .main-title,
+  .mail-header h1,
+  .book-title {
+    font-size: clamp(1.6rem, 9vw, 3rem) !important;
+    line-height: 1.1 !important;
+  }
+}

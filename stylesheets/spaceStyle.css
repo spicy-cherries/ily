@@ -381,3 +381,55 @@ a:hover {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+@media (max-width: 480px) {
+    body {
+        background-attachment: scroll;
+        background-size: cover;
+        overflow-x: hidden;
+    }
+
+    .nav-global,
+    .main-container,
+    .profile-flex,
+    .contact-grid,
+    .friends-layout-matrix {
+        grid-template-columns: 1fr !important;
+        flex-direction: column !important;
+    }
+
+    .nav-global,
+    .main-container,
+    .profile-flex,
+    .search-box,
+    .logo-text,
+    .nav-right {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .nav-links,
+    .account-links,
+    .nav-right {
+        flex-wrap: wrap;
+    }
+
+    .profile-image-container {
+        width: 100%;
+        max-width: 220px;
+    }
+
+    .box,
+    .main-container,
+    .profile-table,
+    .comment-item-table {
+        min-width: 0;
+        width: 100% !important;
+    }
+
+    .commenter-profile-card {
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid #3d2553;
+    }
+}
