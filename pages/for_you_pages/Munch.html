@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Munch</title>
+    <style>
+        :root {
+            --page-bg: #f5f5f5;
+            --panel-bg: #ffffff;
+            --panel-border: #d9d9d9;
+            --field-bg: #f7f7f7;
+            --field-border: #cfcfcf;
+            --text: #1d1d1d;
+            --muted: #5f5f5f;
+            --button-bg: #f2f2f2;
+            --button-text: #1d1d1d;
+            --button-border: #cfcfcf;
+            --shadow: rgba(0, 0, 0, 0.04);
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--page-bg);
+            color: var(--text);
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 2rem;
+            background-image: url("../../images/munch.png");
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+        }
+
+        .layout {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .composer {
+            width: min(420px, 42vw);
+            margin-left: 7vw;
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 0;
+            box-shadow: 0 8px 18px var(--shadow);
+            padding: 1.2rem;
+        }
+
+        .label {
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 160px;
+            resize: vertical;
+            border: 1px solid var(--field-border);
+            border-radius: 0;
+            padding: 0.9rem 0.9rem 0.85rem;
+            font-size: 1rem;
+            color: var(--text);
+            background: var(--field-bg);
+            outline: none;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+        }
+
+        textarea:focus {
+            border-color: #a5a5a5;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 0 0 2px rgba(0, 0, 0, 0.04);
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            margin-top: 1rem;
+        }
+
+        button {
+            border: 1px solid var(--button-border);
+            border-radius: 0;
+            padding: 0.75rem 1.2rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            color: var(--button-text);
+            background: var(--button-bg);
+            cursor: pointer;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+            transition: background 0.15s ease;
+        }
+
+        button:hover {
+            background: #ededed;
+        }
+
+        .status {
+            min-height: 1.5rem;
+            margin-top: 1rem;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--muted);
+        }
+
+        .status strong {
+            color: var(--text);
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 1rem;
+            }
+
+            .layout {
+                justify-content: center;
+            }
+
+            .composer {
+                width: min(100%, 420px);
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <div class="composer">
+            <div class="label">What is weighing on you?</div>
+            <textarea id="worryInput" placeholder="Write the worry you want to feed off..." aria-label="Type your worry"></textarea>
+
+            <div class="actions">
+                <button id="sendBtn" type="button">Feed it off</button>
+            </div>
+
+            <div id="status" class="status" aria-live="polite"></div>
+        </div>
+    </div>
+
+    <script>
+        const worryInput = document.getElementById('worryInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const status = document.getElementById('status');
+
+        const responses = [
+            'munch',
+            'yummy',
+            'released',
+            'set free',
+            'let it go'
+        ];
+
+        function sendWorry() {
+            const value = worryInput.value.trim();
+
+            if (!value) {
+                status.textContent = 'Write the worry you want to let go of.';
+                worryInput.focus();
+                return;
+            }
+
+            const response = responses[Math.floor(Math.random() * responses.length)];
+            status.innerHTML = '<strong>' + response + '</strong> — that worry is being fed off and set down.';
+            worryInput.value = '';
+            worryInput.focus();
+        }
+
+        sendBtn.addEventListener('click', sendWorry);
+
+        worryInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) {
+                sendWorry();
+            }
+        });
+    </script>
+</body>
+</html>

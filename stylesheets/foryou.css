@@ -1,0 +1,55 @@
+.A {
+    font-size: large;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.B {
+    font-size: large;
+    color: rgb(46, 12, 238);
+    padding: 10px;
+    border-radius: 2px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.Option1 {
+    font-size: large;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.Option2 {
+    font-size: large;
+    color: violet;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.Option3 {
+    font-size: medium;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.PageLinks {
+    font-size: medium;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 600px;
+}

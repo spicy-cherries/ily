@@ -67,7 +67,7 @@ body {
 .scene {
     position: relative;
     width: 100%;
-    max-width: 750px;
+    max-width: 760px;
     height: 540px;
     display: flex;
     align-items: center;
@@ -167,11 +167,11 @@ body {
 /* Wax Seal */
 .wax-seal {
     position: absolute;
-    top: 166px;
+    top: 50%;
     left: 50%;
-    width: 102px;
-    height: 102px;
-    transform: translateX(-50%);
+    width: clamp(56px, 13.4vw, 102px);
+    height: clamp(56px, 13.4vw, 102px);
+    transform: translate(-50%, -50%);
     background: radial-gradient(circle at 35% 35%, #a21418 0%, #7d0d12 26%, #4f0205 70%, #2d0002 100%);
     z-index: 5;
     box-shadow: inset 0 0 0 3px rgba(250, 210, 162, 0.45), inset 0 0 16px rgba(0,0,0,0.4), 0 6px 16px rgba(67, 21, 18, 0.22);
@@ -410,6 +410,30 @@ body {
         aspect-ratio: 760 / 420;
     }
 
+    .envelope-flap-top {
+        border-left-width: min(45vw, 310px);
+        border-right-width: min(45vw, 310px);
+        border-top-width: min(25.5vw, 175px);
+    }
+
+    .envelope-pocket-left {
+        border-left-width: min(45vw, 310px);
+        border-top-width: min(25vw, 170px);
+        border-bottom-width: min(25vw, 170px);
+    }
+
+    .envelope-pocket-right {
+        border-right-width: min(45vw, 310px);
+        border-top-width: min(25vw, 170px);
+        border-bottom-width: min(25vw, 170px);
+    }
+
+    .envelope-pocket-bottom {
+        border-left-width: min(45vw, 310px);
+        border-right-width: min(45vw, 310px);
+        border-bottom-width: min(25.5vw, 175px);
+    }
+
     .letter-book {
         width: min(84vw, 420px);
         height: min(76vw, 520px);
@@ -439,24 +463,24 @@ body {
         aspect-ratio: 760 / 420;
     }
     .envelope-flap-top {
-        border-left: 170px solid transparent;
-        border-right: 170px solid transparent;
-        border-top: 120px solid var(--envelope-flap);
+        border-left-width: min(47vw, 170px);
+        border-right-width: min(47vw, 170px);
+        border-top-width: min(33.2vw, 120px);
     }
     .envelope-pocket-left {
-        border-left: 170px solid rgba(250, 241, 242, 0.85);
-        border-top: 110px solid transparent;
-        border-bottom: 110px solid rgba(204, 146, 171, 0.72);
+        border-left-width: min(47vw, 170px);
+        border-top-width: min(30.4vw, 110px);
+        border-bottom-width: min(30.4vw, 110px);
     }
     .envelope-pocket-right {
-        border-right: 170px solid rgba(250, 241, 242, 0.85);
-        border-top: 110px solid transparent;
-        border-bottom: 110px solid rgba(204, 146, 171, 0.72);
+        border-right-width: min(47vw, 170px);
+        border-top-width: min(30.4vw, 110px);
+        border-bottom-width: min(30.4vw, 110px);
     }
     .envelope-pocket-bottom {
-        border-left: 170px solid transparent;
-        border-right: 170px solid transparent;
-        border-bottom: 115px solid rgba(234, 212, 217, 0.95);
+        border-left-width: min(47vw, 170px);
+        border-right-width: min(47vw, 170px);
+        border-bottom-width: min(31.8vw, 115px);
     }
     .letter-book {
         width: min(90vw, 310px);
@@ -506,6 +530,30 @@ body {
 
     .envelope-container {
         width: min(92vw, 300px);
+    }
+
+    .envelope-flap-top {
+        border-left-width: min(46vw, 150px);
+        border-right-width: min(46vw, 150px);
+        border-top-width: min(36.8vw, 120px);
+    }
+
+    .envelope-pocket-left {
+        border-left-width: min(46vw, 150px);
+        border-top-width: min(33.73vw, 110px);
+        border-bottom-width: min(33.73vw, 110px);
+    }
+
+    .envelope-pocket-right {
+        border-right-width: min(46vw, 150px);
+        border-top-width: min(33.73vw, 110px);
+        border-bottom-width: min(33.73vw, 110px);
+    }
+
+    .envelope-pocket-bottom {
+        border-left-width: min(46vw, 150px);
+        border-right-width: min(46vw, 150px);
+        border-bottom-width: min(35.27vw, 115px);
     }
 
     .letter-book {

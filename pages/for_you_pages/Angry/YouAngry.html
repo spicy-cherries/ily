@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You're angry</title>
+    <style>
+        :root {
+            --paper: rgba(10, 18, 15, 0.68);
+            --paper-strong: rgba(16, 26, 21, 0.8);
+            --ink: #edf5ef;
+            --muted: #c3d5cb;
+            --line: rgba(182, 212, 191, 0.16);
+            --accent: #87a98c;
+            --accent-soft: #6d8c77;
+            --accent-deep: #4f6458;
+            --shadow: rgba(2, 9, 7, 0.3);
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body {
+            margin: 0;
+            width: 100%;
+            min-height: 100%;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--ink);
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 2rem;
+            background-image: linear-gradient(rgba(4, 14, 10, 0.7), rgba(4, 14, 10, 0.7)), url("../../../images/YouAngry.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page {
+            width: min(900px, 100%);
+            display: grid;
+            gap: 1.2rem;
+        }
+
+        .panel {
+            background: rgba(14, 22, 18, 0.62);
+            border: 1px solid rgba(176, 206, 183, 0.14);
+            box-shadow: 0 18px 34px var(--shadow);
+            padding: 1.5rem 1.6rem;
+            position: relative;
+            border-radius: 0;
+        }
+
+        .panel::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+            pointer-events: none;
+        }
+
+        .lead {
+            background: var(--paper-strong);
+        }
+
+        h1 {
+            margin: 0 0 0.9rem;
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+        }
+
+        p {
+            margin: 0 0 1rem;
+            font-size: 1.02rem;
+            line-height: 1.7;
+            color: var(--muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.42rem 0.8rem;
+            background: rgba(135, 169, 140, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 0;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: rgba(7, 15, 12, 0.9);
+            margin-bottom: 1rem;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            margin-top: 0.8rem;
+        }
+
+        .step {
+            background: rgba(18, 28, 24, 0.4);
+            border: 1px solid rgba(176, 206, 183, 0.12);
+            border-radius: 0;
+            padding: 1rem;
+            min-height: 100%;
+        }
+
+        .step-title {
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            padding: 0.38rem 0.7rem;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            background: rgba(92, 120, 96, 0.8);
+            border: 1px solid rgba(198, 220, 201, 0.12);
+            border-radius: 0;
+            color: rgba(244, 248, 246, 0.95);
+        }
+
+        .munch-btn {
+            display: inline-block;
+            margin-top: 0.8rem;
+            padding: 0.75rem 1.1rem;
+            text-decoration: none;
+            background: rgba(124, 163, 128, 0.88);
+            color: #0d1712;
+            border: 1px solid rgba(214, 235, 216, 0.2);
+            border-radius: 0;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 1rem;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <section class="panel lead">
+            <h1>I’m sorry I upset you.</h1>
+            <p>I'm very sorry that I made you angry. I don't want to make you angry, but I know that I do sometimes. I hope that you can forgive me and that we can move past this anger together.</p>
+            <p>Feel free to use Munch to release your anger. It’s what he’s for ;]</p>
+            <a class="munch-btn" href="../Munch.html">Feed it off</a>
+        </section>
+
+        <section class="panel">
+            <div class="steps">
+                <div class="step">
+                    <div class="step-title">Write it out</div>
+                    <p>Write down what’s really on your mind. It doesn’t need to make sense yet. I just want all of it out of your head so it stops spinning so fast.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-title">Pause and breathe</div>
+                    <p>Step away for a moment if you need to. Take a few deep breaths, close your eyes, and calm your mind.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-title">Move a little</div>
+                    <p>Walk around, stretch, or get out of the room for a minute. Sometimes moving your body helps your thoughts slow down and gives you a little space.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-title">Come back</div>
+                    <p>When you feel a bit better, write everything down or talk to me directly. I’ll listen, and we can figure out what happened and how to move forward together.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

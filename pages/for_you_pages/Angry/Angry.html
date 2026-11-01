@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angry</title>
+    <style>
+        :root {
+            --bg-deep: #0a1119;
+            --panel: rgba(17, 25, 34, 0.76);
+            --accent: #a9bacb;
+            --cream: #edf1f5;
+            --muted: #c5ced8;
+            --line: rgba(190, 205, 220, 0.2);
+            --shadow: rgba(2, 6, 12, 0.48);
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body {
+            margin: 0;
+            width: 100%;
+            min-height: 100%;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-deep);
+            color: var(--cream);
+        }
+
+        body {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 2rem;
+            background-image: linear-gradient(rgba(7, 12, 18, 0.62), rgba(7, 12, 18, 0.74)), url("../../../images/angrybg.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .card {
+            width: min(760px, 100%);
+            background: var(--panel);
+            border: 1px solid var(--line);
+            box-shadow: 0 18px 42px var(--shadow);
+            padding: 2rem;
+            backdrop-filter: blur(2px);
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 0.4rem 0.7rem;
+            background: rgba(169, 186, 203, 0.92);
+            border: 1px solid rgba(233, 240, 247, 0.18);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #0a1119;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            margin: 0 0 1rem;
+            font-size: clamp(2rem, 5vw, 3rem);
+            line-height: 1.1;
+            color: var(--cream);
+        }
+
+        p {
+            margin: 0 0 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--muted);
+        }
+
+        .choice-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .option {
+            display: block;
+            background: rgba(77, 99, 121, 0.92);
+            border: 1px solid rgba(201, 216, 231, 0.2);
+            padding: 1.2rem 1rem;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #f2f5f8;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            box-shadow: 0 4px 0 rgba(1, 5, 10, 0.3);
+        }
+
+        .option:nth-child(2) {
+            background: rgba(46, 59, 73, 0.94);
+            border-color: rgba(199, 214, 230, 0.2);
+        }
+
+        .option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(2, 6, 12, 0.34);
+        }
+
+        .note {
+            margin-top: 1.4rem;
+            font-size: 0.96rem;
+            color: var(--muted);
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--line);
+        }
+
+        @media (max-width: 620px) {
+            .card {
+                padding: 1.3rem;
+            }
+
+            .choice-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <h1>It looks like someone is upset.</h1>
+        <p>Okay, it seems one of us is angry. Let’s see what we can do about that. Obviously this is not a good situation, but first: who is angry?</p>
+
+        <div class="choice-row">
+            <a class="option" href="YouAngry.html">You</a>
+            <a class="option" href="MeAngry.html">Me</a>
+        </div>
+
+        <p class="note">Each button will lead you to a guide on how to proceed. These are just suggestions, so please trust your judgment.</p>
+    </main>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I'm angry</title>
+    <style>
+        :root {
+            --ink: #edf1f5;
+            --muted: #d0d7df;
+            --accent: #a9bacb;
+            --line: rgba(196, 209, 222, 0.26);
+            --shadow: rgba(3, 7, 12, 0.48);
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body {
+            margin: 0;
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 3rem 1.5rem;
+            color: var(--ink);
+            background-color: #111820;
+            background-image: linear-gradient(rgba(8, 15, 21, 0.64), rgba(8, 15, 21, 0.82)), url("../../../images/meAngry.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .page {
+            width: min(1080px, 100%);
+            margin: 0 auto;
+            padding: 0 clamp(0rem, 3vw, 2rem);
+            text-shadow: 0 2px 12px var(--shadow);
+        }
+
+        .intro {
+            display: grid;
+            grid-template-columns: minmax(190px, 0.65fr) minmax(0, 1.35fr);
+            column-gap: 3rem;
+            align-items: start;
+            padding: 1rem 0 2.2rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        h1 {
+            grid-column: 1;
+            grid-row: 1 / span 5;
+            margin: 0;
+            color: var(--accent);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 3.5rem;
+            font-weight: 400;
+            line-height: 1.1;
+        }
+
+        p {
+            margin: 0 0 1.1rem;
+            color: var(--muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .content-section {
+            min-width: 0;
+            display: grid;
+            grid-template-columns: minmax(190px, 0.8fr) minmax(0, 1.2fr);
+            column-gap: 3rem;
+            align-items: start;
+            padding: 2rem 0 1.6rem;
+            border-top: 1px solid var(--line);
+        }
+
+        .content-section p:first-child {
+            grid-column: 1;
+            color: var(--accent);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 1.35rem;
+            line-height: 1.55;
+        }
+
+        .content-section p:not(:first-child) {
+            grid-column: 2;
+        }
+
+        .content-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 1.5rem 1.1rem;
+                background-attachment: scroll;
+            }
+
+            .page {
+                padding: 0;
+            }
+
+            .intro {
+                display: block;
+                padding-bottom: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2.4rem;
+                margin-bottom: 1.2rem;
+            }
+
+            .content-section {
+                grid-template-columns: 1fr;
+                row-gap: 0.3rem;
+                padding: 1.5rem 0 1.2rem;
+            }
+
+            .content-section p:first-child,
+            .content-section p:not(:first-child) {
+                grid-column: 1;
+            }
+
+            .content-section p:first-child {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+    <section class="intro">
+    <h1>I'm angry.</h1>
+    <p>I know that I get angry a lot and that it's always hard for you. Or rather I'm hard on you when I'm angry. I'm so sorry for that.</p>
+    <p>You're a very understanding and kind soul. I don't think you realize how much your patience means to me. Even though it might not seem like it right now, I love you very much.</p>
+    <p>No matter how angry I get I will always love you. Although it might sometimes be hard to believe, I want you to know that you mean everything to me. Even when I'm angry, I rely on you and I come to you because I know you can help me navigate my frustration and anger better than I can my own.</p>
+    <p>I'm sorry I can't control my anger yet. I'm trying and working on it.</p>
+    <p> I also know that for you it's not easy. Managing me in this state is exhausting. I'm going to try and give you some inspiration on how to handle me.</p>
+    </section>
+
+    <section class="content-section venting">
+        <p>Sometimes I just want to complain. I just want to be heard. Get it out of my system.</p>
+        <p>This might be the hardest part for you. I can get mean and hurtful and I am truly sorry for the things I say. I don't mean them, it's just the anger and frustration.</p>
+        <p>The most important part is listening and making me feel heard. Let me unload all my thoughts, so they can't simmer in my head and turn into something worse.</p>
+        <p>If I get too upset, please remind me to take a step back and breathe. I appreciate your patience and understanding but I also don't want you to feel mistreated. Let me know if I overstep.</p>
+        <p>After I've explained myself I often feel better. I only want you to understand where I'm coming from, that's why I'm telling you all my thoughts.</p>
+        <p>Your best move is to be patient and understanding. I will eventually calm down.</p>
+    </section>
+
+    <section class="content-section helpless">
+        <p>Sometimes, especially in our current situation, I can feel helpless and overwhelmed.</p>
+        <p>I don't like feeling like nothing I do will make a difference. Recently I've started to struggle with opening up and talking about what bothers me. That's because I feel like no matter how much we talk or what I say it doesn't make a difference. I feel like talking to a wall.</p>
+        <p>I've always been the one to tell you to open up and talk to me. Now the roles are reversed. In these situations I need you to tell me that what I say matters. That despite feeling like it's going nowhere, my words have meaning.</p>
+        <p>You might need to be a bit pushy and reassure me, otherwise the thoughts will starting eating at me from within my head.</p>
+        <p>Sometimes I just need a reminder that talking it out can make a difference.</p>
+    </section>
+
+    <section class="content-section upset">
+        <p>I also tend to get extra upset when I need to force you to talk to me.</p>
+        <p>It can get exhausting to be the one constantly pushing for communication while feeling unheard.</p>
+        <p>I know that you're trying and you're not always as quick as I'd like, but I appreciate your efforts. It's just that a lot of the time the argument then shifts away from ehat we were originally talking about.</p>
+        <p>That also tends to make me angry. I want to clear up whatever we talked about before, and not discuss this age-old problem of communication again.</p>
+        <p>In that scenario it is best to tell me what is going on in your head. You already do that a lot but I want to reassure you that this is an important step in calming me down.</p>
+        <p>A simple "Give me a moment" or "I need to order my thoughts" can help avoid the communication discussion. It shows me that you're not dismissing the topic or avoiding to reflect.</p>
+        <p>In case I'm already upset because of the communication-issue it's best to acknowledge what went wrong. Acknowledge that there is a problem that we haven't discussed and then direct the conversation back to whatever that problem may be.</p>
+        <p>It's also very important that you please try and bring issues up in the moment, not hours later. That is also another factor I've gotten upset about before.</p>
+    </section>
+
+    <section class="content-section lingering">
+        <p>Occasionally, I'll feel a lingering sense of anger even after we've discussed everything.</p>
+        <p>I'm not sure what causes them or what to do about it. I think just calmly going over the entire conversation can help. Or maybe talk me through what exactly I'm feeling in that moment.</p>
+        <p>Either way it's important that you stay with me in this time. I often feel bad for still being upset for no apparent reason.</p>
+    </section>
+
+    <section class="content-section calm">
+        <p>Once everything is settled I need closeness.</p>
+        <p>We can talk, cuddle, watch a movie, or do anything else that helps us relax and connect. It's important to not feel left alone, even after making up. We've both been vulnerable and are probably exhausted. I need to feel like you still love me and care about me.</p>
+        <p>At the same time I know that I've hurt or offended you and want to make up for it. I don't mean the things I say when I'm angry and I'm not doing it to hurt you on purpose. After a fight I also want to make sure you know I still love you very much and that I'm happy we've talked through the issue.</p>
+    </section>
+    </main>
+</body>
+</html>
