@@ -1,0 +1,175 @@
+:root {
+    color-scheme: dark;
+    --deep-water: #102b3a;
+    --water-blue: #1d5260;
+    --water-glass: #c9e2d4;
+    --lily-gold: #f0d98a;
+    --soft-light: #f4f0dc;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+    background: var(--deep-water);
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: clamp(1.25rem, 4vw, 3.5rem);
+    color: var(--soft-light);
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.65;
+    background-color: var(--deep-water);
+    background-image:
+        linear-gradient(180deg, rgba(12, 37, 49, 0.48), rgba(12, 45, 55, 0.62)),
+        url("../images/boredbg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.header {
+    max-width: 1040px;
+    margin: 0 auto 2rem;
+    padding: 1.5rem 1rem 1.75rem;
+    text-align: center;
+    border-top: 1px solid rgba(240, 217, 138, 0.72);
+    border-bottom: 1px solid rgba(240, 217, 138, 0.45);
+    text-shadow: 0 2px 12px rgba(5, 24, 35, 0.9);
+}
+
+.header h1 {
+    margin: 0;
+    color: var(--lily-gold);
+    font-size: clamp(2.4rem, 7vw, 4.8rem);
+    font-weight: 400;
+    letter-spacing: 0.035em;
+    line-height: 1.15;
+}
+
+.header p {
+    margin: 0.65rem 0 0;
+    color: var(--water-glass);
+    font-size: clamp(1rem, 2.4vw, 1.25rem);
+}
+
+.games,
+.videos,
+.podcasts,
+.research,
+.relaxation,
+body > div:last-of-type {
+    width: min(100%, 960px);
+    margin: 2rem auto;
+    padding: 1.5rem 0;
+    color: var(--soft-light);
+    border-top: 1px solid rgba(240, 217, 138, 0.7);
+    text-shadow: 0 1px 3px rgba(0, 15, 24, 0.95), 0 0 10px rgba(0, 15, 24, 0.75);
+}
+
+.games > p,
+.videos > p:first-child,
+.podcasts > p:first-child,
+.research > p:first-child,
+.relaxation > p:first-child {
+    margin: 0 0 1rem;
+    color: var(--lily-gold);
+    font-size: clamp(1.15rem, 2.4vw, 1.45rem);
+    line-height: 1.4;
+}
+
+.videos,
+.podcasts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    column-gap: 2rem;
+}
+
+.videos > p:first-child,
+.podcasts > p:first-child {
+    grid-column: 1 / -1;
+}
+
+.videos > a,
+.podcasts > a {
+    align-self: start;
+    padding: 0.45rem 0;
+    color: var(--soft-light);
+    text-decoration-color: rgba(240, 217, 138, 0.65);
+    text-underline-offset: 0.22em;
+    border-bottom: 1px solid rgba(201, 226, 212, 0.3);
+    transition: color 160ms ease, border-color 160ms ease;
+}
+
+a {
+    color: #fff0b0;
+    text-decoration-color: rgba(240, 217, 138, 0.7);
+    text-underline-offset: 0.2em;
+}
+
+a:hover,
+a:focus-visible {
+    color: #fff3bd;
+    text-decoration-color: currentColor;
+}
+
+.videos > a:hover,
+.videos > a:focus-visible,
+.podcasts > a:hover,
+.podcasts > a:focus-visible {
+    border-color: var(--lily-gold);
+}
+
+.research > p,
+.relaxation > p {
+    margin: 0;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba(201, 226, 212, 0.22);
+}
+
+.research > p:first-child,
+.relaxation > p:first-child {
+    padding-top: 0;
+    border-bottom: 0;
+}
+
+.research > p:nth-child(2) {
+    margin-bottom: 0.5rem;
+    color: var(--water-glass);
+    font-style: italic;
+}
+
+body > div:last-of-type {
+    text-align: center;
+    border-bottom: 1px solid rgba(240, 217, 138, 0.4);
+}
+
+body > div:last-of-type p {
+    margin: 0.35rem 0;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 1rem;
+        background-attachment: scroll;
+    }
+
+    .videos,
+    .podcasts {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
